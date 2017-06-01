@@ -8,8 +8,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import ex.nme.hallplatsen.models.Departure;
 
 public class MainActivity extends AppCompatActivity {
+
+    ArrayList<Departure> departures = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +34,18 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        departures.add(new Departure("GUL", "Torslanda", "1"));
+        departures.add(new Departure("16", "Eketrägatan", "3"));
+        departures.add(new Departure("16", "Eketrägatan", "7"));
+        departures.add(new Departure("GUL", "Torslanda", "16"));
+        departures.add(new Departure("16", "Eketrägatan", "33"));
+
+        ListView listView=(ListView)findViewById(R.id.departure_list);
+
+        DepartureListAdapter adapter = new DepartureListAdapter(getApplicationContext(), departures);
+        listView.setAdapter(adapter);
+    
     }
 
     @Override
