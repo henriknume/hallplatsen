@@ -3,41 +3,60 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="72dp"
+    android:layout_height="64dp"
+    android:background="@drawable/my_border"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="81dp">
 
     <TextView
         android:id="@+id/route_direction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/my_border"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
         android:text="Salthamnen"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="24sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/route_name"
-        tools:layout_editor_absoluteX="111dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/route_name"
+        app:layout_constraintRight_toRightOf="@+id/time_to_dep"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1" />
 
     <TextView
         android:id="@+id/route_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="64dp"
+        android:layout_height="0dp"
+        android:gravity="center"
         android:text="GUL"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/time_to_dep"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:gravity="center"
         android:text="33"
         android:textSize="24sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/route_direction"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="0dp" />
 </android.support.constraint.ConstraintLayout>
