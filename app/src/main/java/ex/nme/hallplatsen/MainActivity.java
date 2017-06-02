@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
         departures.add(new Departure("16", "Eketrägatan", "33"));
         departures.add(new Departure("16", "Eketrägatan", "33"));
         departures.add(new Departure("16", "Eketrägatan", "33"));
-        departures.add(new Departure("16", "Eketrägatan", "33"));
-        departures.add(new Departure("16", "Eketrägatan", "33"));
+        departures.add(new Departure("ROSA", "Rosavägen", "34"));
+        departures.add(new Departure("SVART", "Lalaland", "45"));
 
         ListView listView=(ListView)findViewById(R.id.departure_list);
 
