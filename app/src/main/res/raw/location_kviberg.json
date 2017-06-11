@@ -1,0 +1,361 @@
+{
+  "LocationList": {
+    "noNamespaceSchemaLocation": "http://api.vasttrafik.se/v1/hafasRestLocation.xsd",
+    "servertime": "15:28",
+    "serverdate": "2017-06-11",
+    "StopLocation": [
+      {
+        "name": "Kviberg, Göteborg",
+        "lon": "12.025059",
+        "lat": "57.736465",
+        "id": "9021014004140000",
+        "idx": "1"
+      },
+      {
+        "name": "Biberg, Lysekil",
+        "lon": "11.518031",
+        "lat": "58.383464",
+        "id": "9021014023367000",
+        "idx": "12"
+      },
+      {
+        "name": "Kvarnbergshemmet, Sotenäs",
+        "lon": "11.249883",
+        "lat": "58.366097",
+        "id": "9021014024136000",
+        "idx": "19"
+      },
+      {
+        "name": "Kvarnberget, Alingsås",
+        "lon": "12.516050",
+        "lat": "57.948925",
+        "id": "9021014017501000",
+        "idx": "20"
+      },
+      {
+        "name": "Anneberg station, Kungsbacka",
+        "lon": "12.101359",
+        "lat": "57.538649",
+        "id": "9021014019820000",
+        "idx": "21"
+      },
+      {
+        "name": "Käringberget, Göteborg",
+        "lon": "11.871460",
+        "lat": "57.669226",
+        "id": "9021014004230000",
+        "idx": "22"
+      },
+      {
+        "name": "Kattleberg, Ale",
+        "lon": "12.158917",
+        "lat": "57.981008",
+        "id": "9021014016820000",
+        "idx": "23"
+      },
+      {
+        "name": "Krogen, Varberg",
+        "lon": "12.266293",
+        "lat": "57.147213",
+        "id": "9021014086109000",
+        "idx": "24"
+      },
+      {
+        "name": "Kalthus, Varberg",
+        "lon": "12.222138",
+        "lat": "57.212763",
+        "id": "9021014086120000",
+        "idx": "25"
+      },
+      {
+        "name": "Klareberg, Göteborg",
+        "lon": "11.991808",
+        "lat": "57.800154",
+        "id": "9021014003860000",
+        "idx": "26"
+      },
+      {
+        "name": "Karlsberg, Trollhättan",
+        "lon": "12.292119",
+        "lat": "58.303667",
+        "id": "9021014081058000",
+        "idx": "27"
+      },
+      {
+        "name": "Komedianten, Varberg",
+        "lon": "12.251353",
+        "lat": "57.108335",
+        "id": "9021014086663000",
+        "idx": "28"
+      },
+      {
+        "name": "Korseberg, Vänersborg",
+        "lon": "12.313280",
+        "lat": "58.357089",
+        "id": "9021014080059000",
+        "idx": "29"
+      },
+      {
+        "name": "Kristineberg 1, Borås",
+        "lon": "12.940772",
+        "lat": "57.706621",
+        "id": "9021014082524000",
+        "idx": "30"
+      },
+      {
+        "name": "Kristineberg 2, Borås",
+        "lon": "12.945033",
+        "lat": "57.705219",
+        "id": "9021014082525000",
+        "idx": "31"
+      },
+      {
+        "name": "Kungsgården, Varberg",
+        "lon": "12.221365",
+        "lat": "57.222768",
+        "id": "9021014086237000",
+        "idx": "32"
+      },
+      {
+        "name": "Karlsbergsplatsen, Vänersborg",
+        "lon": "12.304605",
+        "lat": "58.380641",
+        "id": "9021014080040000",
+        "idx": "33"
+      },
+      {
+        "name": "Källstorpsvägen, Varberg",
+        "lon": "12.180446",
+        "lat": "57.281944",
+        "id": "9021014086140000",
+        "idx": "34"
+      },
+      {
+        "name": "Katrinebergsgatan, Mölndal",
+        "lon": "12.017823",
+        "lat": "57.649279",
+        "id": "9021014012370000",
+        "idx": "35"
+      },
+      {
+        "name": "Kissleberg bussplan, Uddevalla",
+        "lon": "11.849293",
+        "lat": "58.352945",
+        "id": "9021014021410000",
+        "idx": "36"
+      },
+      {
+        "name": "Korsebergsvägen, Vänersborg",
+        "lon": "12.316354",
+        "lat": "58.359849",
+        "id": "9021014080058000",
+        "idx": "37"
+      },
+      {
+        "name": "Korsberga, Hjo",
+        "lon": "14.099104",
+        "lat": "58.303640",
+        "id": "9021014039148000",
+        "idx": "38"
+      },
+      {
+        "name": "Karlsberg, Hjo",
+        "lon": "14.252271",
+        "lat": "58.303918",
+        "id": "9021014039162000",
+        "idx": "39"
+      },
+      {
+        "name": "Karlberg, Lidköping",
+        "lon": "13.048733",
+        "lat": "58.512046",
+        "id": "9021014037197000",
+        "idx": "40"
+      },
+      {
+        "name": "Karlsberg, Borås",
+        "lon": "13.049254",
+        "lat": "57.672336",
+        "id": "9021014082265000",
+        "idx": "41"
+      },
+      {
+        "name": "Katrineberg, Tibro",
+        "lon": "14.179944",
+        "lat": "58.412814",
+        "id": "9021014036134000",
+        "idx": "42"
+      },
+      {
+        "name": "Koberg, Trollhättan",
+        "lon": "12.422814",
+        "lat": "58.163183",
+        "id": "9021014081909000",
+        "idx": "43"
+      },
+      {
+        "name": "Källeberg, Mellerud",
+        "lon": "12.441727",
+        "lat": "58.737001",
+        "id": "9021014061814000",
+        "idx": "44"
+      },
+      {
+        "name": "Kullberg, Färgelanda",
+        "lon": "12.029733",
+        "lat": "58.586099",
+        "id": "9021014070027000",
+        "idx": "49"
+      },
+      {
+        "name": "Karlsberg, Svenljunga",
+        "lon": "13.115172",
+        "lat": "57.270491",
+        "id": "9021014065508000",
+        "idx": "50"
+      }
+    ],
+    "CoordLocation": [
+      {
+        "name": "Kvibergs Bäckväg, 415 28 Göteborg",
+        "lon": "12.039334",
+        "lat": "57.735530",
+        "type": "ADR",
+        "idx": "2"
+      },
+      {
+        "name": "Kvibergs Broväg, 415 05 Göteborg",
+        "lon": "12.032547",
+        "lat": "57.730730",
+        "type": "ADR",
+        "idx": "3"
+      },
+      {
+        "name": "Kvibergs Kyrkogårdsväg, 415 05 Göteborg",
+        "lon": "12.020295",
+        "lat": "57.737256",
+        "type": "ADR",
+        "idx": "4"
+      },
+      {
+        "name": "Kvibergs Stallgårdar, 415 28 Göteborg",
+        "lon": "12.031459",
+        "lat": "57.737535",
+        "type": "ADR",
+        "idx": "5"
+      },
+      {
+        "name": "Kvibergsgatan, 504 67 Borås",
+        "lon": "12.908609",
+        "lat": "57.729876",
+        "type": "ADR",
+        "idx": "6"
+      },
+      {
+        "name": "Kvibergsnäs Allé, 415 06 Göteborg",
+        "lon": "12.040970",
+        "lat": "57.732771",
+        "type": "ADR",
+        "idx": "7"
+      },
+      {
+        "name": "Kvibergsvägen, 415 28 Göteborg",
+        "lon": "12.027783",
+        "lat": "57.733211",
+        "type": "ADR",
+        "idx": "8"
+      },
+      {
+        "name": "Kvibergsvägen, 471 31 Skärhamn",
+        "lon": "11.544765",
+        "lat": "57.999301",
+        "type": "ADR",
+        "idx": "9"
+      },
+      {
+        "name": "Kvibergsvägen, 531 97 Lidköping",
+        "lon": "12.956836",
+        "lat": "58.440042",
+        "type": "ADR",
+        "idx": "10"
+      },
+      {
+        "name": "Gillstad Kviberg, 531 97 Lidköping",
+        "lon": "12.952602",
+        "lat": "58.431637",
+        "type": "ADR",
+        "idx": "11"
+      },
+      {
+        "name": "Vibergsön, 464 71 Köpmannebro",
+        "lon": "12.505532",
+        "lat": "58.772993",
+        "type": "ADR",
+        "idx": "13"
+      },
+      {
+        "name": "Vibergsvägen, 438 36 Landvetter",
+        "lon": "12.230867",
+        "lat": "57.680184",
+        "type": "ADR",
+        "idx": "14"
+      },
+      {
+        "name": "Kville Skymteberg, 457 43 Fjällbacka",
+        "lon": "11.390501",
+        "lat": "58.580966",
+        "type": "ADR",
+        "idx": "15"
+      },
+      {
+        "name": "Kvillebergsås, 423 73 Säve",
+        "lon": "11.845059",
+        "lat": "57.790508",
+        "type": "ADR",
+        "idx": "16"
+      },
+      {
+        "name": "Kvilleheds Bergegård, 423 73 Säve",
+        "lon": "11.861096",
+        "lat": "57.789412",
+        "type": "ADR",
+        "idx": "17"
+      },
+      {
+        "name": "Kråkviken Alonsberg, 666 92 Bengtsfors",
+        "lon": "12.215019",
+        "lat": "59.139960",
+        "type": "ADR",
+        "idx": "18"
+      },
+      {
+        "name": "Blomberg Björkviken, 531 95 Källby",
+        "lon": "13.316458",
+        "lat": "58.538654",
+        "type": "ADR",
+        "idx": "45"
+      },
+      {
+        "name": "Hanarp Björkvik, 311 96 Heberg",
+        "lon": "12.644542",
+        "lat": "56.876198",
+        "type": "ADR",
+        "idx": "46"
+      },
+      {
+        "name": "Ribbingsberg Kviden, 447 91 Vårgårda",
+        "lon": "12.816631",
+        "lat": "58.097751",
+        "type": "ADR",
+        "idx": "47"
+      },
+      {
+        "name": "Ribbingsberg Kvidensås, 447 91 Vårgårda",
+        "lon": "12.810330",
+        "lat": "58.097607",
+        "type": "ADR",
+        "idx": "48"
+      }
+    ]
+  }
+}
