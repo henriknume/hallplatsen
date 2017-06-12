@@ -115,4 +115,5 @@ public class Origin {
     public void set$(String $) {
         this.$ = $;
     }
+
 }

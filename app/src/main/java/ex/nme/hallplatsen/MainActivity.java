@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mTempTextView.setText("");
-                requestTrip(LOCATION_ID_KVIBERG, LOCATION_ID_SKF);
+                requestTrip(LOCATION_ID_KVIBERG, LOCATION_ID_LINDHOLMEN);
             }
         });
     }

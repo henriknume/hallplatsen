@@ -1,3 +1,4 @@
+
 package ex.nme.hallplatsen.models.reseplaneraren;
 
 import com.google.gson.annotations.Expose;
@@ -32,6 +33,9 @@ public class Destination {
     @SerializedName("rtDate")
     @Expose
     private String rtDate;
+    @SerializedName("Notes")
+    @Expose
+    private Notes notes;
     @SerializedName("$")
     @Expose
     private String $;
@@ -108,6 +112,14 @@ public class Destination {
         this.rtDate = rtDate;
     }
 
+    public Notes getNotes() {
+        return notes;
+    }
+
+    public void setNotes(Notes notes) {
+        this.notes = notes;
+    }
+
     public String get$() {
         return $;
     }
@@ -115,4 +127,5 @@ public class Destination {
     public void set$(String $) {
         this.$ = $;
     }
+
 }
