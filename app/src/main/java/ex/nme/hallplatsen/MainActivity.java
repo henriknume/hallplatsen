@@ -26,22 +26,10 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         departures.add(new Departure("GUL", "Torslanda", "1"));
         departures.add(new Departure("16", "Eketrägatan", "3"));
         departures.add(new Departure("16", "Eketrägatan", "7"));
         departures.add(new Departure("GUL", "Torslanda", "16"));
-        departures.add(new Departure("16", "Eketrägatan", "33"));
-        departures.add(new Departure("16", "Eketrägatan", "33"));
-        departures.add(new Departure("16", "Eketrägatan", "33"));
-        departures.add(new Departure("16", "Eketrägatan", "33"));
-        departures.add(new Departure("16", "Eketrägatan", "33"));
-        departures.add(new Departure("16", "Eketrägatan", "33"));
-        departures.add(new Departure("16", "Eketrägatan", "33"));
-        departures.add(new Departure("16", "Eketrägatan", "33"));
-        departures.add(new Departure("16", "Eketrägatan", "33"));
-        departures.add(new Departure("ROSA", "Rosavägen", "34"));
-        departures.add(new Departure("SVART", "Lalaland", "45"));
 
         ListView listView=(ListView)findViewById(R.id.departure_list);
 
