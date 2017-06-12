@@ -8,9 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import ex.nme.hallplatsen.models.Departure;
+import ex.nme.hallplatsen.models.reseplaneraren.Leg;
+import ex.nme.hallplatsen.models.reseplaneraren.Trip;
 
 /**
  * Created by nm2 on 2017-06-01
@@ -25,8 +26,8 @@ public class DepartureListAdapter extends ArrayAdapter {
         public TextView timeTo;
     }
 
-    public DepartureListAdapter(@NonNull Context context, @NonNull ArrayList<Departure> departures) {
-        super(context, R.layout.departure_row, departures);
+    public DepartureListAdapter(@NonNull Context context, @NonNull List<Trip> trips) {
+        super(context, R.layout.departure_row, trips);
         this.context = context;
     }
 
@@ -47,11 +48,11 @@ public class DepartureListAdapter extends ArrayAdapter {
 
         // Fill data
         ViewHolder holder = (ViewHolder) rowView.getTag();
-        Departure d = (Departure) getItem(position);
-        holder.routeName.setText(d.getRouteName());
-        holder.direction.setText(d.getRouteDirection());
-        holder.timeTo.setText(d.getTimeToDeparture());
-
+        Trip trip = (Trip) getItem(position);
+        Leg firstLeg = trip.getLeg().get(0);
+        holder.routeName.setText(firstLeg.getName());
+        holder.direction.setText(firstLeg.getDirection());
+        holder.timeTo.setText(firstLeg.getOrigin().getRtTime());
         return rowView;
     }
 }

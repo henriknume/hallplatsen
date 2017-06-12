@@ -1,0 +1,209 @@
+{
+  "TripList": {
+    "noNamespaceSchemaLocation": "http://api.vasttrafik.se/v1/hafasRestTrip.xsd",
+    "servertime": "23:31",
+    "serverdate": "2017-06-12",
+    "Trip": [
+      {
+        "Leg": {
+          "name": "Spårvagn 11",
+          "sname": "11",
+          "type": "TRAM",
+          "id": "9015014501106730",
+          "direction": "Saltholmen via Karl Johansgatan",
+          "fgColor": "#000000",
+          "bgColor": "#ffffff",
+          "stroke": "Solid",
+          "accessibility": "wheelChair",
+          "Origin": {
+            "name": "Kviberg, Göteborg",
+            "type": "ST",
+            "id": "9022014004140001",
+            "routeIdx": "10",
+            "time": "23:38",
+            "date": "2017-06-12",
+            "track": "A",
+            "rtTime": "23:38",
+            "rtDate": "2017-06-12",
+            "$": "\n"
+          },
+          "Destination": {
+            "name": "SKF, Göteborg",
+            "type": "ST",
+            "id": "9022014005862001",
+            "routeIdx": "12",
+            "time": "23:41",
+            "date": "2017-06-12",
+            "track": "A",
+            "rtTime": "23:41",
+            "rtDate": "2017-06-12",
+            "$": "\n"
+          },
+          "JourneyDetailRef": {
+            "ref": "https://api.vasttrafik.se/bin/rest.exe/v2/journeyDetail?ref=466233%2F190000%2F8572%2F151129%2F80%3Fdate%3D2017-06-12%26station_evaId%3D4140001%26station_type%3Ddep%26format%3Djson%26"
+          }
+        }
+      },
+      {
+        "Leg": {
+          "name": "Spårvagn 6",
+          "sname": "6",
+          "type": "TRAM",
+          "id": "9015014500606744",
+          "direction": "Jaegerdorffsplatsen via Sahlgrenska",
+          "fgColor": "#fa8719",
+          "bgColor": "#00394d",
+          "stroke": "Solid",
+          "accessibility": "wheelChair",
+          "Origin": {
+            "name": "Kviberg, Göteborg",
+            "type": "ST",
+            "id": "9022014004140001",
+            "routeIdx": "6",
+            "time": "23:44",
+            "date": "2017-06-12",
+            "track": "A",
+            "rtTime": "23:44",
+            "rtDate": "2017-06-12",
+            "$": "\n"
+          },
+          "Destination": {
+            "name": "SKF, Göteborg",
+            "type": "ST",
+            "id": "9022014005862001",
+            "routeIdx": "8",
+            "time": "23:47",
+            "date": "2017-06-12",
+            "track": "A",
+            "rtTime": "23:47",
+            "rtDate": "2017-06-12",
+            "$": "\n"
+          },
+          "JourneyDetailRef": {
+            "ref": "https://api.vasttrafik.se/bin/rest.exe/v2/journeyDetail?ref=418173%2F140750%2F716040%2F218629%2F80%3Fdate%3D2017-06-12%26station_evaId%3D4140001%26station_type%3Ddep%26format%3Djson%26"
+          }
+        }
+      },
+      {
+        "Leg": {
+          "name": "Spårvagn 7",
+          "sname": "7",
+          "type": "TRAM",
+          "id": "9015014500706742",
+          "direction": "Tynnered",
+          "fgColor": "#7d4313",
+          "bgColor": "#ffffff",
+          "stroke": "Solid",
+          "accessibility": "wheelChair",
+          "Origin": {
+            "name": "Kviberg, Göteborg",
+            "type": "ST",
+            "id": "9022014004140001",
+            "routeIdx": "10",
+            "time": "23:49",
+            "date": "2017-06-12",
+            "track": "A",
+            "rtTime": "23:49",
+            "rtDate": "2017-06-12",
+            "$": "\n"
+          },
+          "Destination": {
+            "name": "SKF, Göteborg",
+            "type": "ST",
+            "id": "9022014005862001",
+            "routeIdx": "12",
+            "time": "23:52",
+            "date": "2017-06-12",
+            "track": "A",
+            "rtTime": "23:52",
+            "rtDate": "2017-06-12",
+            "$": "\n"
+          },
+          "JourneyDetailRef": {
+            "ref": "https://api.vasttrafik.se/bin/rest.exe/v2/journeyDetail?ref=933039%2F319073%2F905034%2F141507%2F80%3Fdate%3D2017-06-12%26station_evaId%3D4140001%26station_type%3Ddep%26format%3Djson%26"
+          }
+        }
+      },
+      {
+        "Leg": {
+          "name": "Spårvagn 11",
+          "sname": "11",
+          "type": "TRAM",
+          "id": "9015014501106750",
+          "direction": "Saltholmen via Karl Johansgatan",
+          "fgColor": "#000000",
+          "bgColor": "#ffffff",
+          "stroke": "Solid",
+          "accessibility": "wheelChair",
+          "Origin": {
+            "name": "Kviberg, Göteborg",
+            "type": "ST",
+            "id": "9022014004140001",
+            "routeIdx": "10",
+            "time": "23:58",
+            "date": "2017-06-12",
+            "track": "A",
+            "rtTime": "23:58",
+            "rtDate": "2017-06-12",
+            "$": "\n"
+          },
+          "Destination": {
+            "name": "SKF, Göteborg",
+            "type": "ST",
+            "id": "9022014005862001",
+            "routeIdx": "12",
+            "time": "00:01",
+            "date": "2017-06-13",
+            "track": "A",
+            "rtTime": "00:01",
+            "rtDate": "2017-06-13",
+            "$": "\n"
+          },
+          "JourneyDetailRef": {
+            "ref": "https://api.vasttrafik.se/bin/rest.exe/v2/journeyDetail?ref=8463%2F37410%2F101822%2F48095%2F80%3Fdate%3D2017-06-12%26station_evaId%3D4140001%26station_type%3Ddep%26format%3Djson%26"
+          }
+        }
+      },
+      {
+        "Leg": {
+          "name": "Spårvagn 6",
+          "sname": "6",
+          "type": "TRAM",
+          "id": "9015014500606764",
+          "direction": "Jaegerdorffsplatsen via Sahlgrenska",
+          "fgColor": "#fa8719",
+          "bgColor": "#00394d",
+          "stroke": "Solid",
+          "accessibility": "wheelChair",
+          "Origin": {
+            "name": "Kviberg, Göteborg",
+            "type": "ST",
+            "id": "9022014004140001",
+            "routeIdx": "6",
+            "time": "00:04",
+            "date": "2017-06-13",
+            "track": "A",
+            "rtTime": "00:04",
+            "rtDate": "2017-06-13",
+            "$": "\n"
+          },
+          "Destination": {
+            "name": "SKF, Göteborg",
+            "type": "ST",
+            "id": "9022014005862001",
+            "routeIdx": "8",
+            "time": "00:07",
+            "date": "2017-06-13",
+            "track": "A",
+            "rtTime": "00:07",
+            "rtDate": "2017-06-13",
+            "$": "\n"
+          },
+          "JourneyDetailRef": {
+            "ref": "https://api.vasttrafik.se/bin/rest.exe/v2/journeyDetail?ref=639903%2F214664%2F903732%2F238565%2F80%3Fdate%3D2017-06-13%26station_evaId%3D4140001%26station_type%3Ddep%26format%3Djson%26"
+          }
+        }
+      }
+    ]
+  }
+}

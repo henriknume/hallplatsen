@@ -1,0 +1,626 @@
+{
+  "TripList": {
+    "noNamespaceSchemaLocation": "http://api.vasttrafik.se/v1/hafasRestTrip.xsd",
+    "servertime": "01:03",
+    "serverdate": "2017-06-13",
+    "Trip": [
+      {
+        "Leg": [
+          {
+            "name": "Spårvagn 11",
+            "sname": "11",
+            "type": "TRAM",
+            "id": "9015014501106828",
+            "direction": "Vagnhallen Majorna via Karl Johansgatan",
+            "fgColor": "#000000",
+            "bgColor": "#ffffff",
+            "stroke": "Solid",
+            "accessibility": "wheelChair",
+            "Origin": {
+              "name": "Kviberg, Göteborg",
+              "type": "ST",
+              "id": "9022014004140001",
+              "routeIdx": "10",
+              "time": "02:02",
+              "date": "2017-06-13",
+              "track": "A",
+              "rtTime": "02:02",
+              "rtDate": "2017-06-13",
+              "$": "\n"
+            },
+            "Destination": {
+              "name": "Centralstationen, Göteborg",
+              "type": "ST",
+              "id": "9022014001950004",
+              "routeIdx": "19",
+              "time": "02:16",
+              "date": "2017-06-13",
+              "track": "D",
+              "rtTime": "02:16",
+              "rtDate": "2017-06-13",
+              "Notes": {
+                "Note": {
+                  "key": "disruption-message",
+                  "severity": "normal",
+                  "priority": "1",
+                  "$": "Linje 60, Centralstationen mot Masthugget avgår för tillfället från läge K på grund av ett spårarbete. Detta beräknas pågå från 14 maj klockan 04:00 till den 19 juni klockan 04:00."
+                }
+              }
+            },
+            "JourneyDetailRef": {
+              "ref": "https://api.vasttrafik.se/bin/rest.exe/v2/journeyDetail?ref=873075%2F325618%2F570432%2F5809%2F80%3Fdate%3D2017-06-13%26station_evaId%3D4140001%26station_type%3Ddep%26format%3Djson%26"
+            }
+          },
+          {
+            "name": "Spårvagn 6",
+            "sname": "6",
+            "type": "TRAM",
+            "id": "9015014500604002",
+            "direction": "Länsmansgården",
+            "fgColor": "#fa8719",
+            "bgColor": "#00394d",
+            "stroke": "Solid",
+            "Origin": {
+              "name": "Centralstationen, Göteborg",
+              "type": "ST",
+              "id": "9022014001950004",
+              "routeIdx": "1",
+              "time": "04:05",
+              "date": "2017-06-13",
+              "track": "D",
+              "$": "\n"
+            },
+            "Destination": {
+              "name": "Eketrägatan, Göteborg",
+              "type": "ST",
+              "id": "9022014002190002",
+              "routeIdx": "9",
+              "time": "04:16",
+              "date": "2017-06-13",
+              "track": "B",
+              "$": "\n"
+            },
+            "JourneyDetailRef": {
+              "ref": "https://api.vasttrafik.se/bin/rest.exe/v2/journeyDetail?ref=518271%2F173940%2F322106%2F11704%2F80%3Fdate%3D2017-06-13%26station_evaId%3D1950004%26station_type%3Ddep%26format%3Djson%26"
+            }
+          },
+          {
+            "name": "Gå",
+            "type": "WALK",
+            "Origin": {
+              "name": "Eketrägatan, Göteborg",
+              "type": "ST",
+              "id": "9022014002190002",
+              "time": "04:21",
+              "date": "2017-06-13",
+              "track": "B",
+              "$": "\n"
+            },
+            "Destination": {
+              "name": "Eketrägatan, Göteborg",
+              "type": "ST",
+              "id": "9022014002190008",
+              "time": "04:21",
+              "date": "2017-06-13",
+              "track": "H",
+              "$": "\n"
+            }
+          },
+          {
+            "name": "Buss 16",
+            "sname": "16",
+            "type": "BUS",
+            "id": "9015014501600001",
+            "direction": "Högsbohöjd",
+            "fgColor": "#00b6f1",
+            "bgColor": "#ffffff",
+            "stroke": "Solid",
+            "Origin": {
+              "name": "Eketrägatan, Göteborg",
+              "type": "ST",
+              "id": "9022014002190008",
+              "routeIdx": "1",
+              "time": "04:42",
+              "date": "2017-06-13",
+              "track": "H",
+              "$": "\n"
+            },
+            "Destination": {
+              "name": "Lindholmen, Göteborg",
+              "type": "ST",
+              "id": "9022014004490001",
+              "routeIdx": "9",
+              "time": "04:54",
+              "date": "2017-06-13",
+              "track": "A",
+              "$": "\n"
+            },
+            "JourneyDetailRef": {
+              "ref": "https://api.vasttrafik.se/bin/rest.exe/v2/journeyDetail?ref=808509%2F291023%2F759156%2F110075%2F80%3Fdate%3D2017-06-13%26station_evaId%3D2190008%26station_type%3Ddep%26format%3Djson%26"
+            }
+          }
+        ]
+      },
+      {
+        "Leg": [
+          {
+            "name": "Spårvagn 11",
+            "sname": "11",
+            "type": "TRAM",
+            "id": "9015014501104010",
+            "direction": "Saltholmen",
+            "fgColor": "#000000",
+            "bgColor": "#ffffff",
+            "stroke": "Solid",
+            "Origin": {
+              "name": "Kviberg, Göteborg",
+              "type": "ST",
+              "id": "9022014004140001",
+              "routeIdx": "10",
+              "time": "04:38",
+              "date": "2017-06-13",
+              "track": "A",
+              "$": "\n"
+            },
+            "Destination": {
+              "name": "Brunnsparken, Göteborg",
+              "type": "ST",
+              "id": "9022014001760003",
+              "routeIdx": "15",
+              "time": "04:49",
+              "date": "2017-06-13",
+              "track": "C",
+              "$": "\n"
+            },
+            "JourneyDetailRef": {
+              "ref": "https://api.vasttrafik.se/bin/rest.exe/v2/journeyDetail?ref=23637%2F12055%2F979004%2F481623%2F80%3Fdate%3D2017-06-13%26station_evaId%3D4140001%26station_type%3Ddep%26format%3Djson%26"
+            }
+          },
+          {
+            "name": "Gå",
+            "type": "WALK",
+            "Origin": {
+              "name": "Brunnsparken, Göteborg",
+              "type": "ST",
+              "id": "9022014001760003",
+              "time": "04:54",
+              "date": "2017-06-13",
+              "track": "C",
+              "$": "\n"
+            },
+            "Destination": {
+              "name": "Brunnsparken, Göteborg",
+              "type": "ST",
+              "id": "9022014001760004",
+              "time": "04:54",
+              "date": "2017-06-13",
+              "track": "D",
+              "$": "\n"
+            }
+          },
+          {
+            "name": "Spårvagn 6",
+            "sname": "6",
+            "type": "TRAM",
+            "id": "9015014500604024",
+            "direction": "Länsmansgården",
+            "fgColor": "#fa8719",
+            "bgColor": "#00394d",
+            "stroke": "Solid",
+            "Origin": {
+              "name": "Brunnsparken, Göteborg",
+              "type": "ST",
+              "id": "9022014001760004",
+              "routeIdx": "10",
+              "time": "05:01",
+              "date": "2017-06-13",
+              "track": "D",
+              "$": "\n"
+            },
+            "Destination": {
+              "name": "Hjalmar Brantingsplatsen, Göteborg",
+              "type": "ST",
+              "id": "9022014003180002",
+              "routeIdx": "13",
+              "time": "05:07",
+              "date": "2017-06-13",
+              "track": "B",
+              "$": "\n"
+            },
+            "JourneyDetailRef": {
+              "ref": "https://api.vasttrafik.se/bin/rest.exe/v2/journeyDetail?ref=185385%2F62984%2F864766%2F370588%2F80%3Fdate%3D2017-06-13%26station_evaId%3D1760004%26station_type%3Ddep%26format%3Djson%26"
+            }
+          },
+          {
+            "name": "Gå",
+            "type": "WALK",
+            "Origin": {
+              "name": "Hjalmar Brantingsplatsen, Göteborg",
+              "type": "ST",
+              "id": "9022014003180002",
+              "time": "05:12",
+              "date": "2017-06-13",
+              "track": "B",
+              "$": "\n"
+            },
+            "Destination": {
+              "name": "Hjalmar Brantingsplatsen, Göteborg",
+              "type": "ST",
+              "id": "9022014003180004",
+              "time": "05:12",
+              "date": "2017-06-13",
+              "track": "D",
+              "$": "\n"
+            }
+          },
+          {
+            "name": "Buss 99",
+            "sname": "99",
+            "type": "BUS",
+            "id": "9015014509900002",
+            "direction": "Frölunda Torg via Norra Älvstranden",
+            "fgColor": "#00A5DC",
+            "bgColor": "#ffffff",
+            "stroke": "Solid",
+            "Origin": {
+              "name": "Hjalmar Brantingsplatsen, Göteborg",
+              "type": "ST",
+              "id": "9022014003180004",
+              "routeIdx": "0",
+              "time": "05:14",
+              "date": "2017-06-13",
+              "track": "D",
+              "$": "\n"
+            },
+            "Destination": {
+              "name": "Lindholmen, Göteborg",
+              "type": "ST",
+              "id": "9022014004490004",
+              "routeIdx": "4",
+              "time": "05:21",
+              "date": "2017-06-13",
+              "track": "D",
+              "$": "\n"
+            },
+            "JourneyDetailRef": {
+              "ref": "https://api.vasttrafik.se/bin/rest.exe/v2/journeyDetail?ref=618411%2F219940%2F621104%2F104415%2F80%3Fdate%3D2017-06-13%26station_evaId%3D3180004%26station_type%3Ddep%26format%3Djson%26"
+            }
+          }
+        ]
+      },
+      {
+        "Leg": [
+          {
+            "name": "Spårvagn 7",
+            "sname": "7",
+            "type": "TRAM",
+            "id": "9015014500704036",
+            "direction": "Tynnered",
+            "fgColor": "#7d4313",
+            "bgColor": "#ffffff",
+            "stroke": "Solid",
+            "Origin": {
+              "name": "Kviberg, Göteborg",
+              "type": "ST",
+              "id": "9022014004140001",
+              "routeIdx": "10",
+              "time": "05:06",
+              "date": "2017-06-13",
+              "track": "A",
+              "$": "\n"
+            },
+            "Destination": {
+              "name": "Brunnsparken, Göteborg",
+              "type": "ST",
+              "id": "9022014001760005",
+              "routeIdx": "15",
+              "time": "05:17",
+              "date": "2017-06-13",
+              "track": "E",
+              "$": "\n"
+            },
+            "JourneyDetailRef": {
+              "ref": "https://api.vasttrafik.se/bin/rest.exe/v2/journeyDetail?ref=566220%2F196564%2F707906%2F165213%2F80%3Fdate%3D2017-06-13%26station_evaId%3D4140001%26station_type%3Ddep%26format%3Djson%26"
+            }
+          },
+          {
+            "name": "Gå",
+            "type": "WALK",
+            "Origin": {
+              "name": "Brunnsparken, Göteborg",
+              "type": "ST",
+              "id": "9022014001760005",
+              "time": "05:22",
+              "date": "2017-06-13",
+              "track": "E",
+              "$": "\n"
+            },
+            "Destination": {
+              "name": "Brunnsparken, Göteborg",
+              "type": "ST",
+              "id": "9022014001760004",
+              "time": "05:22",
+              "date": "2017-06-13",
+              "track": "D",
+              "$": "\n"
+            }
+          },
+          {
+            "name": "Buss 16",
+            "sname": "16",
+            "type": "BUS",
+            "id": "9015014501600002",
+            "direction": "Eketrägatan",
+            "fgColor": "#00b6f1",
+            "bgColor": "#ffffff",
+            "stroke": "Solid",
+            "accessibility": "wheelChair",
+            "Origin": {
+              "name": "Brunnsparken, Göteborg",
+              "type": "ST",
+              "id": "9022014001760004",
+              "routeIdx": "11",
+              "time": "05:26",
+              "date": "2017-06-13",
+              "track": "D",
+              "$": "\n"
+            },
+            "Destination": {
+              "name": "Lindholmen, Göteborg",
+              "type": "ST",
+              "id": "9022014004490003",
+              "routeIdx": "16",
+              "time": "05:36",
+              "date": "2017-06-13",
+              "track": "C",
+              "$": "\n"
+            },
+            "JourneyDetailRef": {
+              "ref": "https://api.vasttrafik.se/bin/rest.exe/v2/journeyDetail?ref=991122%2F351999%2F396018%2F132365%2F80%3Fdate%3D2017-06-13%26station_evaId%3D1760004%26station_type%3Ddep%26format%3Djson%26"
+            }
+          }
+        ]
+      },
+      {
+        "Leg": [
+          {
+            "name": "Spårvagn 11",
+            "sname": "11",
+            "type": "TRAM",
+            "id": "9015014501104050",
+            "direction": "Saltholmen",
+            "fgColor": "#000000",
+            "bgColor": "#ffffff",
+            "stroke": "Solid",
+            "Origin": {
+              "name": "Kviberg, Göteborg",
+              "type": "ST",
+              "id": "9022014004140001",
+              "routeIdx": "10",
+              "time": "05:16",
+              "date": "2017-06-13",
+              "track": "A",
+              "$": "\n"
+            },
+            "Destination": {
+              "name": "Brunnsparken, Göteborg",
+              "type": "ST",
+              "id": "9022014001760003",
+              "routeIdx": "15",
+              "time": "05:27",
+              "date": "2017-06-13",
+              "track": "C",
+              "$": "\n"
+            },
+            "JourneyDetailRef": {
+              "ref": "https://api.vasttrafik.se/bin/rest.exe/v2/journeyDetail?ref=495105%2F169216%2F479666%2F74798%2F80%3Fdate%3D2017-06-13%26station_evaId%3D4140001%26station_type%3Ddep%26format%3Djson%26"
+            }
+          },
+          {
+            "name": "Gå",
+            "type": "WALK",
+            "Origin": {
+              "name": "Brunnsparken, Göteborg",
+              "type": "ST",
+              "id": "9022014001760003",
+              "time": "05:32",
+              "date": "2017-06-13",
+              "track": "C",
+              "$": "\n"
+            },
+            "Destination": {
+              "name": "Brunnsparken, Göteborg",
+              "type": "ST",
+              "id": "9022014001760002",
+              "time": "05:32",
+              "date": "2017-06-13",
+              "track": "B",
+              "$": "\n"
+            }
+          },
+          {
+            "name": "Buss 52",
+            "sname": "52",
+            "type": "BUS",
+            "id": "9015014505200002",
+            "direction": "Skogome",
+            "fgColor": "#00b6f1",
+            "bgColor": "#ffffff",
+            "stroke": "Solid",
+            "Origin": {
+              "name": "Brunnsparken, Göteborg",
+              "type": "ST",
+              "id": "9022014001760002",
+              "routeIdx": "20",
+              "time": "05:33",
+              "date": "2017-06-13",
+              "track": "B",
+              "$": "\n"
+            },
+            "Destination": {
+              "name": "Hjalmar Brantingsplatsen, Göteborg",
+              "type": "ST",
+              "id": "9022014003180005",
+              "routeIdx": "22",
+              "time": "05:39",
+              "date": "2017-06-13",
+              "track": "E",
+              "$": "\n"
+            },
+            "JourneyDetailRef": {
+              "ref": "https://api.vasttrafik.se/bin/rest.exe/v2/journeyDetail?ref=133092%2F60479%2F357832%2F134552%2F80%3Fdate%3D2017-06-13%26station_evaId%3D1760002%26station_type%3Ddep%26format%3Djson%26"
+            }
+          },
+          {
+            "name": "Gå",
+            "type": "WALK",
+            "Origin": {
+              "name": "Hjalmar Brantingsplatsen, Göteborg",
+              "type": "ST",
+              "id": "9022014003180005",
+              "time": "05:44",
+              "date": "2017-06-13",
+              "track": "E",
+              "$": "\n"
+            },
+            "Destination": {
+              "name": "Hjalmar Brantingsplatsen, Göteborg",
+              "type": "ST",
+              "id": "9022014003180007",
+              "time": "05:44",
+              "date": "2017-06-13",
+              "track": "G",
+              "$": "\n"
+            }
+          },
+          {
+            "name": "Buss 45",
+            "sname": "45",
+            "type": "BUS",
+            "id": "9015014504500001",
+            "direction": "Marklandsgatan",
+            "fgColor": "#00A5DC",
+            "bgColor": "#ffffff",
+            "stroke": "Solid",
+            "Origin": {
+              "name": "Hjalmar Brantingsplatsen, Göteborg",
+              "type": "ST",
+              "id": "9022014003180007",
+              "routeIdx": "0",
+              "time": "05:44",
+              "date": "2017-06-13",
+              "track": "G",
+              "$": "\n"
+            },
+            "Destination": {
+              "name": "Lindholmen, Göteborg",
+              "type": "ST",
+              "id": "9022014004490004",
+              "routeIdx": "4",
+              "time": "05:51",
+              "date": "2017-06-13",
+              "track": "D",
+              "$": "\n"
+            },
+            "JourneyDetailRef": {
+              "ref": "https://api.vasttrafik.se/bin/rest.exe/v2/journeyDetail?ref=502674%2F183691%2F477804%2F71344%2F80%3Fdate%3D2017-06-13%26station_evaId%3D3180007%26station_type%3Ddep%26format%3Djson%26"
+            }
+          }
+        ]
+      },
+      {
+        "Leg": [
+          {
+            "name": "Spårvagn 7",
+            "sname": "7",
+            "type": "TRAM",
+            "id": "9015014500704064",
+            "direction": "Tynnered",
+            "fgColor": "#7d4313",
+            "bgColor": "#ffffff",
+            "stroke": "Solid",
+            "Origin": {
+              "name": "Kviberg, Göteborg",
+              "type": "ST",
+              "id": "9022014004140001",
+              "routeIdx": "10",
+              "time": "05:26",
+              "date": "2017-06-13",
+              "track": "A",
+              "$": "\n"
+            },
+            "Destination": {
+              "name": "Brunnsparken, Göteborg",
+              "type": "ST",
+              "id": "9022014001760005",
+              "routeIdx": "15",
+              "time": "05:37",
+              "date": "2017-06-13",
+              "track": "E",
+              "$": "\n"
+            },
+            "JourneyDetailRef": {
+              "ref": "https://api.vasttrafik.se/bin/rest.exe/v2/journeyDetail?ref=5769%2F9751%2F808082%2F402118%2F80%3Fdate%3D2017-06-13%26station_evaId%3D4140001%26station_type%3Ddep%26format%3Djson%26"
+            }
+          },
+          {
+            "name": "Gå",
+            "type": "WALK",
+            "Origin": {
+              "name": "Brunnsparken, Göteborg",
+              "type": "ST",
+              "id": "9022014001760005",
+              "time": "05:42",
+              "date": "2017-06-13",
+              "track": "E",
+              "$": "\n"
+            },
+            "Destination": {
+              "name": "Brunnsparken, Göteborg",
+              "type": "ST",
+              "id": "9022014001760004",
+              "time": "05:42",
+              "date": "2017-06-13",
+              "track": "D",
+              "$": "\n"
+            }
+          },
+          {
+            "name": "Buss 16",
+            "sname": "16",
+            "type": "BUS",
+            "id": "9015014501600004",
+            "direction": "Eketrägatan",
+            "fgColor": "#00b6f1",
+            "bgColor": "#ffffff",
+            "stroke": "Solid",
+            "accessibility": "wheelChair",
+            "Origin": {
+              "name": "Brunnsparken, Göteborg",
+              "type": "ST",
+              "id": "9022014001760004",
+              "routeIdx": "11",
+              "time": "05:46",
+              "date": "2017-06-13",
+              "track": "D",
+              "$": "\n"
+            },
+            "Destination": {
+              "name": "Lindholmen, Göteborg",
+              "type": "ST",
+              "id": "9022014004490003",
+              "routeIdx": "16",
+              "time": "05:56",
+              "date": "2017-06-13",
+              "track": "C",
+              "$": "\n"
+            },
+            "JourneyDetailRef": {
+              "ref": "https://api.vasttrafik.se/bin/rest.exe/v2/journeyDetail?ref=871338%2F312071%2F255128%2F162883%2F80%3Fdate%3D2017-06-13%26station_evaId%3D1760004%26station_type%3Ddep%26format%3Djson%26"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
