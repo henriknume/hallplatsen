@@ -1,8 +1,14 @@
 package ex.nme.hallplatsen.services;
 
 import ex.nme.hallplatsen.models.responses.LocationNameResponse;
+import ex.nme.hallplatsen.models.responses.TokenResponse;
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Headers;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -10,8 +16,22 @@ import retrofit2.http.Query;
  */
 
 public interface ReseplanerarenRestService {
-    @GET("location.name?input=kviberg&format=json")
+
+    @Headers({"Content-Type: application/x-www-form-urlencoded"})
+    @FormUrlEncoded
+    @POST("token")
+    Call<TokenResponse> generateToken(
+            @Header("Authorization") String auth,  // "Basic base64(key:secret)"
+            @Field("grant_type") String grantType,          // "client_credentials"
+            @Field("scope") String scope);                  // "device_id"
+
+    @GET("bin/rest.exe/v2/location.name")
     Call<LocationNameResponse> getLocationsByName(
+            @Header("Authorization") String authorization,
             @Query("input") String name,
-            @Query("format") String format);
+            @Query("format") String format
+    );
+
+
+
 }

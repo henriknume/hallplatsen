@@ -1,27 +1,21 @@
 
 package ex.nme.hallplatsen.models.responses;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import ex.nme.hallplatsen.models.reseplaneraren.LocationList;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "LocationList"
-})
 public class LocationNameResponse {
 
-    @JsonProperty("LocationList")
+    @SerializedName("LocationList")
+    @Expose
     private LocationList locationList;
 
-    @JsonProperty("LocationList")
     public LocationList getLocationList() {
         return locationList;
     }
 
-    @JsonProperty("LocationList")
     public void setLocationList(LocationList locationList) {
         this.locationList = locationList;
     }

@@ -1,77 +1,68 @@
+
 package ex.nme.hallplatsen.models.reseplaneraren;
 
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "noNamespaceSchemaLocation",
-    "servertime",
-    "serverdate",
-    "StopLocation",
-    "CoordLocation"
-})
 public class LocationList {
 
-    @JsonProperty("noNamespaceSchemaLocation")
+    @SerializedName("noNamespaceSchemaLocation")
+    @Expose
     private String noNamespaceSchemaLocation;
-    @JsonProperty("servertime")
+
+    @SerializedName("servertime")
+    @Expose
     private String servertime;
-    @JsonProperty("serverdate")
+
+    @SerializedName("serverdate")
+    @Expose
     private String serverdate;
-    @JsonProperty("StopLocation")
+
+    @SerializedName("StopLocation")
+    @Expose
     private List<StopLocation> stopLocation = null;
-    @JsonProperty("CoordLocation")
+
+    @SerializedName("CoordLocation")
+    @Expose
     private List<CoordLocation> coordLocation = null;
 
-    @JsonProperty("noNamespaceSchemaLocation")
     public String getNoNamespaceSchemaLocation() {
         return noNamespaceSchemaLocation;
     }
 
-    @JsonProperty("noNamespaceSchemaLocation")
     public void setNoNamespaceSchemaLocation(String noNamespaceSchemaLocation) {
         this.noNamespaceSchemaLocation = noNamespaceSchemaLocation;
     }
 
-    @JsonProperty("servertime")
     public String getServertime() {
         return servertime;
     }
 
-    @JsonProperty("servertime")
     public void setServertime(String servertime) {
         this.servertime = servertime;
     }
 
-    @JsonProperty("serverdate")
     public String getServerdate() {
         return serverdate;
     }
 
-    @JsonProperty("serverdate")
     public void setServerdate(String serverdate) {
         this.serverdate = serverdate;
     }
 
-    @JsonProperty("StopLocation")
     public List<StopLocation> getStopLocation() {
         return stopLocation;
     }
 
-    @JsonProperty("StopLocation")
     public void setStopLocation(List<StopLocation> stopLocation) {
         this.stopLocation = stopLocation;
     }
 
-    @JsonProperty("CoordLocation")
     public List<CoordLocation> getCoordLocation() {
         return coordLocation;
     }
 
-    @JsonProperty("CoordLocation")
     public void setCoordLocation(List<CoordLocation> coordLocation) {
         this.coordLocation = coordLocation;
     }

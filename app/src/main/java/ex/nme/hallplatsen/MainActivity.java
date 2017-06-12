@@ -1,15 +1,13 @@
 package ex.nme.hallplatsen;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -18,13 +16,15 @@ import java.util.List;
 import ex.nme.hallplatsen.models.Departure;
 import ex.nme.hallplatsen.models.reseplaneraren.StopLocation;
 import ex.nme.hallplatsen.models.responses.LocationNameResponse;
+import ex.nme.hallplatsen.models.responses.TokenResponse;
 import ex.nme.hallplatsen.services.ReseplanerarenRestService;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,6 +38,14 @@ public class MainActivity extends AppCompatActivity {
     private ReseplanerarenRestService service;
     private Retrofit retrofit;
 
+    private String auth = "Basic VEh4dTNZMkZXVm9sTnJCM3JaQXo3TVgzSDdZYTp0dGJYM2pOQmFTMkxzNzJUczNUTnFJbDZ4bzRh";
+
+    private String mToken;
+
+    private String LOCATION_ID_KVIBERG = "9021014004140000";
+    private String LOCATION_ID_SKF = "9021014005862000";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +55,21 @@ public class MainActivity extends AppCompatActivity {
 
         // Set up layout
         tempTextView = (TextView) findViewById(R.id.to_value);
+        initButtons();
+
+        // setup service
+        OkHttpClient client = new OkHttpClient();
+        retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+        service = retrofit.create(ReseplanerarenRestService.class);
+
+        requestToken();
+    }
+
+    private void initButtons(){
         updateBtn = (Button) findViewById(R.id.update_button);
         switchBtn = (Button) findViewById(R.id.switch_button);
 
@@ -61,45 +84,52 @@ public class MainActivity extends AppCompatActivity {
         switchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Reset
-                tempTextView.setText("cleared.");
+                tempTextView.setText("cleared...");
             }
         });
+    }
 
-        // setup service
-        OkHttpClient client = new OkHttpClient();
-        retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(JacksonConverterFactory.create())
-                .client(client)
-                .build();
-        service = retrofit.create(ReseplanerarenRestService.class);
+    private void requestToken(){
+        Call<TokenResponse> call = service.generateToken(auth, "client_credentials", Constants.DEVICE_ID);
 
-/*
-        departures.add(new Departure("GUL", "Torslanda", "1"));
-        departures.add(new Departure("16", "Eketrägatan", "3"));
-        departures.add(new Departure("16", "Eketrägatan", "7"));
-        departures.add(new Departure("GUL", "Torslanda", "16"));
+        call.enqueue(new Callback<TokenResponse>() {
+            @Override
+            public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
+                if(response.isSuccessful() && response.body() != null){
+                    mToken = response.body().getAccessToken();
+                    Log.d(TAG, "token generated...");
+                    Log.d(TAG, "token:" + mToken );
+                } else {
+                    Log.d(TAG, "token error...");
+                }
+            }
 
-        ListView listView=(ListView)findViewById(R.id.departure_list);
-
-        DepartureListAdapter adapter = new DepartureListAdapter(getApplicationContext(), departures);
-        listView.setAdapter(adapter);
-*/
+            @Override
+            public void onFailure(Call<TokenResponse> call, Throwable t) {
+                Log.d(TAG, "token onFailure...");
+            }
+        });
 
     }
 
     private void requestLocation(String name){
-        Call<LocationNameResponse> call = service.getLocationsByName(name, "json");
-
+        Call<LocationNameResponse> call = service.getLocationsByName("Bearer " + mToken, name, "json");
         call.enqueue(new Callback<LocationNameResponse>() {
             @Override
             public void onResponse(Call<LocationNameResponse> call, Response<LocationNameResponse> response) {
                 if(response.isSuccessful()){
-                    StopLocation location = response.body().getLocationList().getStopLocation().get(0);
-                    tempTextView.setText(location.toString());
-                } else {
+                    List<StopLocation> locations = response.body().getLocationList().getStopLocation();
+                    if(locations != null){
+                        StopLocation sl = locations.get(0);
+                        tempTextView.setText(sl.getName());
+                        Log.d(TAG, sl.toString());
+                    } else{
+                        tempTextView.setText("no results");
+                        Log.d(TAG, "no results");
+                    }
 
+                } else {
+                    Log.d(TAG, "onResponse() - not successful");
                 }
             }
 
@@ -108,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     @Override
@@ -132,3 +163,15 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+
+/*
+        departures.add(new Departure("GUL", "Torslanda", "1"));
+        departures.add(new Departure("16", "Eketrägatan", "3"));
+        departures.add(new Departure("16", "Eketrägatan", "7"));
+        departures.add(new Departure("GUL", "Torslanda", "16"));
+
+        ListView listView=(ListView)findViewById(R.id.departure_list);
+
+        DepartureListAdapter adapter = new DepartureListAdapter(getApplicationContext(), departures);
+        listView.setAdapter(adapter);
+*/
