@@ -55,14 +55,14 @@ public class DepartureListAdapter extends ArrayAdapter {
         Leg firstLeg = trip.getLeg().get(0);
         holder.routeName.setText(firstLeg.getSname());
         holder.direction.setText(cutoff(firstLeg.getDirection(), DIRECTION_LENGTH));
-        holder.timeTo.setText(firstLeg.getOrigin().getRtTime());
+        holder.timeTo.setText(firstLeg.getOrigin().getTime());
         return rowView;
     }
 
     private String cutoff(String str, int len){
         String result = str;
         if(str.length() > len){
-           result = str.substring(0, len);
+           result = str.substring(0, len).trim();
         }
         return result;
     }
