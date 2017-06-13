@@ -18,6 +18,9 @@ import ex.nme.hallplatsen.models.reseplaneraren.Trip;
  */
 
 public class DepartureListAdapter extends ArrayAdapter {
+
+    private static final int DIRECTION_LENGTH = 25;
+
     private Context context;
 
     private static class ViewHolder{
@@ -50,9 +53,17 @@ public class DepartureListAdapter extends ArrayAdapter {
         ViewHolder holder = (ViewHolder) rowView.getTag();
         Trip trip = (Trip) getItem(position);
         Leg firstLeg = trip.getLeg().get(0);
-        holder.routeName.setText(firstLeg.getName());
-        holder.direction.setText(firstLeg.getDirection());
+        holder.routeName.setText(firstLeg.getSname());
+        holder.direction.setText(cutoff(firstLeg.getDirection(), DIRECTION_LENGTH));
         holder.timeTo.setText(firstLeg.getOrigin().getRtTime());
         return rowView;
+    }
+
+    private String cutoff(String str, int len){
+        String result = str;
+        if(str.length() > len){
+           result = str.substring(0, len);
+        }
+        return result;
     }
 }
