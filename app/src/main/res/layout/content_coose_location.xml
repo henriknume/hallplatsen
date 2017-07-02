@@ -9,28 +9,29 @@
     tools:showIn="@layout/activity_coose_location">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/location_name_edittext"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textCapSentences|textPersonName"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
+        android:id="@+id/location_results_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
+        android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="16dp"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/location_name_edittext" />
 </android.support.constraint.ConstraintLayout>
