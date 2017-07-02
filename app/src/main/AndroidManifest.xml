@@ -3,6 +3,7 @@
     package="ex.nme.hallplatsen">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,6 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".CooseLocationActivity"
+            android:label="@string/title_activity_coose_location"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
