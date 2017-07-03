@@ -74,20 +74,20 @@
         android:text="Kviberg"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="18sp"
-        tools:layout_editor_absoluteY="80dp"
-        tools:layout_editor_absoluteX="78dp" />
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/time_last_updated"
+        app:layout_constraintBaseline_toBaselineOf="@+id/from_label" />
 
     <TextView
         android:id="@+id/to_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="default"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/from_value"
         android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="@+id/time_last_updated" />
+        app:layout_constraintLeft_toLeftOf="@+id/time_last_updated"
+        app:layout_constraintBaseline_toBaselineOf="@+id/to_label" />
 
     <ListView
         android:id="@+id/departure_list"
