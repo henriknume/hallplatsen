@@ -19,25 +19,26 @@ import retrofit2.http.Query;
 public interface ReseplanerarenRestService {
 
     public static final String BASE = "bin/rest.exe/v2";
-
+/*
     @Headers({"Content-Type: application/x-www-form-urlencoded"})
     @FormUrlEncoded
     @POST("token")
     Call<TokenResponse> generateToken(
-            @Header("Authorization") String authorization,           // "Basic base64(key:secret)"
-            @Field("grant_type") String grantType,          // "client_credentials"
-            @Field("scope") String scope);                  // "device_id"
-
+            // "Basic base64(key:secret)"
+            @Header("Authorization") String authorization,
+            // "client_credentials"
+            @Field("grant_type") String grantType,
+            // "device_id"
+            @Field("scope") String scope);
+*/
     @GET(BASE + "/location.name")
     Call<LocationNameResponse> getLocationsByName(
-            @Header("Authorization") String token,
             @Query("input") String name,
             @Query("format") String format
     );
 
     @GET(BASE + "/trip")
     Call<TripResponse> getTrip(
-            @Header("Authorization") String token,
             @Query("originId") String originId,
             @Query("destId") String destId,
             @Query("date") String date,             // YYYY-MM-DD
@@ -45,5 +46,5 @@ public interface ReseplanerarenRestService {
             @Query("format") String format          // json
     );
 
-
+    //@Header("Authorization") String token,
 }
