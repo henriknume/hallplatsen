@@ -1,5 +1,8 @@
 package ex.nme.hallplatsen.services;
 
+import android.content.Context;
+import android.media.session.MediaSession;
+
 import java.io.IOException;
 
 import ex.nme.hallplatsen.Constants;
@@ -25,11 +28,14 @@ public class Reseplaneraren {
     private static Reseplaneraren instance;
     private ReseplanerarenRestService mService;
 
-    private  Reseplaneraren() {
+    private  Reseplaneraren(Context context) {
 
         // Logging interceptor
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        TokenStorage tokenStorage = new TokenStorage(context);
+        AppendTokenInterceptor tokenInterceptor = new AppendTokenInterceptor(tokenStorage);
 
         OkHttpClient httpClient = new OkHttpClient.Builder()
                 .authenticator(new Authenticator() {
@@ -52,6 +58,7 @@ public class Reseplaneraren {
                                 .build();
                     }
                 })
+                .addInterceptor(tokenInterceptor)
                 .addInterceptor(logging)
                 .build();
 
@@ -64,9 +71,9 @@ public class Reseplaneraren {
         mService = retrofit.create(ReseplanerarenRestService.class);
     }
 
-    public static Reseplaneraren getInstance() {
+    public static Reseplaneraren getInstance(Context context) {
         if (instance == null) {
-            instance = new Reseplaneraren();
+            instance = new Reseplaneraren(context);
         }
         return instance;
     }
