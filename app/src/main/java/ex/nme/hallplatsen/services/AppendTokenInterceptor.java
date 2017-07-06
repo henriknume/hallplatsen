@@ -12,16 +12,14 @@ import okhttp3.Response;
 
 public class AppendTokenInterceptor implements Interceptor {
 
-    private TokenStorage tokenStorage;
+    public AppendTokenInterceptor(){
 
-    public AppendTokenInterceptor(TokenStorage tokenStorage){
-        this.tokenStorage = tokenStorage;
     }
 
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
-        String token = tokenStorage.getToken();
+        String token = TokenStorage.getToken();
         Request newRequest = request.newBuilder()
                 .addHeader("Authorization", "Bearer " + token)
                 .build();

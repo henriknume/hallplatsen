@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mTempTextView.setText("");
-                requestTrip(LOCATION_ID_KVIBERG, LOCATION_ID_LINDHOLMEN);
+                requestTrip(LOCATION_ID_KVIBERG, LOCATION_ID_SKF);
             }
         });
     }
@@ -108,14 +108,14 @@ public class MainActivity extends AppCompatActivity {
 */
     private void requestLocation(String name){
 
-        ReseplanerarenRestService service = Reseplaneraren.getInstance(getApplicationContext()).getService();
+        ReseplanerarenRestService service = Reseplaneraren.getInstance().getService();
         Call<LocationNameResponse> call = service.getLocationsByName(name, "json");
         call.enqueue(new Callback<LocationNameResponse>() {
             @Override
             public void onResponse(Call<LocationNameResponse> call, Response<LocationNameResponse> response) {
                 if(response.isSuccessful()){
                     Log.d(TAG, "onResponse() successful");
-                    /*
+
                     List<StopLocation> locations = response.body().getLocationList().getStopLocation();
                     if(locations != null){
                         StopLocation sl = locations.get(0);
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                         mTempTextView.setText("no results");
                         Log.d(TAG, "no results");
                     }
-                    */
+
 
                 } else {
                     Log.d(TAG, "onResponse() - not successful");
@@ -140,19 +140,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void requestTrip(String originId, String destId){
-        ReseplanerarenRestService service = Reseplaneraren.getInstance(getApplicationContext()).getService();
+        ReseplanerarenRestService service = Reseplaneraren.getInstance().getService();
         Call<TripResponse> call = service.getTrip(originId, destId, Utils.date(), Utils.time(), "json");
         call.enqueue(new Callback<TripResponse>() {
             @Override
             public void onResponse(Call<TripResponse> call, Response<TripResponse> response) {
                 if(response.isSuccessful()){
                     Log.d(TAG, "onResponse() successful");
-                    /*
+
                     mTripList = response.body().getTripList().getTrip();
                     mAdapter.clear();
                     mAdapter.addAll(mTripList);
                     mAdapter.notifyDataSetChanged();
-                    */
+
                 } else {
                     Log.d(TAG, "requestTrip() - not successful");
                 }

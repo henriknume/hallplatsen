@@ -1,9 +1,11 @@
 package ex.nme.hallplatsen.services;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import java.io.IOException;
 
-import ex.nme.hallplatsen.R;
+import ex.nme.hallplatsen.Constants;
+import ex.nme.hallplatsen.models.responses.TokenResponse;
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by nume on 2017-07-05
@@ -11,29 +13,28 @@ import ex.nme.hallplatsen.R;
 
 class TokenStorage {
 
-    public static final String TOKEN_PREFERENCES_FILE = "ex.nme.hallplatsen.token.preferences.file";
-    public static final String BEARER_TOKEN = "ex.nme.hallplatsen.bearer.token";
+    //public static final String TOKEN_PREFERENCES_FILE = "ex.nme.hallplatsen.token.preferences.file";
+    //public static final String BEARER_TOKEN = "ex.nme.hallplatsen.bearer.token";
 
-    private Context mContext;
+    private static String bearerToken = "uninitialized";
 
-    TokenStorage(Context context){
-        this.mContext = context;
+    public static void setToken(String newToken){
+        bearerToken = newToken;
     }
 
-    void setToken(String newToken){
-        SharedPreferences sharedPref = getSharedPrefs();
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(BEARER_TOKEN, newToken);
-        editor.commit();
+    public static String getToken(){
+        return bearerToken;
     }
 
-    String getToken(){
-        SharedPreferences sharedPref = getSharedPrefs();
-        String defaultValue = "NO_TOKEN_AVAILABLE";
-        return sharedPref.getString(BEARER_TOKEN, defaultValue);
-    }
-
-    private SharedPreferences getSharedPrefs(){
-        return mContext.getSharedPreferences(TOKEN_PREFERENCES_FILE, Context.MODE_PRIVATE);
+    public static String refreshToken(){
+        Call<TokenResponse> call = Reseplaneraren.getInstance().getService().generateToken(Constants.AUTH, "client_credentials", Constants.DEVICE_ID);
+        try {
+            //Syncronous call
+            Response<TokenResponse> response =  call.execute();
+            setToken(response.body().getAccessToken());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bearerToken;
     }
 }
