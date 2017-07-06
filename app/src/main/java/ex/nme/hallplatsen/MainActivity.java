@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 */
     private void requestLocation(String name){
 
-        ReseplanerarenRestService service = Reseplaneraren.getInstance().getService();
+        ReseplanerarenRestService service = Reseplaneraren.getService();
         Call<LocationNameResponse> call = service.getLocationsByName(name, "json");
         call.enqueue(new Callback<LocationNameResponse>() {
             @Override
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void requestTrip(String originId, String destId){
-        ReseplanerarenRestService service = Reseplaneraren.getInstance().getService();
+        ReseplanerarenRestService service = Reseplaneraren.getService();
         Call<TripResponse> call = service.getTrip(originId, destId, Utils.date(), Utils.time(), "json");
         call.enqueue(new Callback<TripResponse>() {
             @Override

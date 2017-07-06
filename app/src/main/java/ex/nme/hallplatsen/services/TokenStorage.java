@@ -27,7 +27,7 @@ class TokenStorage {
     }
 
     public static String refreshToken(){
-        Call<TokenResponse> call = Reseplaneraren.getInstance().getService().generateToken(Constants.AUTH, "client_credentials", Constants.DEVICE_ID);
+        Call<TokenResponse> call = Reseplaneraren.getService().generateToken(Constants.AUTH, "client_credentials", Constants.DEVICE_ID);
         try {
             //Syncronous call
             Response<TokenResponse> response =  call.execute();

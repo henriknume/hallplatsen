@@ -14,7 +14,7 @@ public class Reseplaneraren {
     private static final String TAG = "Reseplaneraren";
 
     private static Reseplaneraren instance;
-    private ReseplanerarenRestService mService;
+    private static ReseplanerarenRestService  mService;
 
     private  Reseplaneraren() {
         OkHttpClient httpClient = new OkHttpClient.Builder()
@@ -31,14 +31,10 @@ public class Reseplaneraren {
         mService = retrofit.create(ReseplanerarenRestService.class);
     }
 
-    public static Reseplaneraren getInstance() {
-        if (instance == null) {
+    public static ReseplanerarenRestService getService(){
+        if (instance == null || mService == null) {
             instance = new Reseplaneraren();
         }
-        return instance;
-    }
-
-    public ReseplanerarenRestService getService(){
         return mService;
     }
 
