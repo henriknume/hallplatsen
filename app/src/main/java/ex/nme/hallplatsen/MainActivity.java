@@ -17,16 +17,12 @@ import java.util.List;
 import ex.nme.hallplatsen.models.reseplaneraren.StopLocation;
 import ex.nme.hallplatsen.models.reseplaneraren.Trip;
 import ex.nme.hallplatsen.models.responses.LocationNameResponse;
-import ex.nme.hallplatsen.models.responses.TokenResponse;
 import ex.nme.hallplatsen.models.responses.TripResponse;
-import ex.nme.hallplatsen.services.Reseplaneraren;
-import ex.nme.hallplatsen.services.ReseplanerarenRestService;
-import okhttp3.OkHttpClient;
+import ex.nme.hallplatsen.services.ReseplanerarenService;
+import ex.nme.hallplatsen.services.ReseplanerarenRestApi;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -108,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 */
     private void requestLocation(String name){
 
-        ReseplanerarenRestService service = Reseplaneraren.getService();
+        ReseplanerarenRestApi service = ReseplanerarenService.getService();
         Call<LocationNameResponse> call = service.getLocationsByName(name, "json");
         call.enqueue(new Callback<LocationNameResponse>() {
             @Override
@@ -140,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void requestTrip(String originId, String destId){
-        ReseplanerarenRestService service = Reseplaneraren.getService();
+        ReseplanerarenRestApi service = ReseplanerarenService.getService();
         Call<TripResponse> call = service.getTrip(originId, destId, Utils.date(), Utils.time(), "json");
         call.enqueue(new Callback<TripResponse>() {
             @Override

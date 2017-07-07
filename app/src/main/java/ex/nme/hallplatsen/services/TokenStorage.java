@@ -11,7 +11,7 @@ import retrofit2.Response;
  * Created by nume on 2017-07-05
  */
 
-class TokenStorage {
+public class TokenStorage {
 
     //public static final String TOKEN_PREFERENCES_FILE = "ex.nme.hallplatsen.token.preferences.file";
     //public static final String BEARER_TOKEN = "ex.nme.hallplatsen.bearer.token";
@@ -27,7 +27,7 @@ class TokenStorage {
     }
 
     public static String refreshToken(){
-        Call<TokenResponse> call = Reseplaneraren.getService().generateToken(Constants.AUTH, "client_credentials", Constants.DEVICE_ID);
+        Call<TokenResponse> call = ReseplanerarenService.getService().generateToken(Constants.AUTH, "client_credentials", Constants.DEVICE_ID);
         try {
             //Syncronous call
             Response<TokenResponse> response =  call.execute();

@@ -16,7 +16,7 @@ import retrofit2.http.Query;
  * Created by nm2 on 2017-06-12
  */
 
-public interface ReseplanerarenRestService {
+public interface ReseplanerarenRestApi {
 
     public static final String BASE = "bin/rest.exe/v2";
 

@@ -9,14 +9,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by nume on 2017-07-03
  */
 
-public class Reseplaneraren {
+public class ReseplanerarenService {
 
-    private static final String TAG = "Reseplaneraren";
+    private static final String TAG = "ReseplanerarenService";
 
-    private static Reseplaneraren instance;
-    private static ReseplanerarenRestService  mService;
+    private static ReseplanerarenService instance;
+    private static ReseplanerarenRestApi mService;
 
-    private  Reseplaneraren() {
+    private ReseplanerarenService() {
         OkHttpClient httpClient = new OkHttpClient.Builder()
                 .addInterceptor(new AppendTokenInterceptor())
                 .authenticator(new TokenAuthenticator())
@@ -28,12 +28,12 @@ public class Reseplaneraren {
                 .client(httpClient)
                 .build();
 
-        mService = retrofit.create(ReseplanerarenRestService.class);
+        mService = retrofit.create(ReseplanerarenRestApi.class);
     }
 
-    public static ReseplanerarenRestService getService(){
+    public static ReseplanerarenRestApi getService(){
         if (instance == null || mService == null) {
-            instance = new Reseplaneraren();
+            instance = new ReseplanerarenService();
         }
         return mService;
     }
