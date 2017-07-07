@@ -8,7 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import ex.nme.hallplatsen.models.reseplaneraren.Leg;
 import ex.nme.hallplatsen.models.reseplaneraren.Trip;
@@ -55,7 +59,8 @@ public class DepartureListAdapter extends ArrayAdapter {
         Leg firstLeg = trip.getLeg().get(0);
         holder.routeName.setText(firstLeg.getSname());
         holder.direction.setText(cutoff(firstLeg.getDirection(), DIRECTION_LENGTH));
-        holder.timeTo.setText(firstLeg.getOrigin().getTime());
+        String time = Utils.timeDiff(firstLeg.getOrigin().getTime());
+        holder.timeTo.setText(time);
         return rowView;
     }
 
