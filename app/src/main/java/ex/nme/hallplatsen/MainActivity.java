@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-
         // Set up layout
         mTempTextView = (TextView) findViewById(R.id.to_value);
         initButtons();
@@ -55,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
         mTripList = new ArrayList<>();
         mAdapter = new DepartureListAdapter(getApplicationContext(), mTripList);
         mListView.setAdapter(mAdapter);
-
-        //requestToken();
     }
 
     private void initButtons(){
@@ -79,37 +75,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-/*
-    private void requestToken() {
-        Call<TokenResponse> call = mService.generateToken(Constants.AUTH, "client_credentials", Constants.DEVICE_ID);
 
-        call.enqueue(new Callback<TokenResponse>() {
-            @Override
-            public void onResponse(Call<TokenResponse> call, retrofit2.Response<TokenResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    mToken = "Bearer " + response.body().getAccessToken();
-                    Log.d(TAG, "token generated...");
-                    Log.d(TAG, "token:" + mToken);
-                } else {
-                    Log.d(TAG, "token error...");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<TokenResponse> call, Throwable t) {
-                Log.d(TAG, "token onFailure...");
-            }
-        });
-    }
-*/
     private void requestLocation(String name){
-
         ReseplanerarenRestApi service = ReseplanerarenService.getService();
         Call<LocationNameResponse> call = service.getLocationsByName(name, "json");
         call.enqueue(new Callback<LocationNameResponse>() {
             @Override
             public void onResponse(Call<LocationNameResponse> call, Response<LocationNameResponse> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     Log.d(TAG, "onResponse() successful");
 
                     List<StopLocation> locations = response.body().getLocationList().getStopLocation();
@@ -121,8 +94,6 @@ public class MainActivity extends AppCompatActivity {
                         mTempTextView.setText("no results");
                         Log.d(TAG, "no results");
                     }
-
-
                 } else {
                     Log.d(TAG, "onResponse() - not successful");
                 }
@@ -141,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<TripResponse>() {
             @Override
             public void onResponse(Call<TripResponse> call, Response<TripResponse> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     Log.d(TAG, "onResponse() successful");
 
                     mTripList = response.body().getTripList().getTrip();
@@ -158,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<TripResponse> call, Throwable t) {
                 Log.d(TAG, "requestTrip() - on Failure");
                 Log.d(TAG, t.getMessage());
-
             }
         });
     }
