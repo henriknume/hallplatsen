@@ -1,5 +1,6 @@
 package ex.nme.hallplatsen;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -63,15 +65,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // do the request
-                requestLocation("kviberg");
+                requestTrip(LOCATION_ID_KVIBERG, LOCATION_ID_SKF);
             }
         });
 
         switchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTempTextView.setText("");
-                requestTrip(LOCATION_ID_KVIBERG, LOCATION_ID_SKF);
+                goToChooseLocActivity();
             }
         });
     }
@@ -153,5 +154,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void goToChooseLocActivity(){
+        //TODO: Rename that class name!
+        Intent intent = new Intent(this, CooseLocationActivity.class);
+        startActivity(intent);
     }
 }
