@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -158,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void goToChooseLocActivity(){
         //TODO: Rename that class name!
-        Intent intent = new Intent(this, CooseLocationActivity.class);
+        Intent intent = new Intent(this, ChooseLocationActivity.class);
         startActivity(intent);
     }
 }

@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CooseLocationActivity"
+            android:name=".ChooseLocationActivity"
             android:label="@string/title_activity_coose_location"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

@@ -11,10 +11,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
-public class CooseLocationActivity extends AppCompatActivity {
+public class ChooseLocationActivity extends AppCompatActivity {
 
-    private static final String TAG = "CooseLocationActivity";
+    private static final String TAG = "ChooseLocationActivity";
+
+    EditText searchInput = (EditText) findViewById(R.id.location_name_edittext);
+    ListView locationResults = (ListView) findViewById(R.id.location_results_list);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,15 +27,9 @@ public class CooseLocationActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //
-        EditText searchInput = (EditText) findViewById(R.id.location_name_edittext);
+
+
         searchInput.addTextChangedListener(new TextWatcher() {
-
-            public void afterTextChanged(Editable s) {
-
-                // you can call or do what you want with your EditText here
-                Log.d(TAG, "afterTextChanged()");
-            }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 Log.d(TAG, "beforeTextChanged()");
@@ -41,6 +39,18 @@ public class CooseLocationActivity extends AppCompatActivity {
                 Log.d(TAG, "onTextChanged()");
 
             }
+
+            public void afterTextChanged(Editable s) {
+                // you can call or do what you want with your EditText here
+                Log.d(TAG, "afterTextChanged()");
+
+                //request locations
+
+                //on response: update listview
+
+            }
         });
+
+
     }
 }

@@ -11,26 +11,25 @@ import android.widget.TextView;
 import java.util.List;
 
 import ex.nme.hallplatsen.models.reseplaneraren.Leg;
+import ex.nme.hallplatsen.models.reseplaneraren.StopLocation;
 import ex.nme.hallplatsen.models.reseplaneraren.Trip;
 
 /**
- * Created by nm2 on 2017-06-01
+ * Created by nume on 2017-07-07.
  */
 
-public class DepartureListAdapter extends ArrayAdapter {
+public class LocationListAdapter extends ArrayAdapter {
 
     private static final int DIRECTION_LENGTH = 25;
 
     private Context context;
 
     private static class ViewHolder{
-        public TextView routeName;
-        public TextView direction;
-        public TextView timeTo;
+        public TextView locationName;
     }
 
-    public DepartureListAdapter(@NonNull Context context, @NonNull List<Trip> trips) {
-        super(context, R.layout.departure_row, trips);
+    public LocationListAdapter(@NonNull Context context, @NonNull List<StopLocation> trips) {
+        super(context, R.layout.locations_row, locations);
         this.context = context;
     }
 
@@ -43,16 +42,13 @@ public class DepartureListAdapter extends ArrayAdapter {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             rowView = inflater.inflate(R.layout.departure_row, null);
             ViewHolder viewHolder = new ViewHolder();
-            viewHolder.routeName = (TextView) rowView.findViewById(R.id.route_name);
-            viewHolder.direction = (TextView) rowView.findViewById(R.id.route_direction);
-            viewHolder.timeTo = (TextView) rowView.findViewById(R.id.time_to_dep);
+            viewHolder.locationName = (TextView) rowView.findViewById(R.id.location_name_textview);
             rowView.setTag(viewHolder);
         }
 
         // Fill data
         ViewHolder holder = (ViewHolder) rowView.getTag();
-        Trip trip = (Trip) getItem(position);
-        Leg firstLeg = trip.getLeg().get(0);
+        StopLocation stopLocation = (StopLocation) getItem(position);
         holder.routeName.setText(firstLeg.getSname());
         holder.direction.setText(cutoff(firstLeg.getDirection(), DIRECTION_LENGTH));
         String time = Utils.timeDiff(firstLeg.getOrigin().getTime());
@@ -63,7 +59,7 @@ public class DepartureListAdapter extends ArrayAdapter {
     private String cutoff(String str, int len){
         String result = str;
         if(str.length() > len){
-           result = str.substring(0, len).trim();
+            result = str.substring(0, len).trim();
         }
         return result;
     }
