@@ -11,7 +11,7 @@ import java.util.List;
 import ex.nme.hallplatsen.models.reseplaneraren.Leg;
 
 /**
- * Adapter used for converting json-objects to java-arrays when they appear.
+ * Adapter used for converting json-objects to arrays when they are returned irregularly.
  */
 
 public class LegTypeAdapter implements JsonDeserializer<List<Leg>> {

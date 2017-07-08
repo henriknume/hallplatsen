@@ -18,7 +18,7 @@ import retrofit2.http.Query;
 
 public interface ReseplanerarenRestApi {
 
-    public static final String BASE = "bin/rest.exe/v2";
+    String BASE = "bin/rest.exe/v2";
 
     @Headers({"Content-Type: application/x-www-form-urlencoded"})
     @FormUrlEncoded
