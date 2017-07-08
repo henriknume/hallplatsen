@@ -20,7 +20,7 @@ import ex.nme.hallplatsen.models.reseplaneraren.Trip;
 
 public class LocationListAdapter extends ArrayAdapter {
 
-    private static final int DIRECTION_LENGTH = 25;
+    private static final int MAX_TEXT_LENGTH = 25;
 
     private Context context;
 
@@ -28,8 +28,8 @@ public class LocationListAdapter extends ArrayAdapter {
         public TextView locationName;
     }
 
-    public LocationListAdapter(@NonNull Context context, @NonNull List<StopLocation> trips) {
-        super(context, R.layout.locations_row, locations);
+    public LocationListAdapter(@NonNull Context context, @NonNull List<StopLocation> locations) {
+        super(context, R.layout.location_row, locations);
         this.context = context;
     }
 
@@ -49,18 +49,9 @@ public class LocationListAdapter extends ArrayAdapter {
         // Fill data
         ViewHolder holder = (ViewHolder) rowView.getTag();
         StopLocation stopLocation = (StopLocation) getItem(position);
-        holder.routeName.setText(firstLeg.getSname());
-        holder.direction.setText(cutoff(firstLeg.getDirection(), DIRECTION_LENGTH));
-        String time = Utils.timeDiff(firstLeg.getOrigin().getTime());
-        holder.timeTo.setText(time);
+        holder.locationName.setText(Utils.cutoff(stopLocation.getName(), MAX_TEXT_LENGTH));
         return rowView;
     }
 
-    private String cutoff(String str, int len){
-        String result = str;
-        if(str.length() > len){
-            result = str.substring(0, len).trim();
-        }
-        return result;
-    }
+
 }

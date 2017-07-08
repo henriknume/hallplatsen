@@ -28,7 +28,7 @@ public class Utils {
 
     public static String timeDiff(String departuretime){
         //convert time to difference between departuretime and current time.
-        String res = "";
+        String res = "ERR";
         try {
             String currentTime = Utils.time();
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
@@ -46,6 +46,14 @@ public class Utils {
             e.printStackTrace();
         }
         return res;
+    }
+
+    public static String cutoff(String str, int len){
+        String result = str;
+        if(str.length() > len){
+            result = str.substring(0, len).trim();
+        }
+        return result;
     }
 
 }
