@@ -2,7 +2,6 @@ package ex.nme.hallplatsen;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -10,6 +9,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -19,15 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ex.nme.hallplatsen.models.reseplaneraren.StopLocation;
-import ex.nme.hallplatsen.models.reseplaneraren.Trip;
 import ex.nme.hallplatsen.models.responses.LocationNameResponse;
 import ex.nme.hallplatsen.services.ReseplanerarenRestApi;
 import ex.nme.hallplatsen.services.ReseplanerarenService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.support.design.R.styleable.CoordinatorLayout;
 
 public class ChooseLocationActivity extends AppCompatActivity {
 
@@ -38,8 +35,8 @@ public class ChooseLocationActivity extends AppCompatActivity {
 
     private EditText searchInput;
     private Button selectBtn;
-    private ListView locationResults;
-    private List<StopLocation> list;
+    private ListView listView;
+    private List<StopLocation> locationList;
     private LocationListAdapter adapter;
     private TripCard model;
     private String calledBy;
@@ -55,22 +52,10 @@ public class ChooseLocationActivity extends AppCompatActivity {
 
         searchInput = (EditText) findViewById(R.id.location_name_edittext);
         selectBtn = (Button) findViewById(R.id.select_button);
-        locationResults = (ListView) findViewById(R.id.location_results_list);
-        list = new ArrayList<>();
-        adapter = new LocationListAdapter(getApplicationContext(), list);
-        locationResults.setAdapter(adapter);
-
-        selectBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(TextUtils.isEmpty(searchInput.getText())){
-                    // EditText was empty
-                    searchInput.setError("Enter a location.");
-                } else {
-                    requestLocations(searchInput.getText().toString().trim());
-                }
-            }
-        });
+        listView = (ListView) findViewById(R.id.location_results_list);
+        locationList = new ArrayList<>();
+        adapter = new LocationListAdapter(getApplicationContext(), locationList);
+        listView.setAdapter(adapter);
 
         searchInput.addTextChangedListener(new TextWatcher() {
 
@@ -86,6 +71,33 @@ public class ChooseLocationActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 // you can call or do what you want with your EditText here
                 Log.d(TAG, "afterTextChanged()");
+            }
+        });
+
+        selectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(TextUtils.isEmpty(searchInput.getText())){
+                    // EditText was empty
+                    searchInput.setError("Enter a location.");
+                } else {
+                    requestLocations(searchInput.getText().toString().trim());
+                }
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final StopLocation selected = (StopLocation) parent.getItemAtPosition(position);
+                if(calledBy.equals(EXTRA_VALUE_FROM)){
+                    model.setFromLocation(selected);
+                } else if (calledBy.equals(EXTRA_VALUE_TO)) {
+                    model.setToLocation(selected);
+                } else {
+                    Log.e(TAG, "ERROR - onItemClick run with faulty calledBy value");
+                }
+                goToMainActivity();
             }
         });
     }
@@ -120,7 +132,7 @@ public class ChooseLocationActivity extends AppCompatActivity {
                         adapter.clear();
                         adapter.addAll(locations);
                         adapter.notifyDataSetChanged();
-                        Log.d(TAG, "some results");
+                        Log.d(TAG, "some results- size: " + locations.size());
                     } else {
                         Log.d(TAG, "no results");
                         Toast.makeText(getApplicationContext(), "No locations found", Toast.LENGTH_SHORT).show();

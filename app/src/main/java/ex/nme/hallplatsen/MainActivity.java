@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Set up layout
         time = (TextView) findViewById(R.id.time_last_updated);
-        fromText = (TextView) findViewById(R.id.to_value);
-        toText = (TextView) findViewById(R.id.from_value);
+        fromText = (TextView) findViewById(R.id.from_value);
+        toText = (TextView) findViewById(R.id.to_value);
         listView = (ListView)findViewById(R.id.departure_list);
         adapter = new DepartureListAdapter(getApplicationContext(), model.getTripList());
         listView.setAdapter(adapter);
