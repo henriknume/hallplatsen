@@ -37,7 +37,6 @@ public class DepartureListAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         View rowView = convertView;
-
         // Reuse old view for better performance.
         if(rowView == null){
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -48,7 +47,6 @@ public class DepartureListAdapter extends ArrayAdapter {
             viewHolder.timeTo = (TextView) rowView.findViewById(R.id.time_to_dep);
             rowView.setTag(viewHolder);
         }
-
         // Fill data
         ViewHolder holder = (ViewHolder) rowView.getTag();
         Trip trip = (Trip) getItem(position);
@@ -59,5 +57,4 @@ public class DepartureListAdapter extends ArrayAdapter {
         holder.timeTo.setText(time);
         return rowView;
     }
-
 }

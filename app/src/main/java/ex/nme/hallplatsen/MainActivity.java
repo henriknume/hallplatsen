@@ -76,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
             model = TripCard.getInstance();
         }
 
+        time.setText(model.getTimeLastUpdated());
+        fromText.setText(model.getFromName());
+        toText.setText(model.getToName());
     }
 
     private void initButtons(){
@@ -85,16 +88,34 @@ public class MainActivity extends AppCompatActivity {
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestTrip(model.getFromId(), model.getToId());
+                if (model.isLocationsSelected()) {
+                    requestTrip(model.getFromId(), model.getToId());
+                }
             }
         });
 
         switchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                model.switchToAndFromLocations();
-                //Update
-                requestTrip(model.getFromId(), model.getToId());
+                if (model.isLocationsSelected()) {
+                    model.switchToAndFromLocations();
+                    //Update
+                    requestTrip(model.getFromId(), model.getToId());
+                }
+            }
+        });
+
+        fromText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToChooseLocActivity(ChooseLocationActivity.EXTRA_VALUE_FROM);
+            }
+        });
+
+        toText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToChooseLocActivity(ChooseLocationActivity.EXTRA_VALUE_TO);
             }
         });
     }
@@ -148,8 +169,10 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void goToChooseLocActivity(){
+    private void goToChooseLocActivity(String calledBy) {
+        // if called by "from" argument should be ChooseLocationActivity.EXTRA_VALUE_FROM
         Intent intent = new Intent(this, ChooseLocationActivity.class);
+        intent.putExtra(ChooseLocationActivity.EXTRA_LABEL_SOURCE, calledBy);
         startActivity(intent);
     }
 }
