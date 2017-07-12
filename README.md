@@ -3,6 +3,10 @@
 A simple android app that lets the user view departures for ones most common travel routes.
 
 ## TODO:
+- ~~Create token interceptor and authenticator~~
+- ~~Fix retrofit bug ~~
+- ~~Change layouts to ConstraintLayout~~
+- ~~Create a general model for the trip card that is shown~~
 - ~~Add activity where its possible to choose location.~~
 - Let route numbers have the correct color (provided in API call).
 - Create a logo.
