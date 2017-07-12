@@ -11,16 +11,11 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import ex.nme.hallplatsen.models.reseplaneraren.StopLocation;
-import ex.nme.hallplatsen.models.reseplaneraren.Trip;
-import ex.nme.hallplatsen.models.responses.LocationNameResponse;
 import ex.nme.hallplatsen.models.responses.TripResponse;
 import ex.nme.hallplatsen.services.ReseplanerarenService;
-import ex.nme.hallplatsen.services.ReseplanerarenRestApi;
+import okhttp3.internal.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,20 +25,11 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    private TextView time;
+    private TextView timeLastUpdated;
     private TextView fromText;
     private TextView toText;
-    private ListView listView;
     private DepartureListAdapter adapter;
-    private TripCard model;
-
-    // placeholders
-    private String LOCATION_ID_KVIBERG = "9021014004140000";
-    private String LOCATION_ID_SKF = "9021014005862000";
-    private String LOCATION_ID_LINDHOLMEN = "9021014004490000";
-    private String mLocationFrom;
-    private String mLocationTo;
-
+    private TripCardModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,32 +39,32 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // set up model
-        TripCard model = TripCard.getInstance();
+        TripCardModel model = TripCardModel.getInstance();
 
         // Set up layout
-        time = (TextView) findViewById(R.id.time_last_updated);
+        timeLastUpdated = (TextView) findViewById(R.id.time_last_updated);
         fromText = (TextView) findViewById(R.id.from_value);
         toText = (TextView) findViewById(R.id.to_value);
-        listView = (ListView)findViewById(R.id.departure_list);
+        ListView listView = (ListView)findViewById(R.id.departure_list);
         adapter = new DepartureListAdapter(getApplicationContext(), model.getTripList());
         listView.setAdapter(adapter);
         initButtons();
-
-        //Init placeholderlocations
-        mLocationFrom = LOCATION_ID_KVIBERG;
-        mLocationTo = LOCATION_ID_SKF;
     }
 
     @Override
     public void onResume(){
         super.onResume();
         if(model == null) {
-            model = TripCard.getInstance();
+            model = TripCardModel.getInstance();
         }
 
-        time.setText(model.getTimeLastUpdated());
+        timeLastUpdated.setText(model.getTimeLastUpdated());
         fromText.setText(model.getFromName());
         toText.setText(model.getToName());
+
+        if (model.isLocationsSelected()) {
+            requestTrip(model.getFromId(), model.getToId());
+        }
     }
 
     private void initButtons(){
@@ -121,19 +107,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void requestTrip(String originId, String destId){
+        String currentTime = Utils.time();
+        model.setTimeLastUpdated(currentTime);
+        timeLastUpdated.setText(currentTime);
+
         Call<TripResponse> call = ReseplanerarenService.getService().getTrip(originId, destId,
-                Utils.date(), Utils.time(), "json");
+                Utils.date(), currentTime, "json");
         call.enqueue(new Callback<TripResponse>() {
             @Override
             public void onResponse(Call<TripResponse> call, Response<TripResponse> response) {
                 if (response.isSuccessful()) {
                     Log.d(TAG, "onResponse() successful");
-
                     model.setTripList(response.body().getTripList().getTrip());
                     adapter.clear();
                     adapter.addAll(model.getTripList());
                     adapter.notifyDataSetChanged();
-
                 } else {
                     Log.d(TAG, "requestTrip() - not successful");
                 }

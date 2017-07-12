@@ -38,7 +38,7 @@ public class ChooseLocationActivity extends AppCompatActivity {
     private ListView listView;
     private List<StopLocation> locationList;
     private LocationListAdapter adapter;
-    private TripCard model;
+    private TripCardModel model;
     private String calledBy;
 
     @Override
@@ -48,7 +48,7 @@ public class ChooseLocationActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        model = TripCard.getInstance();
+        model = TripCardModel.getInstance();
 
         searchInput = (EditText) findViewById(R.id.location_name_edittext);
         selectBtn = (Button) findViewById(R.id.select_button);
@@ -60,17 +60,17 @@ public class ChooseLocationActivity extends AppCompatActivity {
         searchInput.addTextChangedListener(new TextWatcher() {
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                Log.d(TAG, "beforeTextChanged()");
+                //Log.d(TAG, "beforeTextChanged()");
             }
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.d(TAG, "onTextChanged()");
+                //Log.d(TAG, "onTextChanged()");
 
             }
 
             public void afterTextChanged(Editable s) {
                 // you can call or do what you want with your EditText here
-                Log.d(TAG, "afterTextChanged()");
+                //Log.d(TAG, "afterTextChanged()");
             }
         });
 
@@ -106,7 +106,7 @@ public class ChooseLocationActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         if(model == null) {
-            model = TripCard.getInstance();
+            model = TripCardModel.getInstance();
         }
         calledBy = getIntent().getExtras().getString(EXTRA_LABEL_SOURCE);
         if(calledBy.equals(EXTRA_VALUE_FROM)){
