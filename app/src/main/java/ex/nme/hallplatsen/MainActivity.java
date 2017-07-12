@@ -29,15 +29,21 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private ListView mListView;
-    private List<Trip> mTripList;
-    private DepartureListAdapter mAdapter;
+
+    private TextView time;
+    private TextView fromText;
+    private TextView toText;
+    private ListView listView;
+    private DepartureListAdapter adapter;
+    private TripCard model;
 
     // placeholders
     private String LOCATION_ID_KVIBERG = "9021014004140000";
     private String LOCATION_ID_SKF = "9021014005862000";
     private String LOCATION_ID_LINDHOLMEN = "9021014004490000";
-    private TextView mTempTextView;
+    private String mLocationFrom;
+    private String mLocationTo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +52,30 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // set up model
+        TripCard model = TripCard.getInstance();
+
         // Set up layout
-        mTempTextView = (TextView) findViewById(R.id.to_value);
+        time = (TextView) findViewById(R.id.time_last_updated);
+        fromText = (TextView) findViewById(R.id.to_value);
+        toText = (TextView) findViewById(R.id.from_value);
+        listView = (ListView)findViewById(R.id.departure_list);
+        adapter = new DepartureListAdapter(getApplicationContext(), model.getTripList());
+        listView.setAdapter(adapter);
         initButtons();
 
-        mListView = (ListView)findViewById(R.id.departure_list);
-        mTripList = new ArrayList<>();
-        mAdapter = new DepartureListAdapter(getApplicationContext(), mTripList);
-        mListView.setAdapter(mAdapter);
+        //Init placeholderlocations
+        mLocationFrom = LOCATION_ID_KVIBERG;
+        mLocationTo = LOCATION_ID_SKF;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(model == null) {
+            model = TripCard.getInstance();
+        }
+
     }
 
     private void initButtons(){
@@ -63,62 +85,33 @@ public class MainActivity extends AppCompatActivity {
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // do the request
-                requestTrip(LOCATION_ID_KVIBERG, LOCATION_ID_SKF);
+                requestTrip(model.getFromId(), model.getToId());
             }
         });
 
         switchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToChooseLocActivity();
-            }
-        });
-    }
-
-    private void requestLocation(String name){
-        ReseplanerarenRestApi service = ReseplanerarenService.getService();
-        Call<LocationNameResponse> call = service.getLocationsByName(name, "json");
-        call.enqueue(new Callback<LocationNameResponse>() {
-            @Override
-            public void onResponse(Call<LocationNameResponse> call, Response<LocationNameResponse> response) {
-                if (response.isSuccessful()) {
-                    Log.d(TAG, "onResponse() successful");
-
-                    List<StopLocation> locations = response.body().getLocationList().getStopLocation();
-                    if(locations != null){
-                        StopLocation sl = locations.get(0);
-                        mTempTextView.setText(sl.getName());
-                        Log.d(TAG, sl.toString());
-                    } else{
-                        mTempTextView.setText("no results");
-                        Log.d(TAG, "no results");
-                    }
-                } else {
-                    Log.d(TAG, "onResponse() - not successful");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<LocationNameResponse> call, Throwable t) {
-
+                model.switchToAndFromLocations();
+                //Update
+                requestTrip(model.getFromId(), model.getToId());
             }
         });
     }
 
     private void requestTrip(String originId, String destId){
-        ReseplanerarenRestApi service = ReseplanerarenService.getService();
-        Call<TripResponse> call = service.getTrip(originId, destId, Utils.date(), Utils.time(), "json");
+        Call<TripResponse> call = ReseplanerarenService.getService().getTrip(originId, destId,
+                Utils.date(), Utils.time(), "json");
         call.enqueue(new Callback<TripResponse>() {
             @Override
             public void onResponse(Call<TripResponse> call, Response<TripResponse> response) {
                 if (response.isSuccessful()) {
                     Log.d(TAG, "onResponse() successful");
 
-                    mTripList = response.body().getTripList().getTrip();
-                    mAdapter.clear();
-                    mAdapter.addAll(mTripList);
-                    mAdapter.notifyDataSetChanged();
+                    model.setTripList(response.body().getTripList().getTrip());
+                    adapter.clear();
+                    adapter.addAll(model.getTripList());
+                    adapter.notifyDataSetChanged();
 
                 } else {
                     Log.d(TAG, "requestTrip() - not successful");
@@ -156,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void goToChooseLocActivity(){
-        //TODO: Rename that class name!
         Intent intent = new Intent(this, ChooseLocationActivity.class);
         startActivity(intent);
     }
