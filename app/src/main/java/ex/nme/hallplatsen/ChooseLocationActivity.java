@@ -29,14 +29,11 @@ import retrofit2.Response;
 public class ChooseLocationActivity extends AppCompatActivity {
 
     private static final String TAG = "ChooseLocationActivity";
+
     public static final String EXTRA_LABEL_SOURCE = "extra.label.source";
     public static final String EXTRA_VALUE_FROM = "extra.value.from";
     public static final String EXTRA_VALUE_TO = "extra.value.to";
 
-    private EditText searchInput;
-    private Button selectBtn;
-    private ListView listView;
-    private List<StopLocation> locationList;
     private LocationListAdapter adapter;
     private TripCardModel model;
     private String calledBy;
@@ -50,39 +47,22 @@ public class ChooseLocationActivity extends AppCompatActivity {
 
         model = TripCardModel.getInstance();
 
-        searchInput = (EditText) findViewById(R.id.location_name_edittext);
-        selectBtn = (Button) findViewById(R.id.select_button);
-        listView = (ListView) findViewById(R.id.location_results_list);
-        locationList = new ArrayList<>();
+        EditText searchInput = (EditText) findViewById(R.id.location_name_edittext);
+        ListView listView = (ListView) findViewById(R.id.location_results_list);
+        List<StopLocation> locationList = new ArrayList<>();
         adapter = new LocationListAdapter(getApplicationContext(), locationList);
         listView.setAdapter(adapter);
 
         searchInput.addTextChangedListener(new TextWatcher() {
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //Log.d(TAG, "beforeTextChanged()");
             }
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //Log.d(TAG, "onTextChanged()");
-
+                requestLocations(s.toString());
             }
 
             public void afterTextChanged(Editable s) {
-                // you can call or do what you want with your EditText here
-                //Log.d(TAG, "afterTextChanged()");
-            }
-        });
-
-        selectBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(TextUtils.isEmpty(searchInput.getText())){
-                    // EditText was empty
-                    searchInput.setError("Enter a location.");
-                } else {
-                    requestLocations(searchInput.getText().toString().trim());
-                }
             }
         });
 
@@ -113,8 +93,6 @@ public class ChooseLocationActivity extends AppCompatActivity {
             setTitle("Select From location");
         } else if (calledBy.equals(EXTRA_VALUE_TO)) {
             setTitle("Select To location");
-        } else {
-            //TODO check what happends then...
         }
     }
 
@@ -122,20 +100,18 @@ public class ChooseLocationActivity extends AppCompatActivity {
         ReseplanerarenRestApi service = ReseplanerarenService.getService();
         Call<LocationNameResponse> call = service.getLocationsByName(name, "json");
         call.enqueue(new Callback<LocationNameResponse>() {
+
             @Override
             public void onResponse(Call<LocationNameResponse> call, Response<LocationNameResponse> response) {
                 if (response.isSuccessful()) {
                     Log.d(TAG, "onResponse() successful");
-
                     List<StopLocation> locations = response.body().getLocationList().getStopLocation();
                     if (locations != null) {
                         adapter.clear();
                         adapter.addAll(locations);
                         adapter.notifyDataSetChanged();
-                        Log.d(TAG, "some results- size: " + locations.size());
                     } else {
                         Log.d(TAG, "no results");
-                        Toast.makeText(getApplicationContext(), "No locations found", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Log.d(TAG, "onResponse() - not successful");

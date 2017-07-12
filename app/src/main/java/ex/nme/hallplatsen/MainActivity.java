@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView timeLastUpdated;
     private TextView fromText;
     private TextView toText;
+
     private DepartureListAdapter adapter;
     private TripCardModel model;
 
@@ -58,9 +59,7 @@ public class MainActivity extends AppCompatActivity {
             model = TripCardModel.getInstance();
         }
 
-        timeLastUpdated.setText(model.getTimeLastUpdated());
-        fromText.setText(model.getFromName());
-        toText.setText(model.getToName());
+        updateTextViews();
 
         if (model.isLocationsSelected()) {
             requestTrip(model.getFromId(), model.getToId());
@@ -86,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 if (model.isLocationsSelected()) {
                     model.switchToAndFromLocations();
                     //Update
+                    updateTextViews();
                     requestTrip(model.getFromId(), model.getToId());
                 }
             }
@@ -162,5 +162,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ChooseLocationActivity.class);
         intent.putExtra(ChooseLocationActivity.EXTRA_LABEL_SOURCE, calledBy);
         startActivity(intent);
+    }
+
+    private void updateTextViews() {
+        timeLastUpdated.setText(model.getTimeLastUpdated());
+        fromText.setText(model.getFromName());
+        toText.setText(model.getToName());
     }
 }
