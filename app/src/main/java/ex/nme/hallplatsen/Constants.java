@@ -5,7 +5,7 @@ package ex.nme.hallplatsen;
  */
 
 public class Constants {
-    public static String BASE_URL = "https://api.vasttrafik.se/";
+    public static final String BASE_URL = "https://api.vasttrafik.se/";
 
     public static final String KEY = "THxu3Y2FWVolNrB3rZAz7MX3H7Ya" ;
     public static final String SECRET = "ttbX3jNBaS2Ls72Ts3TNqIl6xo4a" ;

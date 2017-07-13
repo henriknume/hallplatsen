@@ -1,23 +1,23 @@
-package ex.nme.hallplatsen;
+package ex.nme.hallplatsen.chooseloc;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import ex.nme.hallplatsen.main.MainActivity;
+import ex.nme.hallplatsen.R;
+import ex.nme.hallplatsen.TripCardModel;
 import ex.nme.hallplatsen.models.reseplaneraren.StopLocation;
 import ex.nme.hallplatsen.models.responses.LocationNameResponse;
 import ex.nme.hallplatsen.services.ReseplanerarenRestApi;

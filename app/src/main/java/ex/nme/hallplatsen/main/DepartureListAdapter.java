@@ -1,4 +1,4 @@
-package ex.nme.hallplatsen;
+package ex.nme.hallplatsen.main;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import ex.nme.hallplatsen.R;
+import ex.nme.hallplatsen.Utils;
 import ex.nme.hallplatsen.models.reseplaneraren.Leg;
 import ex.nme.hallplatsen.models.reseplaneraren.Trip;
 

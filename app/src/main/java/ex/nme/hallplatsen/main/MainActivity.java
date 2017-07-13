@@ -1,4 +1,4 @@
-package ex.nme.hallplatsen;
+package ex.nme.hallplatsen.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,11 +11,13 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import ex.nme.hallplatsen.R;
+import ex.nme.hallplatsen.TripCardModel;
+import ex.nme.hallplatsen.Utils;
+import ex.nme.hallplatsen.chooseloc.ChooseLocationActivity;
 import ex.nme.hallplatsen.models.responses.TripResponse;
 import ex.nme.hallplatsen.services.ReseplanerarenService;
-import okhttp3.internal.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
