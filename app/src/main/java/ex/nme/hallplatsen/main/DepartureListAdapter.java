@@ -1,6 +1,7 @@
 package ex.nme.hallplatsen.main;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +55,8 @@ public class DepartureListAdapter extends ArrayAdapter {
         Trip trip = (Trip) getItem(position);
         Leg firstLeg = trip.getLeg().get(0);
         holder.routeName.setText(firstLeg.getSname());
+        holder.routeName.setTextColor(Color.parseColor(firstLeg.getBgColor()));
+        holder.routeName.setBackgroundColor(Color.parseColor(firstLeg.getFgColor()));
         holder.direction.setText(Utils.cutoff(firstLeg.getDirection(), DIRECTION_LENGTH));
         String time = Utils.timeDiff(firstLeg.getOrigin().getTime());
         holder.timeTo.setText(time);
