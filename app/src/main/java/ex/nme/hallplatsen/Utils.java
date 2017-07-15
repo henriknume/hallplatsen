@@ -37,7 +37,7 @@ public class Utils {
             long diff = d2.getTime() - d1.getTime();
             long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(diff);
 
-            if(diffInMinutes > 60){
+            if(diffInMinutes > 60 || diffInMinutes < -60){
                 res = ">60";
             } else {
                 res = "" + diffInMinutes;
