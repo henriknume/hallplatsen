@@ -1,3 +1,4 @@
+
 package ex.nme.hallplatsen.models.responses;
 
 import com.google.gson.annotations.Expose;
@@ -11,12 +12,33 @@ public class TripResponse {
     @Expose
     private TripList tripList;
 
+    /**
+     * No args constructor for use in serialization
+     * 
+     */
+    public TripResponse() {
+    }
+
+    /**
+     * 
+     * @param tripList
+     */
+    public TripResponse(TripList tripList) {
+        super();
+        this.tripList = tripList;
+    }
+
     public TripList getTripList() {
         return tripList;
     }
 
     public void setTripList(TripList tripList) {
         this.tripList = tripList;
+    }
+
+    public TripResponse withTripList(TripList tripList) {
+        this.tripList = tripList;
+        return this;
     }
 
 }

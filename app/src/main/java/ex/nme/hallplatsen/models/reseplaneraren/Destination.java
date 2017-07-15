@@ -36,9 +36,40 @@ public class Destination {
     @SerializedName("Notes")
     @Expose
     private Notes notes;
-    @SerializedName("$")
-    @Expose
-    private String $;
+
+    /**
+     * No args constructor for use in serialization
+     * 
+     */
+    public Destination() {
+    }
+
+    /**
+     * 
+     * @param routeIdx
+     * @param id
+     * @param rtDate
+     * @param time
+     * @param name
+     * @param track
+     * @param rtTime
+     * @param notes
+     * @param date
+     * @param type
+     */
+    public Destination(String name, String type, String id, String routeIdx, String time, String date, String track, String rtTime, String rtDate, Notes notes) {
+        super();
+        this.name = name;
+        this.type = type;
+        this.id = id;
+        this.routeIdx = routeIdx;
+        this.time = time;
+        this.date = date;
+        this.track = track;
+        this.rtTime = rtTime;
+        this.rtDate = rtDate;
+        this.notes = notes;
+    }
 
     public String getName() {
         return name;
@@ -46,6 +77,11 @@ public class Destination {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Destination withName(String name) {
+        this.name = name;
+        return this;
     }
 
     public String getType() {
@@ -56,12 +92,22 @@ public class Destination {
         this.type = type;
     }
 
+    public Destination withType(String type) {
+        this.type = type;
+        return this;
+    }
+
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Destination withId(String id) {
+        this.id = id;
+        return this;
     }
 
     public String getRouteIdx() {
@@ -72,12 +118,22 @@ public class Destination {
         this.routeIdx = routeIdx;
     }
 
+    public Destination withRouteIdx(String routeIdx) {
+        this.routeIdx = routeIdx;
+        return this;
+    }
+
     public String getTime() {
         return time;
     }
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public Destination withTime(String time) {
+        this.time = time;
+        return this;
     }
 
     public String getDate() {
@@ -88,12 +144,22 @@ public class Destination {
         this.date = date;
     }
 
+    public Destination withDate(String date) {
+        this.date = date;
+        return this;
+    }
+
     public String getTrack() {
         return track;
     }
 
     public void setTrack(String track) {
         this.track = track;
+    }
+
+    public Destination withTrack(String track) {
+        this.track = track;
+        return this;
     }
 
     public String getRtTime() {
@@ -104,12 +170,22 @@ public class Destination {
         this.rtTime = rtTime;
     }
 
+    public Destination withRtTime(String rtTime) {
+        this.rtTime = rtTime;
+        return this;
+    }
+
     public String getRtDate() {
         return rtDate;
     }
 
     public void setRtDate(String rtDate) {
         this.rtDate = rtDate;
+    }
+
+    public Destination withRtDate(String rtDate) {
+        this.rtDate = rtDate;
+        return this;
     }
 
     public Notes getNotes() {
@@ -120,12 +196,9 @@ public class Destination {
         this.notes = notes;
     }
 
-    public String get$() {
-        return $;
-    }
-
-    public void set$(String $) {
-        this.$ = $;
+    public Destination withNotes(Notes notes) {
+        this.notes = notes;
+        return this;
     }
 
 }
