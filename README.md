@@ -10,8 +10,8 @@ A simple android app that lets the user view departures for ones most common tra
 - ~~Add activity where its possible to choose location.~~
 - ~~Let route numbers have the correct color (provided in API call).~~
 - ~~Fix bug: When trip is Kviberg-Lindholmpiren.~~ 
-- Create a logo.
-- Add a spinner while updating a station list.
 - Change layout to a cardlayout or similar where multiple stations can be viewed simultaneously.
+- Add a spinner while updating a station list.
 - MVP architecture.
 - Write some tests.
+- Create a logo.
