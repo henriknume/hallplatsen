@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import ex.nme.hallplatsen.R;
 import ex.nme.hallplatsen.models.TripCard;
 
 /**
@@ -23,7 +24,7 @@ import ex.nme.hallplatsen.models.TripCard;
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<TripCard> albumList;
+    private List<TripCard> tripCardList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, count;
@@ -31,59 +32,44 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
 
         public MyViewHolder(View view) {
             super(view);
+
             title = (TextView) view.findViewById(R.id.title);
             count = (TextView) view.findViewById(R.id.count);
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
-            overflow = (ImageView) view.findViewById(R.id.overflow);
+
         }
     }
 
 
-    public AlbumsAdapter(Context mContext, List<TripCard> albumList) {
+    public CardAdapter(Context mContext, List<TripCard> tripCardList) {
         this.mContext = mContext;
-        this.albumList = albumList;
+        this.tripCardList = tripCardList;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.album_card, parent, false);
+                .inflate(R.layout.trip_card, parent, false);
 
         return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        TripCard album = albumList.get(position);
-        holder.title.setText(album.getName());
-        holder.count.setText(album.getNumOfSongs() + " songs");
+        TripCard tripCard = tripCardList.get(position);
+        holder.title.setText("TEXT-A");
+        holder.count.setText("TEXT-B");
 
         // loading album cover using Glide library
         //Glide.with(mContext).load(album.getThumbnail()).into(holder.thumbnail);
 
-        holder.overflow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showPopupMenu(holder.overflow);
-            }
-        });
     }
 
-    /**
-     * Showing popup menu when tapping on 3 dots
-     */
-    private void showPopupMenu(View view) {
-        // inflate menu
-        PopupMenu popup = new PopupMenu(mContext, view);
-        MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.menu_album, popup.getMenu());
-        popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
-        popup.show();
-    }
 
     /**
      * Click listener for popup menu items
      */
+    /*
     class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
 
         public MyMenuItemClickListener() {
@@ -103,9 +89,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
             return false;
         }
     }
+    */
 
     @Override
     public int getItemCount() {
-        return albumList.size();
+        return tripCardList.size();
     }
 }

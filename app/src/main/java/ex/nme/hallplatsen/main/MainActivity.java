@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         CardModel model = CardModel.getInstance();
 
         // Set up layout
+        /*
         timeLastUpdated = (TextView) findViewById(R.id.time_last_updated);
         fromText = (TextView) findViewById(R.id.from_value);
         toText = (TextView) findViewById(R.id.to_value);
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new DepartureListAdapter(getApplicationContext(), model.getTripList());
         listView.setAdapter(adapter);
         initButtons();
+        */
     }
 
     @Override
