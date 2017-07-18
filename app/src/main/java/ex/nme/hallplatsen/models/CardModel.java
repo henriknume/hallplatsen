@@ -1,4 +1,4 @@
-package ex.nme.hallplatsen;
+package ex.nme.hallplatsen.models;
 
 import android.util.Log;
 
@@ -12,27 +12,27 @@ import ex.nme.hallplatsen.models.reseplaneraren.Trip;
  * Created by nm2 on 2017-07-12
  */
 
-public class TripCardModel {
+public class CardModel {
 
-    private static final String TAG = "TripCardModel";
+    private static final String TAG = "CardModel";
 
-    private static TripCardModel instance;
+    private static CardModel instance;
     private String timeLastUpdated;
     private StopLocation from;
     private StopLocation to;
     private List<Trip> tripList;
 
-    public TripCardModel() {
+    public CardModel() {
         timeLastUpdated = "";
         from = null;
         to = null;
         tripList = new ArrayList<>();
     }
 
-    public static TripCardModel getInstance(){
+    public static CardModel getInstance(){
         if(instance == null){
             Log.d(TAG, "--> new instance of model.");
-            instance = new TripCardModel();
+            instance = new CardModel();
         }
         return instance;
     }

@@ -12,8 +12,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import ex.nme.hallplatsen.models.CardModel;
 import ex.nme.hallplatsen.R;
-import ex.nme.hallplatsen.TripCardModel;
 import ex.nme.hallplatsen.Utils;
 import ex.nme.hallplatsen.chooseloc.ChooseLocationActivity;
 import ex.nme.hallplatsen.models.responses.TripResponse;
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView toText;
 
     private DepartureListAdapter adapter;
-    private TripCardModel model;
+    private CardModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // set up model
-        TripCardModel model = TripCardModel.getInstance();
+        CardModel model = CardModel.getInstance();
 
         // Set up layout
         timeLastUpdated = (TextView) findViewById(R.id.time_last_updated);
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     public void onResume(){
         super.onResume();
         if(model == null) {
-            model = TripCardModel.getInstance();
+            model = CardModel.getInstance();
         }
 
         updateTextViews();

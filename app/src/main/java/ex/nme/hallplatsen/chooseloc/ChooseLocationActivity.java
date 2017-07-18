@@ -15,9 +15,9 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import ex.nme.hallplatsen.models.CardModel;
 import ex.nme.hallplatsen.main.MainActivity;
 import ex.nme.hallplatsen.R;
-import ex.nme.hallplatsen.TripCardModel;
 import ex.nme.hallplatsen.models.reseplaneraren.StopLocation;
 import ex.nme.hallplatsen.models.responses.LocationNameResponse;
 import ex.nme.hallplatsen.services.ReseplanerarenRestApi;
@@ -35,7 +35,7 @@ public class ChooseLocationActivity extends AppCompatActivity {
     public static final String EXTRA_VALUE_TO = "extra.value.to";
 
     private LocationListAdapter adapter;
-    private TripCardModel model;
+    private CardModel model;
     private String calledBy;
 
     @Override
@@ -45,7 +45,7 @@ public class ChooseLocationActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        model = TripCardModel.getInstance();
+        model = CardModel.getInstance();
 
         EditText searchInput = (EditText) findViewById(R.id.location_name_edittext);
         ListView listView = (ListView) findViewById(R.id.location_results_list);
@@ -86,7 +86,7 @@ public class ChooseLocationActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         if(model == null) {
-            model = TripCardModel.getInstance();
+            model = CardModel.getInstance();
         }
         calledBy = getIntent().getExtras().getString(EXTRA_LABEL_SOURCE);
         if(calledBy.equals(EXTRA_VALUE_FROM)){
