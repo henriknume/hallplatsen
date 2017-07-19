@@ -19,5 +19,5 @@
 
     <!-- new -->
     <dimen name="create_label_font_size">18sp</dimen>
-    <dimen name="create_input__font_size">18sp</dimen>
+    <dimen name="create_input_font_size">18sp</dimen>
 </resources>

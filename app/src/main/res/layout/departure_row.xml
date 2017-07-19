@@ -17,7 +17,6 @@
         android:layout_marginTop="0dp"
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
-        android:text="Salthamnen"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,7 +32,6 @@
         android:layout_height="0dp"
         android:layout_marginLeft="0dp"
         android:gravity="center"
-        android:text="GUL"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -52,9 +50,9 @@
         android:layout_marginRight="0dp"
         android:layout_marginTop="0dp"
         android:gravity="center"
-        android:text="33"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
