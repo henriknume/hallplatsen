@@ -15,10 +15,9 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import ex.nme.hallplatsen.models.CardStorage;
-import ex.nme.hallplatsen.models.TripCard;
-import ex.nme.hallplatsen.main.MainActivity;
 import ex.nme.hallplatsen.R;
+import ex.nme.hallplatsen.main.MainActivity;
+import ex.nme.hallplatsen.models.CardStorage;
 import ex.nme.hallplatsen.models.reseplaneraren.StopLocation;
 import ex.nme.hallplatsen.models.responses.LocationNameResponse;
 import ex.nme.hallplatsen.services.ReseplanerarenRestApi;
@@ -91,9 +90,10 @@ public class ChooseLocationActivity extends AppCompatActivity {
         }
         calledBy = getIntent().getExtras().getString(EXTRA_LABEL_SOURCE);
         if(calledBy.equals(EXTRA_VALUE_FROM)){
-            setTitle(getString(R.string.title_activity_choose_location_from));
+            //setTitle(getString(R.string.title_activity_choose_location_from));
+            //setTitle(getString(R.string.title_activity_choose_location_from));
         } else if (calledBy.equals(EXTRA_VALUE_TO)) {
-            setTitle(getString(R.string.title_activity_choose_location_to));
+            //setTitle(getString(R.string.title_activity_choose_location_to));
         }
     }
 
