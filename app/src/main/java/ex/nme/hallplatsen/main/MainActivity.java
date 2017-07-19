@@ -8,16 +8,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 
-import java.util.List;
-
-import ex.nme.hallplatsen.models.CardStorage;
-import ex.nme.hallplatsen.models.TripCard;
-import ex.nme.hallplatsen.R;
 import ex.nme.hallplatsen.Utils;
-import ex.nme.hallplatsen.chooseloc.ChooseLocationActivity;
-import ex.nme.hallplatsen.models.reseplaneraren.Trip;
+import ex.nme.hallplatsen.R;
+import ex.nme.hallplatsen.createcard.CreateActivity;
+import ex.nme.hallplatsen.models.CardStorage;
 import ex.nme.hallplatsen.models.responses.TripResponse;
 import ex.nme.hallplatsen.services.ReseplanerarenService;
 import retrofit2.Call;
@@ -136,19 +131,31 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                // User chose the "Settings" item, show the app settings UI...
+                return true;
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            case R.id.action_add_card:
+                goToCreateActivity();
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private void updateTextViews() {
         //timeLastUpdated.setText(model.getTimeLastUpdated());
         //fromText.setText(model.getFromName());
         //toText.setText(model.getToName());
+    }
+
+    private void goToCreateActivity() {
+        Intent intent = new Intent(this, CreateActivity.class);
+        startActivity(intent);
     }
 }
