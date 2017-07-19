@@ -15,7 +15,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import ex.nme.hallplatsen.models.CardModel;
+import ex.nme.hallplatsen.models.CardStorage;
+import ex.nme.hallplatsen.models.TripCard;
 import ex.nme.hallplatsen.main.MainActivity;
 import ex.nme.hallplatsen.R;
 import ex.nme.hallplatsen.models.reseplaneraren.StopLocation;
@@ -35,7 +36,7 @@ public class ChooseLocationActivity extends AppCompatActivity {
     public static final String EXTRA_VALUE_TO = "extra.value.to";
 
     private LocationListAdapter adapter;
-    private CardModel model;
+    private CardStorage model;
     private String calledBy;
 
     @Override
@@ -45,7 +46,7 @@ public class ChooseLocationActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        model = CardModel.getInstance();
+        model = CardStorage.getInstance();
 
         EditText searchInput = (EditText) findViewById(R.id.location_name_edittext);
         ListView listView = (ListView) findViewById(R.id.location_results_list);
@@ -71,9 +72,9 @@ public class ChooseLocationActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final StopLocation selected = (StopLocation) parent.getItemAtPosition(position);
                 if(calledBy.equals(EXTRA_VALUE_FROM)){
-                    model.setFromLocation(selected);
+                    model.getCard(0).setFromLocation(selected);
                 } else if (calledBy.equals(EXTRA_VALUE_TO)) {
-                    model.setToLocation(selected);
+                    model.getCard(0).setToLocation(selected);
                 } else {
                     Log.e(TAG, "ERROR - onItemClick run with faulty calledBy value");
                 }
@@ -86,13 +87,13 @@ public class ChooseLocationActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         if(model == null) {
-            model = CardModel.getInstance();
+            model = CardStorage.getInstance();
         }
         calledBy = getIntent().getExtras().getString(EXTRA_LABEL_SOURCE);
         if(calledBy.equals(EXTRA_VALUE_FROM)){
-            setTitle("Select From location");
+            setTitle(getString(R.string.title_activity_coose_location_from));
         } else if (calledBy.equals(EXTRA_VALUE_TO)) {
-            setTitle("Select To location");
+            setTitle(getString(R.string.title_activity_coose_location_to));
         }
     }
 

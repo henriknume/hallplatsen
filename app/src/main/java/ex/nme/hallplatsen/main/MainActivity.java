@@ -3,19 +3,21 @@ package ex.nme.hallplatsen.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import ex.nme.hallplatsen.models.CardModel;
+import java.util.List;
+
+import ex.nme.hallplatsen.models.CardStorage;
+import ex.nme.hallplatsen.models.TripCard;
 import ex.nme.hallplatsen.R;
 import ex.nme.hallplatsen.Utils;
 import ex.nme.hallplatsen.chooseloc.ChooseLocationActivity;
+import ex.nme.hallplatsen.models.reseplaneraren.Trip;
 import ex.nme.hallplatsen.models.responses.TripResponse;
 import ex.nme.hallplatsen.services.ReseplanerarenService;
 import retrofit2.Call;
@@ -27,12 +29,12 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    private TextView timeLastUpdated;
-    private TextView fromText;
-    private TextView toText;
+    //private TextView timeLastUpdated;
+    //private TextView fromText;
+    //private TextView toText;
 
-    private DepartureListAdapter adapter;
-    private CardModel model;
+    private CardAdapter adapter;
+    private CardStorage model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,35 +44,33 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // set up model
-        CardModel model = CardModel.getInstance();
+        CardStorage model = CardStorage.getInstance();
 
         // Set up layout
-        /*
-        timeLastUpdated = (TextView) findViewById(R.id.time_last_updated);
-        fromText = (TextView) findViewById(R.id.from_value);
-        toText = (TextView) findViewById(R.id.to_value);
-        ListView listView = (ListView)findViewById(R.id.departure_list);
-        adapter = new DepartureListAdapter(getApplicationContext(), model.getTripList());
-        listView.setAdapter(adapter);
+
+        //timeLastUpdated = (TextView) findViewById(R.id.time_last_updated);
+        //fromText = (TextView) findViewById(R.id.from_value);
+        //toText = (TextView) findViewById(R.id.to_value);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        adapter = new CardAdapter(getApplicationContext(), model.getCards());
+        recyclerView.setAdapter(adapter);
         initButtons();
-        */
+
     }
 
     @Override
     public void onResume(){
         super.onResume();
         if(model == null) {
-            model = CardModel.getInstance();
+            model = CardStorage.getInstance();
         }
 
         updateTextViews();
 
-        if (model.isLocationsSelected()) {
-            requestTrip(model.getFromId(), model.getToId());
-        }
     }
 
     private void initButtons(){
+        /*
         Button updateBtn = (Button) findViewById(R.id.update_button);
         Button switchBtn = (Button) findViewById(R.id.switch_button);
 
@@ -95,25 +95,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        fromText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToChooseLocActivity(ChooseLocationActivity.EXTRA_VALUE_FROM);
-            }
-        });
 
-        toText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToChooseLocActivity(ChooseLocationActivity.EXTRA_VALUE_TO);
-            }
-        });
+        */
     }
 
     private void requestTrip(String originId, String destId){
         String currentTime = Utils.time();
-        model.setTimeLastUpdated(currentTime);
-        timeLastUpdated.setText(currentTime);
 
         Call<TripResponse> call = ReseplanerarenService.getService().getTrip(originId, destId,
                 Utils.date(), currentTime, "json");
@@ -122,9 +109,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<TripResponse> call, Response<TripResponse> response) {
                 if (response.isSuccessful()) {
                     Log.d(TAG, "onResponse() successful");
-                    model.setTripList(response.body().getTripList().getTrip());
-                    adapter.clear();
-                    adapter.addAll(model.getTripList());
+                    model.setTripList(0, response.body().getTripList().getTrip());
                     adapter.notifyDataSetChanged();
                 } else {
                     Log.d(TAG, "requestTrip() - not successful");
@@ -161,16 +146,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void goToChooseLocActivity(String calledBy) {
-        // if called by "from" argument should be ChooseLocationActivity.EXTRA_VALUE_FROM
-        Intent intent = new Intent(this, ChooseLocationActivity.class);
-        intent.putExtra(ChooseLocationActivity.EXTRA_LABEL_SOURCE, calledBy);
-        startActivity(intent);
-    }
-
     private void updateTextViews() {
-        timeLastUpdated.setText(model.getTimeLastUpdated());
-        fromText.setText(model.getFromName());
-        toText.setText(model.getToName());
+        //timeLastUpdated.setText(model.getTimeLastUpdated());
+        //fromText.setText(model.getFromName());
+        //toText.setText(model.getToName());
     }
 }

@@ -16,4 +16,8 @@
     <dimen name="ic_album_overflow_width">20dp</dimen>
     <dimen name="ic_album_overflow_height">30dp</dimen>
     <dimen name="ic_album_overflow_margin_top">10dp</dimen>
+
+    <!-- new -->
+    <dimen name="create_label_font_size">18sp</dimen>
+    <dimen name="create_input__font_size">18sp</dimen>
 </resources>

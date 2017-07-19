@@ -24,7 +24,8 @@
         <activity
             android:name=".chooseloc.ChooseLocationActivity"
             android:label="@string/title_activity_coose_location"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".createcard.CreateActivity"></activity>
     </application>
 
 </manifest>

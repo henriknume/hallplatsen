@@ -1,16 +1,12 @@
 package ex.nme.hallplatsen.main;
 
 import android.content.Context;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -24,7 +20,7 @@ import ex.nme.hallplatsen.models.TripCard;
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<TripCard> tripCardList;
+    private List<TripCard> cards;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, count;
@@ -41,9 +37,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
     }
 
 
-    public CardAdapter(Context mContext, List<TripCard> tripCardList) {
+    public CardAdapter(Context mContext, List<TripCard> cards) {
         this.mContext = mContext;
-        this.tripCardList = tripCardList;
+        this.cards = cards;
     }
 
     @Override
@@ -56,7 +52,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        TripCard tripCard = tripCardList.get(position);
+        TripCard tripCard = cards.get(position);
         holder.title.setText("TEXT-A");
         holder.count.setText("TEXT-B");
 
@@ -93,6 +89,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
 
     @Override
     public int getItemCount() {
-        return tripCardList.size();
+        return cards.size();
     }
 }
