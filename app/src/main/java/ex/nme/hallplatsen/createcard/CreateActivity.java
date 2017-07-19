@@ -3,6 +3,7 @@ package ex.nme.hallplatsen.createcard;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 
@@ -24,6 +25,9 @@ public class CreateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(getString(R.string.title_activity_create));
+        setSupportActionBar(toolbar);
 
         fromInput = (EditText) findViewById(R.id.location_input_from);
         toInput = (EditText) findViewById(R.id.location_input_to);
