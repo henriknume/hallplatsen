@@ -38,7 +38,9 @@ public class CreateActivity extends AppCompatActivity {
         }
         updateTextViews();
 
-        if(model.getCreation().isLocationsSelected()) {
+        TripCard creationCard = model.getCreation();
+
+        if(creationCard != null && creationCard.isLocationsSelected()) {
             // Add new card and clear creation
             TripCard newCard = model.getCreation();
             model.addCard(newCard);
@@ -79,7 +81,10 @@ public class CreateActivity extends AppCompatActivity {
     }
 
     private void updateTextViews() {
-        fromInput.setText(model.getCreation().getToName());
-        toInput.setText(model.getCreation().getFromName());
+        TripCard creationCard = model.getCreation();
+        if (creationCard != null) {
+            fromInput.setText(creationCard.getFromName());
+            toInput.setText(creationCard.getToName());
+        }
     }
 }

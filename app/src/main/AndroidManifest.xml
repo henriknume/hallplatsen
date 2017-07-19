@@ -23,7 +23,7 @@
         </activity>
         <activity
             android:name=".chooseloc.ChooseLocationActivity"
-            android:label="@string/title_activity_coose_location"
+            android:label="@string/title_activity_choose_location_from"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".createcard.CreateActivity"></activity>
     </application>
