@@ -71,4 +71,12 @@ public class CardStorage {
     public void clearCreation() {
         creation = null;
     }
+
+    public void logCreation(){
+        Log.d("+","--------------------------------------------------");
+        Log.d("| ","from :" + creation.getFromName());
+        Log.d("| ","to   :" + creation.getToName());
+        Log.d("| ","isSel:" + creation.isLocationsSelected());
+        Log.d("+","--------------------------------------------------");
+    }
 }

@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import ex.nme.hallplatsen.R;
 import ex.nme.hallplatsen.chooseloc.ChooseLocationActivity;
@@ -17,8 +19,8 @@ public class CreateActivity extends AppCompatActivity {
 
     private static final String TAG = "CreateActivity";
 
-    private EditText fromInput;
-    private EditText toInput;
+    private TextView fromInput;
+    private TextView toInput;
     private CardStorage model;
 
     @Override
@@ -28,22 +30,26 @@ public class CreateActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.title_activity_create));
         setSupportActionBar(toolbar);
-
-        fromInput = (EditText) findViewById(R.id.location_input_from);
-        toInput = (EditText) findViewById(R.id.location_input_to);
+        fromInput = (TextView) findViewById(R.id.location_input_from);
+        toInput = (TextView) findViewById(R.id.location_input_to);
         model = CardStorage.getInstance();
+        initButtons();
     }
 
     @Override
     public void onResume(){
         super.onResume();
+        Log.d(TAG, "onResume()");
         if(model == null) {
             model = CardStorage.getInstance();
         }
+        if(model.getCreation() == null){
+            model.setCreation(new TripCard());
+        }
+
         updateTextViews();
 
         TripCard creationCard = model.getCreation();
-
         if(creationCard != null && creationCard.isLocationsSelected()) {
             // Add new card and clear creation
             TripCard newCard = model.getCreation();

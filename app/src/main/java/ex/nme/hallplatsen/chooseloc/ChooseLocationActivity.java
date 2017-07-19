@@ -16,8 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ex.nme.hallplatsen.R;
+import ex.nme.hallplatsen.createcard.CreateActivity;
 import ex.nme.hallplatsen.main.MainActivity;
 import ex.nme.hallplatsen.models.CardStorage;
+import ex.nme.hallplatsen.models.TripCard;
 import ex.nme.hallplatsen.models.reseplaneraren.StopLocation;
 import ex.nme.hallplatsen.models.responses.LocationNameResponse;
 import ex.nme.hallplatsen.services.ReseplanerarenRestApi;
@@ -69,15 +71,16 @@ public class ChooseLocationActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final StopLocation selected = (StopLocation) parent.getItemAtPosition(position);
+                StopLocation selected = (StopLocation) parent.getItemAtPosition(position);
+                TripCard card = model.getCreation();
                 if(calledBy.equals(EXTRA_VALUE_FROM)){
-                    model.getCard(0).setFromLocation(selected);
+                    card.setFromLocation(selected);
                 } else if (calledBy.equals(EXTRA_VALUE_TO)) {
-                    model.getCard(0).setToLocation(selected);
+                    card.setToLocation(selected);
                 } else {
                     Log.e(TAG, "ERROR - onItemClick run with faulty calledBy value");
                 }
-                goToMainActivity();
+                goToCreateActivity();
             }
         });
     }
@@ -90,10 +93,9 @@ public class ChooseLocationActivity extends AppCompatActivity {
         }
         calledBy = getIntent().getExtras().getString(EXTRA_LABEL_SOURCE);
         if(calledBy.equals(EXTRA_VALUE_FROM)){
-            //setTitle(getString(R.string.title_activity_choose_location_from));
-            //setTitle(getString(R.string.title_activity_choose_location_from));
+            setTitle(getString(R.string.title_activity_choose_location_from));
         } else if (calledBy.equals(EXTRA_VALUE_TO)) {
-            //setTitle(getString(R.string.title_activity_choose_location_to));
+            setTitle(getString(R.string.title_activity_choose_location_to));
         }
     }
 
@@ -126,8 +128,9 @@ public class ChooseLocationActivity extends AppCompatActivity {
         });
     }
 
-    private void goToMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
+    private void goToCreateActivity() {
+        Intent intent = new Intent(this, CreateActivity.class);
         startActivity(intent);
+        finish();
     }
 }
