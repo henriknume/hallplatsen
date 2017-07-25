@@ -48,7 +48,8 @@ public class TripCard {
     }
 
     public void setTripList(List<Trip> list) {
-        this.tripList = list;
+        tripList.clear();
+        tripList.addAll(list);
     }
 
     public String getTimeLastUpdated() {
