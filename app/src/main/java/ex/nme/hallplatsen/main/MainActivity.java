@@ -19,6 +19,8 @@ import ex.nme.hallplatsen.Utils;
 import ex.nme.hallplatsen.R;
 import ex.nme.hallplatsen.createcard.CreateActivity;
 import ex.nme.hallplatsen.models.CardStorage;
+import ex.nme.hallplatsen.models.Station;
+import ex.nme.hallplatsen.models.TripCard;
 import ex.nme.hallplatsen.models.responses.TripResponse;
 import ex.nme.hallplatsen.services.ReseplanerarenService;
 import retrofit2.Call;
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
+        //Debug
+        setUpPlaceholderData();
     }
 
     @Override
@@ -172,5 +176,30 @@ public class MainActivity extends AppCompatActivity {
     private int dpToPx(int dp) {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+    }
+
+    private void setUpPlaceholderData(){
+        /*
+
+        "9021014005862000","SKF"
+        "9021014004490000","Lindholmen"
+        "9021014004140000","Kviberg"
+        "9021014001950000","Centralstationen"
+        "9021014001760000","Brunnsparken"
+        "9021014001960000","Chalmers"
+
+        */
+        TripCard card = new TripCard(new Station("9021014005862000","SKF"), new Station("9021014004490000","Lindholmen"));
+        model.addCard(card);
+        card = new TripCard(new Station("9021014004490000","Lindholmen"), new Station("9021014004140000","Kviberg"));
+        model.addCard(card);
+        card = new TripCard(new Station("9021014004140000","Kviberg"), new Station("9021014001950000","Centralstationen"));
+        model.addCard(card);
+        card = new TripCard(new Station("9021014001760000","Brunnsparken"), new Station("9021014001960000","Chalmers"));
+        model.addCard(card);
+        card = new TripCard(new Station("9021014001960000","Chalmers"), new Station("9021014004490000","Lindholmen"));
+        model.addCard(card);
+        card = new TripCard(new Station("9021014005862000","SKF"), new Station("9021014001960000","Chalmers"));
+        model.addCard(card);
     }
 }

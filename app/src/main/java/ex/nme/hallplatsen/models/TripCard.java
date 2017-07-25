@@ -17,26 +17,33 @@ public class TripCard {
     private static final String TAG = "TripCard";
 
     private String timeLastUpdated;
-    private StopLocation from;
-    private StopLocation to;
+    private Station from;
+    private Station to;
     private List<Trip> tripList;
 
     public TripCard() {
-        timeLastUpdated = "";
-        from = null;
-        to = null;
-        tripList = new ArrayList<>();
+        this.timeLastUpdated = "";
+        this.from = null;
+        this.to = null;
+        this.tripList = new ArrayList<>();
+    }
+
+    public TripCard(Station from, Station to) {
+        this.timeLastUpdated = "";
+        this.from = from;
+        this.to = to;
+        this.tripList = new ArrayList<>();
     }
 
     public void setTimeLastUpdated(String time) {
         this.timeLastUpdated = time;
     }
 
-    public void setFromLocation(StopLocation from) {
+    public void setFromLocation(Station from) {
         this.from = from;
     }
 
-    public void setToLocation(StopLocation to) {
+    public void setToLocation(Station to) {
         this.to = to;
     }
 
@@ -81,8 +88,7 @@ public class TripCard {
     }
 
     public void switchToAndFromLocations() {
-        // Switch
-        StopLocation temp = from;
+        Station temp = from;
         from = to;
         to = temp;
     }

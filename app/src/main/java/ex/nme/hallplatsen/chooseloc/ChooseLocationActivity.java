@@ -19,6 +19,7 @@ import ex.nme.hallplatsen.R;
 import ex.nme.hallplatsen.createcard.CreateActivity;
 import ex.nme.hallplatsen.main.MainActivity;
 import ex.nme.hallplatsen.models.CardStorage;
+import ex.nme.hallplatsen.models.Station;
 import ex.nme.hallplatsen.models.TripCard;
 import ex.nme.hallplatsen.models.reseplaneraren.StopLocation;
 import ex.nme.hallplatsen.models.responses.LocationNameResponse;
@@ -72,11 +73,12 @@ public class ChooseLocationActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 StopLocation selected = (StopLocation) parent.getItemAtPosition(position);
+                Station station = new Station(selected.getName(), selected.getId());
                 TripCard card = model.getCreation();
                 if(calledBy.equals(EXTRA_VALUE_FROM)){
-                    card.setFromLocation(selected);
+                    card.setFromLocation(station);
                 } else if (calledBy.equals(EXTRA_VALUE_TO)) {
-                    card.setToLocation(selected);
+                    card.setToLocation(station);
                 } else {
                     Log.e(TAG, "ERROR - onItemClick run with faulty calledBy value");
                 }
