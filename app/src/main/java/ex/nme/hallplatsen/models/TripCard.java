@@ -50,7 +50,7 @@ public class TripCard {
 
     public String getFromName() {
         if (from != null) {
-            return from.getName();
+            return trimTextAfterAndInclComma(from.getName());
         }
         return "<Unselected>"; //TODO: fix this
     }
@@ -64,7 +64,7 @@ public class TripCard {
 
     public String getToName() {
         if (to != null) {
-            return to.getName();
+            return trimTextAfterAndInclComma(to.getName());
         }
         return "<Unselected>"; //TODO: fix this
     }
@@ -90,6 +90,15 @@ public class TripCard {
     public boolean isLocationsSelected() {
         // TODO: Also check the ID strings inside each location;
         return (to != null && from != null);
+    }
+
+    private String trimTextAfterAndInclComma(String text) {
+        if (text.contains(",")){
+            String[] parts = text.split(",");
+            return parts[0];
+        } else {
+            return text;
+        }
     }
 
 }

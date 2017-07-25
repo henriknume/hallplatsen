@@ -22,14 +22,14 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
     private List<TripCard> cards;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title;
-        public TextView count;
+        public TextView fromName;
+        public TextView toName;
 
         public MyViewHolder(View view) {
             super(view);
 
-            title = (TextView) view.findViewById(R.id.title);
-            count = (TextView) view.findViewById(R.id.count);
+            fromName = (TextView) view.findViewById(R.id.card_from_value);
+            toName = (TextView) view.findViewById(R.id.card_to_value);
         }
     }
 
@@ -50,8 +50,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         TripCard card = cards.get(position);
-        holder.title.setText(card.getFromName());
-        holder.count.setText(card.getFromId());
+        holder.fromName.setText(card.getFromName());
+        holder.toName.setText(card.getToName());
 
     }
 
@@ -60,7 +60,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
         return cards.size();
     }
 
-    public void updateList(List<TripCard> newCards){
+    public void updateList(){
         notifyDataSetChanged();
     }
 }

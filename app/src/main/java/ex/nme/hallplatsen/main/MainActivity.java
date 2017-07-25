@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new CardAdapter(this, model.getCards());
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(8), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateViews() {
         //TODO: See if this will be needed.
-        adapter.updateList(model.getCards());
+        adapter.updateList();
     }
 
     private void goToCreateActivity() {
