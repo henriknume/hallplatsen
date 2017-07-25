@@ -87,7 +87,6 @@ public class CreateActivity extends AppCompatActivity {
     private void goToMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-        finish();
     }
 
     private void updateTextViews() {

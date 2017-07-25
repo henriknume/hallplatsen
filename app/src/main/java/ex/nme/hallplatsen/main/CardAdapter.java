@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -23,16 +22,14 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
     private List<TripCard> cards;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, count;
-        public ImageView thumbnail, overflow;
+        public TextView title;
+        public TextView count;
 
         public MyViewHolder(View view) {
             super(view);
 
             title = (TextView) view.findViewById(R.id.title);
             count = (TextView) view.findViewById(R.id.count);
-            thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
-
         }
     }
 
@@ -52,43 +49,18 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        TripCard tripCard = cards.get(position);
-        holder.title.setText("TEXT-A");
-        holder.count.setText("TEXT-B");
-
-        // loading album cover using Glide library
-        //Glide.with(mContext).load(album.getThumbnail()).into(holder.thumbnail);
+        TripCard card = cards.get(position);
+        holder.title.setText(card.getFromName());
+        holder.count.setText(card.getFromId());
 
     }
-
-
-    /**
-     * Click listener for popup menu items
-     */
-    /*
-    class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
-
-        public MyMenuItemClickListener() {
-        }
-
-        @Override
-        public boolean onMenuItemClick(MenuItem menuItem) {
-            switch (menuItem.getItemId()) {
-                case R.id.action_add_favourite:
-                    Toast.makeText(mContext, "Add to favourite", Toast.LENGTH_SHORT).show();
-                    return true;
-                case R.id.action_play_next:
-                    Toast.makeText(mContext, "Play next", Toast.LENGTH_SHORT).show();
-                    return true;
-                default:
-            }
-            return false;
-        }
-    }
-    */
 
     @Override
     public int getItemCount() {
         return cards.size();
+    }
+
+    public void updateList(List<TripCard> newCards){
+        notifyDataSetChanged();
     }
 }
