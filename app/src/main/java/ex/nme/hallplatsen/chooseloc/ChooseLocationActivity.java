@@ -73,7 +73,7 @@ public class ChooseLocationActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 StopLocation selected = (StopLocation) parent.getItemAtPosition(position);
-                Station station = new Station(selected.getName(), selected.getId());
+                Station station = new Station(selected.getId(), selected.getName());
                 TripCard card = model.getCreation();
                 if(calledBy.equals(EXTRA_VALUE_FROM)){
                     card.setFromLocation(station);
