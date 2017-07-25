@@ -12,9 +12,10 @@ A simple android app that lets the user view departures for ones most common tra
 - ~~Fix bug: When trip is Kviberg-Lindholmpiren.~~
 - ~~Move add actions to toolbar.~~
 - ~~Activity for creating new TripCard.~~
-- Redesign and change layout to a cardlayout or similar where multiple stations can be viewed simultaneously.
-- Delete card function.
+- ~~Redesign and change layout to a cardlayout or similar where multiple stations can be viewed simultaneously.~~
+- Fix model bug.
 - Create a persistant model for the CardModel (SharedPreferences?).
+- Delete card function.
 - Use real device_id.
 - Functionality to rearrange cards by touch-move-drop.
 - Add a spinner while updating a station list.
