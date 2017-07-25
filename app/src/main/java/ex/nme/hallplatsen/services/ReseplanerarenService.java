@@ -9,6 +9,7 @@ import java.util.List;
 
 import ex.nme.hallplatsen.Constants;
 import ex.nme.hallplatsen.models.reseplaneraren.Leg;
+import ex.nme.hallplatsen.models.reseplaneraren.Note;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -28,8 +29,10 @@ public class ReseplanerarenService {
 
         // Custom gson for handling conversion of json-object to java-array.
         Type legListType = new TypeToken<List<Leg>>() {}.getType();
+        Type noteListType = new TypeToken<List<Note>>() {}.getType();
         Gson customGson = new GsonBuilder()
                 .registerTypeAdapter(legListType, new LegTypeAdapter())
+                .registerTypeAdapter(noteListType, new NoteTypeAdapter())
                 .create();
 
         OkHttpClient httpClient = new OkHttpClient.Builder()

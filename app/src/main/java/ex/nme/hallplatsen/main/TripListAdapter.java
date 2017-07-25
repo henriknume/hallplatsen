@@ -20,7 +20,7 @@ import ex.nme.hallplatsen.models.reseplaneraren.Trip;
  * Created by nm2 on 2017-06-01
  */
 
-public class DepartureListAdapter extends ArrayAdapter {
+public class TripListAdapter extends ArrayAdapter {
 
     private static final int DIRECTION_LENGTH = 25;
 
@@ -32,7 +32,7 @@ public class DepartureListAdapter extends ArrayAdapter {
         public TextView timeTo;
     }
 
-    public DepartureListAdapter(@NonNull Context context, @NonNull List<Trip> trips) {
+    public TripListAdapter(@NonNull Context context, @NonNull List<Trip> trips) {
         super(context, R.layout.departure_row, trips);
         this.context = context;
     }

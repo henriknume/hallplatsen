@@ -15,7 +15,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="170dp">
 
 
             <TextView
@@ -23,60 +23,61 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/from_label"
                 android:textSize="15sp"
                 card_view:layout_constraintLeft_toLeftOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent"
-                android:layout_marginStart="8dp" />
+                card_view:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/card_from_value"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="Kviberg"
                 android:textSize="15sp"
-                android:layout_marginTop="8dp"
-                card_view:layout_constraintTop_toBottomOf="@+id/card_to_value"
                 card_view:layout_constraintLeft_toLeftOf="@+id/card_to_value"
-                card_view:layout_constraintRight_toRightOf="@+id/card_to_value" />
+                card_view:layout_constraintRight_toRightOf="@+id/card_to_value"
+                card_view:layout_constraintTop_toBottomOf="@+id/card_to_value" />
 
             <TextView
                 android:id="@+id/card_to_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/to_label"
                 android:textSize="15sp"
                 card_view:layout_constraintLeft_toLeftOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/card_from_label"
-                android:layout_marginStart="8dp" />
+                card_view:layout_constraintTop_toBottomOf="@+id/card_from_label" />
 
             <TextView
                 android:id="@+id/card_to_value"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="Lindholmen"
                 android:textSize="15sp"
-                card_view:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="8dp"
                 card_view:layout_constraintLeft_toRightOf="@+id/card_from_label"
-                android:layout_marginLeft="8dp"
                 card_view:layout_constraintRight_toLeftOf="@+id/card_imagebutton"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp" />
+                card_view:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/card_imagebutton"
                 android:layout_width="42dp"
                 android:layout_height="42dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
                 android:background="?android:selectableItemBackground"
@@ -84,22 +85,21 @@
                 card_view:layout_constraintRight_toRightOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
                 card_view:layout_constraintVertical_bias="0.0"
-                card_view:srcCompat="@drawable/ic_swap_vert_black_42dp"
-                android:layout_marginEnd="8dp" />
+                card_view:srcCompat="@drawable/ic_swap_vert_black_42dp" />
 
-            <ListView
-                android:id="@+id/trip_listview"
+            <LinearLayout
+                android:id="@+id/trips_linearlayout"
                 android:layout_width="0dp"
-                android:layout_height="39dp"
-                android:layout_marginTop="8dp"
-                card_view:layout_constraintTop_toBottomOf="@+id/card_from_value"
-                android:layout_marginLeft="0dp"
-                card_view:layout_constraintLeft_toLeftOf="parent"
-                card_view:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="0dp"
                 android:layout_marginBottom="8dp"
-                card_view:layout_constraintVertical_bias="0.0"
-                android:layout_marginRight="0dp"
-                card_view:layout_constraintRight_toRightOf="parent" />
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintLeft_toLeftOf="parent"
+                card_view:layout_constraintRight_toRightOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/card_to_label"></LinearLayout>
 
         </android.support.constraint.ConstraintLayout>
 

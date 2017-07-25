@@ -3,6 +3,7 @@ package ex.nme.hallplatsen.main;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -14,6 +15,11 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import ex.nme.hallplatsen.Utils;
 import ex.nme.hallplatsen.R;
@@ -21,6 +27,8 @@ import ex.nme.hallplatsen.createcard.CreateActivity;
 import ex.nme.hallplatsen.models.CardStorage;
 import ex.nme.hallplatsen.models.Station;
 import ex.nme.hallplatsen.models.TripCard;
+import ex.nme.hallplatsen.models.reseplaneraren.Trip;
+import ex.nme.hallplatsen.models.reseplaneraren.TripList;
 import ex.nme.hallplatsen.models.responses.TripResponse;
 import ex.nme.hallplatsen.services.ReseplanerarenService;
 import retrofit2.Call;
@@ -57,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Debug
         setUpPlaceholderData();
+
     }
 
     @Override
@@ -64,11 +73,10 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         Log.d(TAG, "onResume()");
         model = CardStorage.getInstance();
-        updateViews();
-        model.logModel();
+        new DownloadTripsTask().execute();
     }
 
-    private void requestTrip(String originId, String destId){
+    private void requestTripAsync(String originId, String destId){
         String currentTime = Utils.time();
 
         Call<TripResponse> call = ReseplanerarenService.getService().getTrip(originId, destId,
@@ -91,6 +99,21 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, t.getMessage());
             }
         });
+    }
+
+    private List<Trip> requestTrip(TripCard card){
+        String currentTime = Utils.time();
+        Call<TripResponse> call = ReseplanerarenService.getService().getTrip(card.getFromId(), card.getToId(), Utils.date(), currentTime, "json");
+        try {
+            Response<TripResponse> response =  call.execute();
+            if (response.isSuccessful()) {
+                return response.body().getTripList().getTrip();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
 
     @Override
@@ -120,11 +143,6 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
-    }
-
-    private void updateViews() {
-        //TODO: See if this will be needed.
-        adapter.updateList();
     }
 
     private void goToCreateActivity() {
@@ -189,17 +207,37 @@ public class MainActivity extends AppCompatActivity {
         "9021014001960000","Chalmers"
 
         */
-        TripCard card = new TripCard(new Station("9021014005862000","SKF"), new Station("9021014004490000","Lindholmen"));
+        TripCard card = new TripCard(new Station("9021014005862000","SKF"), new Station("9021014004140000","Kviberg"));
         model.addCard(card);
         card = new TripCard(new Station("9021014004490000","Lindholmen"), new Station("9021014004140000","Kviberg"));
         model.addCard(card);
         card = new TripCard(new Station("9021014004140000","Kviberg"), new Station("9021014001950000","Centralstationen"));
         model.addCard(card);
         card = new TripCard(new Station("9021014001760000","Brunnsparken"), new Station("9021014001960000","Chalmers"));
-        model.addCard(card);
-        card = new TripCard(new Station("9021014001960000","Chalmers"), new Station("9021014004490000","Lindholmen"));
-        model.addCard(card);
-        card = new TripCard(new Station("9021014005862000","SKF"), new Station("9021014001960000","Chalmers"));
-        model.addCard(card);
+        //model.addCard(card);
+        //card = new TripCard(new Station("9021014001960000","Chalmers"), new Station("9021014004490000","Lindholmen"));
+        //model.addCard(card);
+        //card = new TripCard(new Station("9021014005862000","SKF"), new Station("9021014001960000","Chalmers"));
+        //model.addCard(card);
+    }
+
+    private class DownloadTripsTask extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected String doInBackground(Void... params) {
+            Log.d(TAG, "Starting...");
+            for(TripCard card : model.getCards()){
+                List<Trip> trips = requestTrip(card);
+                card.setTripList(trips);
+                Log.d(TAG, "request..");
+            }
+            Log.d(TAG, "completed");
+            return "completed";
+        }
+
+        protected void onPostExecute(String result) {
+            Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
+            adapter.notifyDataSetChanged();
+        }
     }
 }
