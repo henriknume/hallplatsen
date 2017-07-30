@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    private RecyclerView recyclerView;
     private CardAdapter adapter;
     private CardStorage model;
 
@@ -55,17 +54,13 @@ public class MainActivity extends AppCompatActivity {
          model = CardStorage.getInstance();
 
         // Set up layout and adapter
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         adapter = new CardAdapter(this, model.getCards());
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(8), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-
-        //Debug
-        //setUpPlaceholderData();
-
     }
 
     @Override
@@ -73,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         Log.d(TAG, "onResume()");
         model = CardStorage.getInstance();
-        new DownloadTripsTask().execute();
+        updateAllCards();
     }
 
     private void requestTripAsync(String originId, String destId){
@@ -137,6 +132,10 @@ public class MainActivity extends AppCompatActivity {
                 goToCreateActivity();
                 return true;
 
+            case R.id.action_update_all_cards:
+                updateAllCards();
+                return true;
+
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
@@ -148,6 +147,32 @@ public class MainActivity extends AppCompatActivity {
     private void goToCreateActivity() {
         Intent intent = new Intent(this, CreateActivity.class);
         startActivity(intent);
+    }
+
+    private void updateAllCards() {
+        new DownloadTripsTask().execute();
+    }
+
+    private class DownloadTripsTask extends AsyncTask<Void, Integer, String> {
+
+        @Override
+        protected String doInBackground(Void... params) {
+            for(TripCard card : model.getCards()){
+                List<Trip> trips = requestTrip(card);
+                card.setTripList(trips);
+                publishProgress(1);
+            }
+            return "Updated";
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+            adapter.notifyDataSetChanged();
+        }
+
+        protected void onPostExecute(String result) {
+            Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
+            adapter.notifyDataSetChanged();
+        }
     }
 
     /**
@@ -194,52 +219,5 @@ public class MainActivity extends AppCompatActivity {
     private int dpToPx(int dp) {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
-    }
-
-    private void setUpPlaceholderData(){
-        /*
-
-        "9021014005862000","SKF"
-        "9021014004490000","Lindholmen"
-        "9021014004140000","Kviberg"
-        "9021014001950000","Centralstationen"
-        "9021014001760000","Brunnsparken"
-        "9021014001960000","Chalmers"
-
-        */
-        TripCard card = new TripCard(new Station("9021014005862000","SKF"), new Station("9021014004140000","Kviberg"));
-        model.addCard(card);
-        card = new TripCard(new Station("9021014004490000","Lindholmen"), new Station("9021014004140000","Kviberg"));
-        model.addCard(card);
-        card = new TripCard(new Station("9021014004140000","Kviberg"), new Station("9021014001950000","Centralstationen"));
-        model.addCard(card);
-        card = new TripCard(new Station("9021014001760000","Brunnsparken"), new Station("9021014001960000","Chalmers"));
-        model.addCard(card);
-        card = new TripCard(new Station("9021014001960000","Chalmers"), new Station("9021014004490000","Lindholmen"));
-        model.addCard(card);
-        //card = new TripCard(new Station("9021014005862000","SKF"), new Station("9021014001960000","Chalmers"));
-        //model.addCard(card);
-    }
-
-    private class DownloadTripsTask extends AsyncTask<Void, Integer, String> {
-
-        @Override
-        protected String doInBackground(Void... params) {
-            for(TripCard card : model.getCards()){
-                List<Trip> trips = requestTrip(card);
-                card.setTripList(trips);
-                publishProgress(1);
-            }
-            return "Updated";
-        }
-
-        protected void onProgressUpdate(Integer... progress) {
-            adapter.notifyDataSetChanged();
-        }
-
-        protected void onPostExecute(String result) {
-            Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
-            adapter.notifyDataSetChanged();
-        }
     }
 }

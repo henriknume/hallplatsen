@@ -23,6 +23,7 @@ public class CardStorage {
 
     private CardStorage() {
         cards = new ArrayList<>();
+        addExampleCards();
     }
 
     public static CardStorage getInstance() {
@@ -70,6 +71,35 @@ public class CardStorage {
 
     public void clearCreation() {
         creation = null;
+    }
+
+    private void addExampleCards() {
+        /*
+
+        "9021014005862000","SKF"
+        "9021014004490000","Lindholmen"
+        "9021014004140000","Kviberg"
+        "9021014001950000","Centralstationen"
+        "9021014001760000","Brunnsparken"
+        "9021014001960000","Chalmers"
+
+        */
+        TripCard card = new TripCard(new Station("9021014005862000","SKF"), new Station("9021014004140000","Kviberg"));
+        addCard(card);
+        card = new TripCard(new Station("9021014004490000","Lindholmen"), new Station("9021014004140000","Kviberg"));
+        addCard(card);
+        card = new TripCard(new Station("9021014004140000","Kviberg"), new Station("9021014001950000","Centralstationen"));
+        addCard(card);
+        card = new TripCard(new Station("9021014001760000","Brunnsparken"), new Station("9021014001960000","Chalmers"));
+        addCard(card);
+        card = new TripCard(new Station("9021014001960000","Chalmers"), new Station("9021014004490000","Lindholmen"));
+        addCard(card);
+        card = new TripCard(new Station("9021014005862000","SKF"), new Station("9021014001960000","Chalmers"));
+        addCard(card);
+        card = new TripCard(new Station("9021014004140000","Kviberg"), new Station("9021014001960000","Chalmers"));
+        addCard(card);
+        card = new TripCard(new Station("9021014001950000","Centralstationen"), new Station("9021014001960000","Chalmers"));
+        addCard(card);
     }
 
 }
