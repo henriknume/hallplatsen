@@ -72,21 +72,4 @@ public class CardStorage {
         creation = null;
     }
 
-    public void logCreation(){
-        Log.d("+","--------------------------------------------------");
-        Log.d("| ","from :" + creation.getFromName());
-        Log.d("| ","to   :" + creation.getToName());
-        Log.d("| ","isSel:" + creation.isLocationsSelected());
-        Log.d("+","--------------------------------------------------");
-    }
-
-    public void logModel() {
-        Log.d("+","--------------------------------------------------");
-        Log.d("| ","nr Cards:" + cards.size());
-        for (int i = 0; i < cards.size(); i++) {
-            Log.d("| ", "card:" + i + "    fr id:" + cards.get(i).getFromId());
-            Log.d("| ", "card:" + i + "  fr name:" + cards.get(i).getFromName());
-        }
-        Log.d("+","--------------------------------------------------");
-    }
 }

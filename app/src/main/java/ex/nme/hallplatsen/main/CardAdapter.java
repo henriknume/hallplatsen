@@ -9,9 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,12 +52,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
             switchBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int index = getAdapterPosition();
-                    final TripCard tripCard = CardStorage.getInstance().getCard(index);
+                    Log.d(TAG, "switch Button pressed");
+                    int current = getAdapterPosition();
+                    TripCard tripCard = cards.get(current);
                     tripCard.switchToAndFromLocations();
                     notifyDataSetChanged();
-
-                    new DownloadSingleTripTask().execute(index);
+                    new DownloadSingleTripTask().execute(current);
                 }
             });
         }
@@ -71,7 +69,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
         try {
             Response<TripResponse> response =  call.execute();
             if (response.isSuccessful()) {
-                return response.body().getTripList().getTrip();
+                List<Trip> newList = new ArrayList<>();
+                newList.addAll(response.body().getTripList().getTrip());
+                return newList;
             }
 
         } catch (IOException e) {
@@ -98,18 +98,20 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
         TripCard card = cards.get(position);
         holder.fromName.setText(card.getFromName());
         holder.toName.setText(card.getToName());
-
-        //inflate
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-        Log.d(TAG, "onBindViewHolder()");
 
+        //Clear trip list layout
+        holder.linearLayout.removeAllViewsInLayout();
+
+        //Add a departure row for each trip
         List<Trip> trips = card.getTripList();
         for (int i = 0; i < trips.size(); i++) {
-                View inflatedView = layoutInflater.inflate(R.layout.departure_row, null);
-                inflatedView.setId(i);
-                TextView routeName = (TextView) inflatedView.findViewById(R.id.route_name);
-                TextView routeDirection = (TextView) inflatedView.findViewById(R.id.route_direction);
-                TextView timeToDep = (TextView) inflatedView.findViewById(R.id.time_to_dep);
+                View newRow = layoutInflater.inflate(R.layout.departure_row, null);
+                newRow.setId(i);
+
+                TextView routeName = (TextView) newRow.findViewById(R.id.route_name);
+                TextView routeDirection = (TextView) newRow.findViewById(R.id.route_direction);
+                TextView timeToDep = (TextView) newRow.findViewById(R.id.time_to_dep);
 
                 Leg leg = card.getTripList().get(i).getLeg().get(0);
                 routeName.setText(leg.getSname());
@@ -119,7 +121,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
                     time = leg.getOrigin().getTime();
                 }
                 timeToDep.setText(Utils.timeDiff(time));
-                holder.linearLayout.addView(inflatedView);
+                holder.linearLayout.addView(newRow);
         }
 
     }
@@ -129,20 +131,26 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
         return cards.size();
     }
 
-    private class DownloadSingleTripTask extends AsyncTask<Integer, Void, String> {
+    private class DownloadSingleTripTask extends AsyncTask<Integer, Void, Void> {
 
         @Override
-        protected String doInBackground(Integer... index) {
+        protected void onPreExecute() {
+            //TODO: Show progress spinner.
+        }
+
+        @Override
+        protected Void doInBackground(Integer... index) {
             Integer i = index[0];
             TripCard card = cards.get(i);
             List<Trip> list = requestTrip(card);
             card.setTripList(list);
-            return "finished";
+            return null;
         }
 
         @Override
-        protected void onPostExecute(String result){
+        protected void onPostExecute(Void result){
             notifyDataSetChanged();
+            //TODO: Hide progress spinner.
         }
     }
 }
