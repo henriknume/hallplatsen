@@ -21,14 +21,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import ex.nme.hallplatsen.Utils;
 import ex.nme.hallplatsen.R;
+import ex.nme.hallplatsen.Utils;
 import ex.nme.hallplatsen.createcard.CreateActivity;
 import ex.nme.hallplatsen.models.CardStorage;
-import ex.nme.hallplatsen.models.Station;
 import ex.nme.hallplatsen.models.TripCard;
 import ex.nme.hallplatsen.models.reseplaneraren.Trip;
-import ex.nme.hallplatsen.models.reseplaneraren.TripList;
 import ex.nme.hallplatsen.models.responses.TripResponse;
 import ex.nme.hallplatsen.services.ReseplanerarenService;
 import retrofit2.Call;

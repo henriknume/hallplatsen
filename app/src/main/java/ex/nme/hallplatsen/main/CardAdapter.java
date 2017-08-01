@@ -1,6 +1,7 @@
 package ex.nme.hallplatsen.main;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -32,6 +33,7 @@ import retrofit2.Response;
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> {
 
+    private static final int MAX_TRIPS_PER_CARD = 5;
     private static final String TAG = "CardAdapter";
     private Context mContext;
     private List<TripCard> cards;
@@ -105,23 +107,29 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
 
         //Add a departure row for each trip
         List<Trip> trips = card.getTripList();
-        for (int i = 0; i < trips.size(); i++) {
-                View newRow = layoutInflater.inflate(R.layout.departure_row, null);
-                newRow.setId(i);
+        for (int i = 0; i < trips.size() && i < MAX_TRIPS_PER_CARD; i++) {
+            View newRow = layoutInflater.inflate(R.layout.departure_row, null);
+            newRow.setId(i);
+            Leg leg = card.getTripList().get(i).getLeg().get(0);
 
-                TextView routeName = (TextView) newRow.findViewById(R.id.route_name);
-                TextView routeDirection = (TextView) newRow.findViewById(R.id.route_direction);
-                TextView timeToDep = (TextView) newRow.findViewById(R.id.time_to_dep);
+            TextView routeName = (TextView) newRow.findViewById(R.id.route_name);
+            routeName.setText(leg.getSname());
+            if(leg.getFgColor() != null && leg.getBgColor() != null){
+                routeName.setBackgroundColor(Color.parseColor(leg.getFgColor()));
+                routeName.setTextColor(Color.parseColor(leg.getBgColor()));
+            }
 
-                Leg leg = card.getTripList().get(i).getLeg().get(0);
-                routeName.setText(leg.getSname());
-                routeDirection.setText(leg.getDirection());
-                String time = leg.getOrigin().getRtTime();
-                if (time == null) {
-                    time = leg.getOrigin().getTime();
-                }
-                timeToDep.setText(Utils.timeDiff(time));
-                holder.linearLayout.addView(newRow);
+            TextView routeDirection = (TextView) newRow.findViewById(R.id.route_direction);
+            routeDirection.setText(leg.getDirection());
+
+            TextView timeToDep = (TextView) newRow.findViewById(R.id.time_to_dep);
+            String time = leg.getOrigin().getRtTime();
+            if (time == null) {
+                time = leg.getOrigin().getTime();
+            }
+            timeToDep.setText(Utils.timeDiff(time));
+
+            holder.linearLayout.addView(newRow);
         }
 
     }
