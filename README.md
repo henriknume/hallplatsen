@@ -13,12 +13,12 @@ A simple android app that lets the user view departures for ones most common tra
 - ~~Move add actions to toolbar.~~
 - ~~Activity for creating new TripCard.~~
 - ~~Redesign and change layout to a cardlayout or similar where multiple stations can be viewed simultaneously.~~
-- Create a persistant model for the CardModel (SharedPreferences?).
 - ~~Update card manually function.~~
-- Delete card function.
-- Use real device id.
-- Functionality to rearrange cards by touch-move-drop.
 - Add a spinner while updating a station list.
+- Functionality to rearrange cards by touch-move-drop.
+- Delete card function.
+- Create a persistant model for the CardModel (SharedPreferences?).
+- Use real device id.
 - MVP architecture.
 - Write some tests.
 - Create a logo.
