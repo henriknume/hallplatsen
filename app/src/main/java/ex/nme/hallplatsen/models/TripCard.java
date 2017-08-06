@@ -20,12 +20,14 @@ public class TripCard {
     private Station from;
     private Station to;
     private List<Trip> tripList;
+    private boolean loading;
 
     public TripCard() {
         this.timeLastUpdated = "";
         this.from = null;
         this.to = null;
         this.tripList = new ArrayList<>();
+        this.loading = false;
     }
 
     public TripCard(Station from, Station to) {
@@ -33,6 +35,19 @@ public class TripCard {
         this.from = from;
         this.to = to;
         this.tripList = new ArrayList<>();
+        this.loading = false;
+    }
+
+    public boolean isLoading() {
+        return loading;
+    }
+
+    public void startProgressBar() {
+        loading = true;
+    }
+
+    public void stopProgressBar() {
+        loading = false;
     }
 
     public void setTimeLastUpdated(String time) {
@@ -50,6 +65,10 @@ public class TripCard {
     public void setTripList(List<Trip> list) {
         tripList.clear();
         tripList.addAll(list);
+    }
+
+    public void clearTripList() {
+        tripList.clear();
     }
 
     public String getTimeLastUpdated() {

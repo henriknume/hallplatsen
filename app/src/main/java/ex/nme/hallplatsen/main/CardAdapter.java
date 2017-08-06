@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -18,7 +19,6 @@ import java.util.List;
 
 import ex.nme.hallplatsen.R;
 import ex.nme.hallplatsen.Utils;
-import ex.nme.hallplatsen.models.CardStorage;
 import ex.nme.hallplatsen.models.TripCard;
 import ex.nme.hallplatsen.models.reseplaneraren.Leg;
 import ex.nme.hallplatsen.models.reseplaneraren.Trip;
@@ -44,6 +44,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
         public TextView toName;
         public ImageButton switchBtn;
         public LinearLayout linearLayout;
+        public ProgressBar progressBar;
 
         public MyViewHolder(View view) {
             super(view);
@@ -51,6 +52,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
             toName = (TextView) view.findViewById(R.id.card_to_value);
             switchBtn = (ImageButton) view.findViewById(R.id.card_switch_button);
             linearLayout = (LinearLayout) view.findViewById(R.id.trips_linearlayout);
+            progressBar = (ProgressBar) view.findViewById(R.id.card_progressbar);
             switchBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -58,28 +60,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
                     int current = getAdapterPosition();
                     TripCard tripCard = cards.get(current);
                     tripCard.switchToAndFromLocations();
-                    notifyDataSetChanged();
-                    new DownloadSingleTripTask().execute(current);
+                    updateTripList(current);
                 }
             });
         }
-    }
-
-    private List<Trip> requestTrip(TripCard card){
-        String currentTime = Utils.time();
-        Call<TripResponse> call = ReseplanerarenService.getService().getTrip(card.getFromId(), card.getToId(), Utils.date(), currentTime, "json");
-        try {
-            Response<TripResponse> response =  call.execute();
-            if (response.isSuccessful()) {
-                List<Trip> newList = new ArrayList<>();
-                newList.addAll(response.body().getTripList().getTrip());
-                return newList;
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return new ArrayList<>();
     }
 
     public CardAdapter(Context mContext, List<TripCard> cards) {
@@ -104,34 +88,42 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
 
         //Clear trip list layout
         holder.linearLayout.removeAllViewsInLayout();
+        holder.progressBar.setVisibility(View.VISIBLE);
 
-        //Add a departure row for each trip
-        List<Trip> trips = card.getTripList();
-        for (int i = 0; i < trips.size() && i < MAX_TRIPS_PER_CARD; i++) {
-            View newRow = layoutInflater.inflate(R.layout.departure_row, null);
-            newRow.setId(i);
-            Leg leg = card.getTripList().get(i).getLeg().get(0);
+        if (card.isLoading()) {
+            //Show progressbar.
+            holder.progressBar.setVisibility(View.VISIBLE);
+        } else {
+            //Hide progressbar and add listitems.
+            holder.progressBar.setVisibility(View.GONE);
 
-            TextView routeName = (TextView) newRow.findViewById(R.id.route_name);
-            routeName.setText(leg.getSname());
-            if(leg.getFgColor() != null && leg.getBgColor() != null){
-                routeName.setBackgroundColor(Color.parseColor(leg.getFgColor()));
-                routeName.setTextColor(Color.parseColor(leg.getBgColor()));
+            //Add a departure row for each trip
+            List<Trip> trips = card.getTripList();
+            for (int i = 0; i < trips.size() && i < MAX_TRIPS_PER_CARD; i++) {
+                View newRow = layoutInflater.inflate(R.layout.departure_row, null);
+                newRow.setId(i);
+                Leg leg = card.getTripList().get(i).getLeg().get(0);
+
+                TextView routeName = (TextView) newRow.findViewById(R.id.route_name);
+                routeName.setText(leg.getSname());
+                if(leg.getFgColor() != null && leg.getBgColor() != null){
+                    routeName.setBackgroundColor(Color.parseColor(leg.getFgColor()));
+                    routeName.setTextColor(Color.parseColor(leg.getBgColor()));
+                }
+
+                TextView routeDirection = (TextView) newRow.findViewById(R.id.route_direction);
+                routeDirection.setText(leg.getDirection());
+
+                TextView timeToDep = (TextView) newRow.findViewById(R.id.time_to_dep);
+                String time = leg.getOrigin().getRtTime();
+                if (time == null) {
+                    time = leg.getOrigin().getTime();
+                }
+                timeToDep.setText(Utils.timeDiff(time));
+
+                holder.linearLayout.addView(newRow);
             }
-
-            TextView routeDirection = (TextView) newRow.findViewById(R.id.route_direction);
-            routeDirection.setText(leg.getDirection());
-
-            TextView timeToDep = (TextView) newRow.findViewById(R.id.time_to_dep);
-            String time = leg.getOrigin().getRtTime();
-            if (time == null) {
-                time = leg.getOrigin().getTime();
-            }
-            timeToDep.setText(Utils.timeDiff(time));
-
-            holder.linearLayout.addView(newRow);
         }
-
     }
 
     @Override
@@ -139,27 +131,56 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
         return cards.size();
     }
 
-    private class DownloadSingleTripTask extends AsyncTask<Integer, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            //TODO: Show progress spinner.
+    public void updateTripListAllCards() {
+        for (int i = 0; i < getItemCount(); i ++) {
+            updateTripList(i);
         }
+    }
+
+    public void updateTripList(int currentCardIndex) {
+        //clear old trips
+        TripCard card = cards.get(currentCardIndex);
+        card.clearTripList();
+        card.startProgressBar();
+        notifyDataSetChanged();
+        new DownloadSingleTripTask().execute(currentCardIndex);
+    }
+
+    private class DownloadSingleTripTask extends AsyncTask<Integer, Void, Integer> {
 
         @Override
-        protected Void doInBackground(Integer... index) {
-            Integer i = index[0];
-            TripCard card = cards.get(i);
+        protected Integer doInBackground(Integer... index) {
+            TripCard card = cards.get(index[0]);
             List<Trip> list = requestTrip(card);
             card.setTripList(list);
-            return null;
+            return index[0];
         }
 
         @Override
-        protected void onPostExecute(Void result){
+        protected void onPostExecute(Integer index) {
+            TripCard card = cards.get(index);
+            card.stopProgressBar();
             notifyDataSetChanged();
-            //TODO: Hide progress spinner.
         }
+    }
+
+    private List<Trip> requestTrip(TripCard card) {
+        String currentTime = Utils.time();
+        Call<TripResponse> call = ReseplanerarenService.getService().getTrip(card.getFromId(),
+                card.getToId(), Utils.date(), currentTime, "json");
+        try {
+            Response<TripResponse> response =  call.execute();
+            if (response.isSuccessful()) {
+                List<Trip> newList = new ArrayList<>();
+                newList.addAll(response.body().getTripList().getTrip());
+                return newList;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return new ArrayList<>();
     }
 }
 

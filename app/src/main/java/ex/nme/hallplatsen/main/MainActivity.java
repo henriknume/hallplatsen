@@ -59,54 +59,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(8), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+
+        adapter.updateTripListAllCards();
     }
 
     @Override
     public void onResume(){
         super.onResume();
         Log.d(TAG, "onResume()");
-        model = CardStorage.getInstance();
-        updateAllCards();
-    }
-
-    private void requestTripAsync(String originId, String destId){
-        String currentTime = Utils.time();
-
-        Call<TripResponse> call = ReseplanerarenService.getService().getTrip(originId, destId,
-                Utils.date(), currentTime, "json");
-        call.enqueue(new Callback<TripResponse>() {
-            @Override
-            public void onResponse(Call<TripResponse> call, Response<TripResponse> response) {
-                if (response.isSuccessful()) {
-                    Log.d(TAG, "onResponse() successful");
-                    model.setTripList(0, response.body().getTripList().getTrip());
-                    adapter.notifyDataSetChanged();
-                } else {
-                    Log.d(TAG, "requestTrip() - not successful");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<TripResponse> call, Throwable t) {
-                Log.d(TAG, "requestTrip() - on Failure");
-                Log.d(TAG, t.getMessage());
-            }
-        });
-    }
-
-    private List<Trip> requestTrip(TripCard card){
-        String currentTime = Utils.time();
-        Call<TripResponse> call = ReseplanerarenService.getService().getTrip(card.getFromId(), card.getToId(), Utils.date(), currentTime, "json");
-        try {
-            Response<TripResponse> response =  call.execute();
-            if (response.isSuccessful()) {
-                return response.body().getTripList().getTrip();
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return new ArrayList<>();
     }
 
     @Override
@@ -131,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_update_all_cards:
-                updateAllCards();
+                adapter.updateTripListAllCards();
                 return true;
 
             default:
@@ -145,32 +105,6 @@ public class MainActivity extends AppCompatActivity {
     private void goToCreateActivity() {
         Intent intent = new Intent(this, CreateActivity.class);
         startActivity(intent);
-    }
-
-    private void updateAllCards() {
-        new DownloadTripsTask().execute();
-    }
-
-    private class DownloadTripsTask extends AsyncTask<Void, Integer, String> {
-
-        @Override
-        protected String doInBackground(Void... params) {
-            for(TripCard card : model.getCards()){
-                List<Trip> trips = requestTrip(card);
-                card.setTripList(trips);
-                publishProgress(1);
-            }
-            return "Updated";
-        }
-
-        protected void onProgressUpdate(Integer... progress) {
-            adapter.notifyDataSetChanged();
-        }
-
-        protected void onPostExecute(String result) {
-            Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
-            adapter.notifyDataSetChanged();
-        }
     }
 
     /**
