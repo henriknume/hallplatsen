@@ -3,7 +3,6 @@ package ex.nme.hallplatsen.main;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -15,31 +14,16 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import ex.nme.hallplatsen.R;
-import ex.nme.hallplatsen.Utils;
 import ex.nme.hallplatsen.createcard.CreateActivity;
 import ex.nme.hallplatsen.models.CardStorage;
-import ex.nme.hallplatsen.models.TripCard;
-import ex.nme.hallplatsen.models.reseplaneraren.Trip;
-import ex.nme.hallplatsen.models.responses.TripResponse;
-import ex.nme.hallplatsen.services.ReseplanerarenService;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-
     private CardAdapter adapter;
-    private CardStorage model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // set up model
-         model = CardStorage.getInstance();
+        CardStorage model = CardStorage.getInstance();
 
         // Set up layout and adapter
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
