@@ -17,6 +17,7 @@ A simple android app that lets the user view departures for ones most common tra
 - ~~Add a spinner while updating a station list.~~
 - Functionality to rearrange cards by touch-move-drop.
 - Delete card function.
+- Bug: Some departures does not show up properly.
 - Create a persistant model for the CardModel (SharedPreferences?).
 - Use real device id.
 - MVP architecture.

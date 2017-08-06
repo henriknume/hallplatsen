@@ -88,8 +88,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
 
         //Clear trip list layout
         holder.linearLayout.removeAllViewsInLayout();
-        holder.progressBar.setVisibility(View.VISIBLE);
-
         if (card.isLoading()) {
             //Show progressbar.
             holder.progressBar.setVisibility(View.VISIBLE);
