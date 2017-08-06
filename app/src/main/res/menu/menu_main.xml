@@ -7,7 +7,7 @@
         android:id="@+id/action_update_all_cards"
         android:icon="@drawable/ic_update_black_24dp"
         android:title="@string/action_add_card"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_add_card"

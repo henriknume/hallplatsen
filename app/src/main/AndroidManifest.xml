@@ -10,12 +10,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/HallplatsenAppTheme">
 
         <activity
             android:name=".main.MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -24,8 +23,7 @@
 
         <activity
             android:name=".chooseloc.ChooseLocationActivity"
-            android:label="@string/title_activity_choose_location_from"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_choose_location_from" />
 
         <activity android:name=".createcard.CreateActivity" />
     </application>
