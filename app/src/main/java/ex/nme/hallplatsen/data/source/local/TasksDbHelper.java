@@ -20,6 +20,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import ex.nme.hallplatsen.data.source.local.TasksPersistenceContract.TaskEntry;
+
 public class TasksDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
 
@@ -33,13 +35,13 @@ public class TasksDbHelper extends SQLiteOpenHelper {
 
     //TODO: private static final String SQL_CREATE_ENTRIES =
     public static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + TasksPersistenceContract.TaskEntry.TABLE_NAME + " (" +
-                    TasksPersistenceContract.TaskEntry._ID + TEXT_TYPE + " PRIMARY KEY," +
-                    TasksPersistenceContract.TaskEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA +
-                    TasksPersistenceContract.TaskEntry.COLUMN_NAME_STN_NAME_FROM + TEXT_TYPE + COMMA +
-                    TasksPersistenceContract.TaskEntry.COLUMN_NAME_STN_ID_FROM + TEXT_TYPE + COMMA +
-                    TasksPersistenceContract.TaskEntry.COLUMN_NAME_STN_NAME_TO + TEXT_TYPE + COMMA +
-                    TasksPersistenceContract.TaskEntry.COLUMN_NAME_STN_ID_TO + TEXT_TYPE +
+            "CREATE TABLE " + TaskEntry.TABLE_NAME + " (" +
+                    TaskEntry._ID + TEXT_TYPE + " PRIMARY KEY," +
+                    TaskEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA +
+                    TaskEntry.COLUMN_NAME_STN_NAME_FROM + TEXT_TYPE + COMMA +
+                    TaskEntry.COLUMN_NAME_STN_ID_FROM + TEXT_TYPE + COMMA +
+                    TaskEntry.COLUMN_NAME_STN_NAME_TO + TEXT_TYPE + COMMA +
+                    TaskEntry.COLUMN_NAME_STN_ID_TO + TEXT_TYPE +
             " )";
 
     public TasksDbHelper(Context context) {
