@@ -76,10 +76,7 @@ public class TasksLocalDataSource implements TasksDataSource {
 
         Cursor cursor =  db.rawQuery("SELECT * FROM Tasks", null);
 
-        Log.d("Full table Object", DatabaseUtils.dumpCursorToString(cursor));
-
         Cursor c = db.query(TaskEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
-        Log.d("get query c :", DatabaseUtils.dumpCursorToString(c));
         Task task = null;
 
         if (c != null && c.getCount() > 0) {

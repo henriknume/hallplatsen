@@ -16,9 +16,11 @@
 
 package ex.nme.hallplatsen.data;
 
+import android.database.DatabaseUtils;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
+import android.util.Log;
 
 import ex.nme.hallplatsen.data.source.TasksDataSource;
 import ex.nme.hallplatsen.data.source.local.TasksDbHelper;
@@ -38,6 +40,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.booleanThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -65,10 +68,6 @@ public class TasksLocalDataSourceTest {
     @Test
     public void testPreConditions() {
         assertNotNull(mLocalDataSource);
-
-        System.out.println("=========>>>");
-        System.out.println(TasksDbHelper.SQL_CREATE_ENTRIES);
-
     }
 
     @Test
@@ -89,6 +88,44 @@ public class TasksLocalDataSourceTest {
             @Override
             public void onDataNotAvailable() {
                 fail("Callback error");
+            }
+        });
+    }
+
+    @Test
+    public void deleteTask_addTwoAndDeleteTheSecond() {
+        // Add two tasks
+        final Task first = new Task("A1","A2","B1","B2");
+        final Task second = new Task("A","B","C","D");
+        mLocalDataSource.saveTask(first);
+        mLocalDataSource.saveTask(second);
+
+        // delete the second
+        mLocalDataSource.deleteTask(second.getId());
+
+        // The first should exists
+        mLocalDataSource.getTask(first.getId(), new TasksDataSource.GetTaskCallback() {
+            @Override
+            public void onTaskLoaded(Task task) {
+                assertThat(task, is(first));
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                fail("Callback error");
+            }
+        });
+
+        // The second should not
+        mLocalDataSource.getTask(second.getId(), new TasksDataSource.GetTaskCallback() {
+            @Override
+            public void onTaskLoaded(Task task) {
+                fail("on data should not be returned");
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                // this should be invoked
             }
         });
     }
