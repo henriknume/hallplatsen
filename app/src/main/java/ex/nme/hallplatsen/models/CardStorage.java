@@ -5,7 +5,6 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import ex.nme.hallplatsen.models.reseplaneraren.StopLocation;
 import ex.nme.hallplatsen.models.reseplaneraren.Trip;
 
 /**
@@ -18,8 +17,8 @@ public class CardStorage {
     private static final String TAG = "CardStorage";
 
     private static CardStorage instance;
-    private List<TripCard> cards;
-    private TripCard creation;
+    private List<TripCardOld> cards;
+    private TripCardOld creation;
 
     private CardStorage() {
         cards = new ArrayList<>();
@@ -34,7 +33,7 @@ public class CardStorage {
         return instance;
     }
 
-    public void addCard(TripCard card) {
+    public void addCard(TripCardOld card) {
         cards.add(card);
     }
 
@@ -42,11 +41,11 @@ public class CardStorage {
         cards.remove(index);
     }
 
-    public List<TripCard> getCards() {
+    public List<TripCardOld> getCards() {
         return cards;
     }
 
-    public TripCard getCard(int index) {
+    public TripCardOld getCard(int index) {
         if (index >= cards.size()) {
             return null;
         }
@@ -61,11 +60,11 @@ public class CardStorage {
         }
     }
 
-    public TripCard getCreation() {
+    public TripCardOld getCreation() {
         return creation;
     }
 
-    public void setCreation(TripCard card) {
+    public void setCreation(TripCardOld card) {
         this.creation = card;
     }
 
@@ -84,21 +83,21 @@ public class CardStorage {
         "9021014001960000","Chalmers"
 
         */
-        TripCard card = new TripCard(new Station("9021014005862000","SKF"), new Station("9021014004140000","Kviberg"));
+        TripCardOld card = new TripCardOld(new Station("9021014005862000","SKF"), new Station("9021014004140000","Kviberg"));
         addCard(card);
-        card = new TripCard(new Station("9021014004490000","Lindholmen"), new Station("9021014004140000","Kviberg"));
+        card = new TripCardOld(new Station("9021014004490000","Lindholmen"), new Station("9021014004140000","Kviberg"));
         addCard(card);
-        card = new TripCard(new Station("9021014004140000","Kviberg"), new Station("9021014001950000","Centralstationen"));
+        card = new TripCardOld(new Station("9021014004140000","Kviberg"), new Station("9021014001950000","Centralstationen"));
         addCard(card);
-        card = new TripCard(new Station("9021014001760000","Brunnsparken"), new Station("9021014001960000","Chalmers"));
+        card = new TripCardOld(new Station("9021014001760000","Brunnsparken"), new Station("9021014001960000","Chalmers"));
         addCard(card);
-        card = new TripCard(new Station("9021014001960000","Chalmers"), new Station("9021014004490000","Lindholmen"));
+        card = new TripCardOld(new Station("9021014001960000","Chalmers"), new Station("9021014004490000","Lindholmen"));
         addCard(card);
-        card = new TripCard(new Station("9021014005862000","SKF"), new Station("9021014001960000","Chalmers"));
+        card = new TripCardOld(new Station("9021014005862000","SKF"), new Station("9021014001960000","Chalmers"));
         addCard(card);
-        card = new TripCard(new Station("9021014004140000","Kviberg"), new Station("9021014001960000","Chalmers"));
+        card = new TripCardOld(new Station("9021014004140000","Kviberg"), new Station("9021014001960000","Chalmers"));
         addCard(card);
-        card = new TripCard(new Station("9021014001950000","Centralstationen"), new Station("9021014001960000","Chalmers"));
+        card = new TripCardOld(new Station("9021014001950000","Centralstationen"), new Station("9021014001960000","Chalmers"));
         addCard(card);
     }
 

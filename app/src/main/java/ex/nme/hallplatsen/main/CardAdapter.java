@@ -19,7 +19,7 @@ import java.util.List;
 
 import ex.nme.hallplatsen.R;
 import ex.nme.hallplatsen.Utils;
-import ex.nme.hallplatsen.models.TripCard;
+import ex.nme.hallplatsen.models.TripCardOld;
 import ex.nme.hallplatsen.models.reseplaneraren.Leg;
 import ex.nme.hallplatsen.models.reseplaneraren.Trip;
 import ex.nme.hallplatsen.models.responses.TripResponse;
@@ -36,7 +36,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
     private static final int MAX_TRIPS_PER_CARD = 5;
     private static final String TAG = "CardAdapter";
     private Context mContext;
-    private List<TripCard> cards;
+    private List<TripCardOld> cards;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -58,15 +58,15 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
                 public void onClick(View v) {
                     Log.d(TAG, "switch Button pressed");
                     int current = getAdapterPosition();
-                    TripCard tripCard = cards.get(current);
-                    tripCard.switchToAndFromLocations();
+                    TripCardOld tripCardOld = cards.get(current);
+                    tripCardOld.switchToAndFromLocations();
                     updateTripList(current);
                 }
             });
         }
     }
 
-    public CardAdapter(Context mContext, List<TripCard> cards) {
+    public CardAdapter(Context mContext, List<TripCardOld> cards) {
         this.mContext = mContext;
         this.cards = cards;
     }
@@ -81,7 +81,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        TripCard card = cards.get(position);
+        TripCardOld card = cards.get(position);
         holder.fromName.setText(card.getFromName());
         holder.toName.setText(card.getToName());
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
@@ -137,7 +137,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
 
     public void updateTripList(int currentCardIndex) {
         //clear old trips
-        TripCard card = cards.get(currentCardIndex);
+        TripCardOld card = cards.get(currentCardIndex);
         card.clearTripList();
         card.startProgressBar();
         notifyDataSetChanged();
@@ -148,7 +148,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
 
         @Override
         protected Integer doInBackground(Integer... index) {
-            TripCard card = cards.get(index[0]);
+            TripCardOld card = cards.get(index[0]);
             List<Trip> list = requestTrip(card);
             card.setTripList(list);
             return index[0];
@@ -156,13 +156,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
 
         @Override
         protected void onPostExecute(Integer index) {
-            TripCard card = cards.get(index);
+            TripCardOld card = cards.get(index);
             card.stopProgressBar();
             notifyDataSetChanged();
         }
     }
 
-    private List<Trip> requestTrip(TripCard card) {
+    private List<Trip> requestTrip(TripCardOld card) {
         String currentTime = Utils.time();
         Call<TripResponse> call = ReseplanerarenService.getService().getTrip(card.getFromId(),
                 card.getToId(), Utils.date(), currentTime, "json");

@@ -12,9 +12,9 @@ import ex.nme.hallplatsen.models.reseplaneraren.Trip;
  * Created by nm2 on 2017-07-12
  */
 
-public class TripCard {
+public class TripCardOld {
 
-    private static final String TAG = "TripCard";
+    private static final String TAG = "TripCardOld";
 
     private String timeLastUpdated;
     private Station from;
@@ -22,7 +22,7 @@ public class TripCard {
     private List<Trip> tripList;
     private boolean loading;
 
-    public TripCard() {
+    public TripCardOld() {
         this.timeLastUpdated = "";
         this.from = null;
         this.to = null;
@@ -30,7 +30,7 @@ public class TripCard {
         this.loading = false;
     }
 
-    public TripCard(Station from, Station to) {
+    public TripCardOld(Station from, Station to) {
         this.timeLastUpdated = "";
         this.from = from;
         this.to = to;

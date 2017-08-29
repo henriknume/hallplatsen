@@ -28,10 +28,11 @@ public final class TasksPersistenceContract {
 
     /* Inner class that defines the table contents */
     public static abstract class TaskEntry implements BaseColumns {
-        public static final String TABLE_NAME = "task";
-        public static final String COLUMN_NAME_ENTRY_ID = "entryid";
-        public static final String COLUMN_NAME_TITLE = "title";
-        public static final String COLUMN_NAME_DESCRIPTION = "description";
-        public static final String COLUMN_NAME_COMPLETED = "completed";
+        public static final String TABLE_NAME                   = "Tasks";
+        public static final String COLUMN_NAME_ENTRY_ID         = "entryId";
+        public static final String COLUMN_NAME_STN_NAME_FROM    = "stationNameFrom";
+        public static final String COLUMN_NAME_STN_NAME_TO      = "stationNameTo";
+        public static final String COLUMN_NAME_STN_ID_FROM      = "stationIdFrom";
+        public static final String COLUMN_NAME_STN_ID_TO        = "stationIdTo";
     }
 }

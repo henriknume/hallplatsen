@@ -6,14 +6,13 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import ex.nme.hallplatsen.R;
 import ex.nme.hallplatsen.chooseloc.ChooseLocationActivity;
 import ex.nme.hallplatsen.main.MainActivity;
 import ex.nme.hallplatsen.models.CardStorage;
-import ex.nme.hallplatsen.models.TripCard;
+import ex.nme.hallplatsen.models.TripCardOld;
 
 public class CreateActivity extends AppCompatActivity {
 
@@ -44,15 +43,15 @@ public class CreateActivity extends AppCompatActivity {
             model = CardStorage.getInstance();
         }
         if(model.getCreation() == null){
-            model.setCreation(new TripCard());
+            model.setCreation(new TripCardOld());
         }
 
         updateTextViews();
 
-        TripCard creationCard = model.getCreation();
+        TripCardOld creationCard = model.getCreation();
         if(creationCard != null && creationCard.isLocationsSelected()) {
             // Add new card and clear creation
-            TripCard newCard = model.getCreation();
+            TripCardOld newCard = model.getCreation();
             model.addCard(newCard);
             model.clearCreation();
             // navigate to main
@@ -90,7 +89,7 @@ public class CreateActivity extends AppCompatActivity {
     }
 
     private void updateTextViews() {
-        TripCard creationCard = model.getCreation();
+        TripCardOld creationCard = model.getCreation();
         if (creationCard != null) {
             fromInput.setText(creationCard.getFromName());
             toInput.setText(creationCard.getToName());

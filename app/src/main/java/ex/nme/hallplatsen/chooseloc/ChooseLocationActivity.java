@@ -17,10 +17,9 @@ import java.util.List;
 
 import ex.nme.hallplatsen.R;
 import ex.nme.hallplatsen.createcard.CreateActivity;
-import ex.nme.hallplatsen.main.MainActivity;
 import ex.nme.hallplatsen.models.CardStorage;
 import ex.nme.hallplatsen.models.Station;
-import ex.nme.hallplatsen.models.TripCard;
+import ex.nme.hallplatsen.models.TripCardOld;
 import ex.nme.hallplatsen.models.reseplaneraren.StopLocation;
 import ex.nme.hallplatsen.models.responses.LocationNameResponse;
 import ex.nme.hallplatsen.services.ReseplanerarenRestApi;
@@ -74,7 +73,7 @@ public class ChooseLocationActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 StopLocation selected = (StopLocation) parent.getItemAtPosition(position);
                 Station station = new Station(selected.getId(), selected.getName());
-                TripCard card = model.getCreation();
+                TripCardOld card = model.getCreation();
                 if(calledBy.equals(EXTRA_VALUE_FROM)){
                     card.setFromLocation(station);
                 } else if (calledBy.equals(EXTRA_VALUE_TO)) {
