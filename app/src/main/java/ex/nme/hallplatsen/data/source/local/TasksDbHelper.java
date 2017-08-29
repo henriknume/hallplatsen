@@ -20,10 +20,10 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class RoutesDbHelper extends SQLiteOpenHelper {
+public class TasksDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
 
-    public static final String DATABASE_NAME = "Routes.db";
+    public static final String DATABASE_NAME = "Tasks.db";
 
     private static final String TEXT_TYPE = " TEXT";
 
@@ -32,15 +32,15 @@ public class RoutesDbHelper extends SQLiteOpenHelper {
     private static final String COMMA_SEP = ",";
 
     private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + RoutesPersistenceContract.RouteEntry.TABLE_NAME + " (" +
-                    RoutesPersistenceContract.RouteEntry._ID + TEXT_TYPE + " PRIMARY KEY," +
-                    RoutesPersistenceContract.RouteEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
-                    RoutesPersistenceContract.RouteEntry.COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP +
-                    RoutesPersistenceContract.RouteEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
-                    RoutesPersistenceContract.RouteEntry.COLUMN_NAME_COMPLETED + BOOLEAN_TYPE +
+            "CREATE TABLE " + TasksPersistenceContract.TaskEntry.TABLE_NAME + " (" +
+                    TasksPersistenceContract.TaskEntry._ID + TEXT_TYPE + " PRIMARY KEY," +
+                    TasksPersistenceContract.TaskEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
+                    TasksPersistenceContract.TaskEntry.COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP +
+                    TasksPersistenceContract.TaskEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
+                    TasksPersistenceContract.TaskEntry.COLUMN_NAME_COMPLETED + BOOLEAN_TYPE +
             " )";
 
-    public RoutesDbHelper(Context context) {
+    public TasksDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
