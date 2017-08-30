@@ -22,6 +22,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ex.nme.hallplatsen.tasks.domain.model.Task;
 import ex.nme.hallplatsen.data.source.local.TasksPersistenceContract.TaskEntry;
 
@@ -49,6 +52,47 @@ public class TasksLocalDataSource implements TasksDataSource {
         return INSTANCE;
     }
 
+    @Override
+    public void getTasks(@NonNull LoadTasksCallback callback) {
+        List<Task> tasks = new ArrayList<Task>();
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        String[] projection = {
+                TaskEntry.COLUMN_NAME_ENTRY_ID,
+                TaskEntry.COLUMN_NAME_STN_NAME_FROM,
+                TaskEntry.COLUMN_NAME_STN_ID_FROM,
+                TaskEntry.COLUMN_NAME_STN_NAME_TO,
+                TaskEntry.COLUMN_NAME_STN_ID_TO
+        };
+
+        Cursor c = db.query(
+                TaskEntry.TABLE_NAME, projection, null, null, null, null, null);
+
+        if (c != null && c.getCount() > 0) {
+            while (c.moveToNext()) {
+                String eid = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_ENTRY_ID));
+                String snf = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_NAME_FROM));
+                String sif = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_ID_FROM));
+                String snt = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_NAME_TO));
+                String sit = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_ID_TO));
+                Task task = new Task(snf, sif, snt, sit, eid);
+                tasks.add(task);
+            }
+        }
+        if (c != null) {
+            c.close();
+        }
+
+        db.close();
+
+        if (tasks.isEmpty()) {
+            // This will be called if the table is new or just empty.
+            callback.onDataNotAvailable();
+        } else {
+            callback.onTasksLoaded(tasks);
+        }
+    }
+
     /**
      * Note: {@link GetTaskCallback#onDataNotAvailable()} is fired if the {@link Task} isn't
      * found.
@@ -67,8 +111,6 @@ public class TasksLocalDataSource implements TasksDataSource {
 
         String selection = TaskEntry.COLUMN_NAME_ENTRY_ID + " LIKE ?";
         String[] selectionArgs = { taskId };
-
-        Cursor cursor =  db.rawQuery("SELECT * FROM Tasks", null);
 
         Cursor c = db.query(TaskEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
         Task task = null;
@@ -93,7 +135,6 @@ public class TasksLocalDataSource implements TasksDataSource {
         } else {
             callback.onDataNotAvailable();
         }
-
     }
 
     @Override

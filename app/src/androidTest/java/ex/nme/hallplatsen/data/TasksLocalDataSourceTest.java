@@ -26,9 +26,12 @@ import ex.nme.hallplatsen.data.source.local.TasksLocalDataSource;
 import ex.nme.hallplatsen.tasks.domain.model.Task;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotNull;
@@ -119,6 +122,29 @@ public class TasksLocalDataSourceTest {
             @Override
             public void onDataNotAvailable() {
                 // this should be invoked
+            }
+        });
+    }
+
+    @Test
+    public void getTasks_addTwoAndReturnTwo() {
+        // Add two tasks
+        final Task first = new Task("A1","A2","B1","B2");
+        final Task second = new Task("A","B","C","D");
+        mLocalDataSource.saveTask(first);
+        mLocalDataSource.saveTask(second);
+
+        // Get all tasks
+        mLocalDataSource.getTasks(new TasksDataSource.LoadTasksCallback() {
+            @Override
+            public void onTasksLoaded(List<Task> tasks) {
+                assertNotNull(tasks);
+                assertTrue(tasks.size() == 2);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                fail("Some error");
             }
         });
     }
