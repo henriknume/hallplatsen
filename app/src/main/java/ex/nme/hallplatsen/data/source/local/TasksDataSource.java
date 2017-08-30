@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ex.nme.hallplatsen.data.source;
+package ex.nme.hallplatsen.data.source.local;
 
 import android.support.annotation.NonNull;
 

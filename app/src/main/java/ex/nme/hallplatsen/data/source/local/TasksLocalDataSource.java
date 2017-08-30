@@ -19,17 +19,11 @@ package ex.nme.hallplatsen.data.source.local;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import ex.nme.hallplatsen.tasks.domain.model.Task;
-import ex.nme.hallplatsen.data.source.TasksDataSource;
 import ex.nme.hallplatsen.data.source.local.TasksPersistenceContract.TaskEntry;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

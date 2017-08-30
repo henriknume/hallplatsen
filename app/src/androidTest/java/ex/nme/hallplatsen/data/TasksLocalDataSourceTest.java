@@ -16,16 +16,13 @@
 
 package ex.nme.hallplatsen.data;
 
-import android.database.DatabaseUtils;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
-import android.util.Log;
 
-import ex.nme.hallplatsen.data.source.TasksDataSource;
+import ex.nme.hallplatsen.data.source.local.TasksDataSource;
 import ex.nme.hallplatsen.data.source.local.TasksDbHelper;
 import ex.nme.hallplatsen.data.source.local.TasksLocalDataSource;
-import ex.nme.hallplatsen.data.source.local.TasksPersistenceContract;
 import ex.nme.hallplatsen.tasks.domain.model.Task;
 
 import org.junit.After;
@@ -33,16 +30,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.List;
-
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.mockito.ArgumentMatchers.booleanThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 /**
