@@ -34,6 +34,8 @@ import org.junit.runner.RunWith;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -145,6 +147,54 @@ public class TasksLocalDataSourceTest {
             @Override
             public void onDataNotAvailable() {
                 fail("Some error");
+            }
+        });
+    }
+
+    @Test
+    public void reverseTask_fromAndToStationShouldChangePlaces() {
+        // Add and reverse task
+        final Task before = new Task("A1","A2","B1","B2");
+        mLocalDataSource.saveTask(before);
+        mLocalDataSource.reverseTask(before.getId());
+
+        //inspect result
+        mLocalDataSource.getTask(before.getId(), new TasksDataSource.GetTaskCallback() {
+            @Override
+            public void onTaskLoaded(Task after) {
+                assertEquals(before.getId(), after.getId());
+                assertEquals(before.getStationIdFrom(), after.getStationIdTo());
+                assertEquals(before.getStationNameFrom(), after.getStationNameTo());
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                fail("Callback error");
+            }
+        });
+    }
+
+    @Test
+    public void reverseTask_invalidIdShouldReturnFalse() {
+        // Add and reverse task
+        final Task before = new Task("A1","A2","B1","B2");
+        mLocalDataSource.saveTask(before);
+        boolean result = mLocalDataSource.reverseTask("invalid-id");
+
+        assertEquals(false, result);
+
+        //inspect result, should be unmodified
+        mLocalDataSource.getTask(before.getId(), new TasksDataSource.GetTaskCallback() {
+            @Override
+            public void onTaskLoaded(Task after) {
+                assertEquals(before.getId(), after.getId());
+                assertEquals(before.getStationIdFrom(), after.getStationIdFrom());
+                assertEquals(before.getStationNameFrom(), after.getStationNameFrom());
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                fail("Callback error");
             }
         });
     }

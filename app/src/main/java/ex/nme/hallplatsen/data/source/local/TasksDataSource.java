@@ -52,7 +52,7 @@ public interface TasksDataSource {
 
     void saveTask(@NonNull Task task);
 
-    //void reverseTask(@NonNull String taskId);
+    boolean reverseTask(@NonNull String taskId);
 
     void deleteAllTasks();
 

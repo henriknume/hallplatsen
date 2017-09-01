@@ -155,6 +155,54 @@ public class TasksLocalDataSource implements TasksDataSource {
     }
 
     @Override
+    public boolean reverseTask(@NonNull String taskId) {
+
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        String[] projection = {
+                TaskEntry.COLUMN_NAME_ENTRY_ID,
+                TaskEntry.COLUMN_NAME_STN_NAME_FROM,
+                TaskEntry.COLUMN_NAME_STN_ID_FROM,
+                TaskEntry.COLUMN_NAME_STN_NAME_TO,
+                TaskEntry.COLUMN_NAME_STN_ID_TO
+        };
+
+        String selection1 = TaskEntry.COLUMN_NAME_ENTRY_ID + " LIKE ?";
+        String[] selectionArgs1 = { taskId };
+
+        Cursor c = db.query(TaskEntry.TABLE_NAME, projection, selection1, selectionArgs1, null, null, null);
+
+        if (c != null && c.getCount() > 0) {
+            // get values
+            c.moveToFirst();
+            String id = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_ENTRY_ID));
+            String sNameFrom = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_NAME_FROM));
+            String sIdFrom = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_ID_FROM));
+            String sNameTo = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_NAME_TO));
+            String sIdTo = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_ID_TO));
+            c.close();
+
+            //switch and update
+            ContentValues values = new ContentValues();
+            values.put(TaskEntry.COLUMN_NAME_STN_NAME_FROM, sNameTo);
+            values.put(TaskEntry.COLUMN_NAME_STN_ID_FROM, sIdTo);
+            values.put(TaskEntry.COLUMN_NAME_STN_NAME_TO, sNameFrom);
+            values.put(TaskEntry.COLUMN_NAME_STN_ID_TO, sIdFrom);
+
+            String selection2 = TaskEntry.COLUMN_NAME_ENTRY_ID + " LIKE ?";
+            String[] selectionArgs2 = { id };
+
+            db.update(TaskEntry.TABLE_NAME, values, selection2, selectionArgs2);
+        } else {
+            // nothing modified
+            db.close();
+            return false;
+        }
+        db.close();
+        return true;
+    }
+
+    @Override
     public void deleteAllTasks() {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
