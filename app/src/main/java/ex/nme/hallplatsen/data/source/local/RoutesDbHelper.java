@@ -22,7 +22,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import ex.nme.hallplatsen.data.source.local.TasksPersistenceContract.TaskEntry;
 
-public class TasksDbHelper extends SQLiteOpenHelper {
+public class RoutesDbHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Tasks.db";
@@ -40,7 +40,7 @@ public class TasksDbHelper extends SQLiteOpenHelper {
                     TaskEntry.COLUMN_NAME_STN_ID_TO + TEXT_TYPE +
             " )";
 
-    public TasksDbHelper(Context context) {
+    public RoutesDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

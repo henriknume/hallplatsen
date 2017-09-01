@@ -25,7 +25,7 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import ex.nme.hallplatsen.tasks.domain.model.Task;
+import ex.nme.hallplatsen.routes.domain.model.Route;
 import ex.nme.hallplatsen.data.source.local.TasksPersistenceContract.TaskEntry;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -33,28 +33,28 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Concrete implementation of a data source as a db.
  */
-public class TasksLocalDataSource implements TasksDataSource {
+public class RoutesLocalDataSource implements RoutesDataSource {
 
-    private static TasksLocalDataSource INSTANCE;
+    private static RoutesLocalDataSource INSTANCE;
 
-    private TasksDbHelper mDbHelper;
+    private RoutesDbHelper mDbHelper;
 
     // Prevent direct instantiation.
-    private TasksLocalDataSource(@NonNull Context context) {
+    private RoutesLocalDataSource(@NonNull Context context) {
         checkNotNull(context);
-        mDbHelper = new TasksDbHelper(context);
+        mDbHelper = new RoutesDbHelper(context);
     }
 
-    public static TasksLocalDataSource getInstance(@NonNull Context context) {
+    public static RoutesLocalDataSource getInstance(@NonNull Context context) {
         if (INSTANCE == null) {
-            INSTANCE = new TasksLocalDataSource(context);
+            INSTANCE = new RoutesLocalDataSource(context);
         }
         return INSTANCE;
     }
 
     @Override
-    public void getTasks(@NonNull LoadTasksCallback callback) {
-        List<Task> tasks = new ArrayList<Task>();
+    public void getRoutes(@NonNull LoadRoutesCallback callback) {
+        List<Route> routes = new ArrayList<Route>();
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         String[] projection = {
@@ -75,8 +75,8 @@ public class TasksLocalDataSource implements TasksDataSource {
                 String sif = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_ID_FROM));
                 String snt = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_NAME_TO));
                 String sit = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_ID_TO));
-                Task task = new Task(snf, sif, snt, sit, eid);
-                tasks.add(task);
+                Route route = new Route(snf, sif, snt, sit, eid);
+                routes.add(route);
             }
         }
         if (c != null) {
@@ -85,20 +85,20 @@ public class TasksLocalDataSource implements TasksDataSource {
 
         db.close();
 
-        if (tasks.isEmpty()) {
+        if (routes.isEmpty()) {
             // This will be called if the table is new or just empty.
             callback.onDataNotAvailable();
         } else {
-            callback.onTasksLoaded(tasks);
+            callback.onRoutesLoaded(routes);
         }
     }
 
     /**
-     * Note: {@link GetTaskCallback#onDataNotAvailable()} is fired if the {@link Task} isn't
+     * Note: {@link GetRouteCallback#onDataNotAvailable()} is fired if the {@link Route} isn't
      * found.
      */
     @Override
-    public void getTask(@NonNull String taskId, @NonNull GetTaskCallback callback) {
+    public void getRoute(@NonNull String routeId, @NonNull GetRouteCallback callback) {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         String[] projection = {
@@ -110,10 +110,10 @@ public class TasksLocalDataSource implements TasksDataSource {
         };
 
         String selection = TaskEntry.COLUMN_NAME_ENTRY_ID + " LIKE ?";
-        String[] selectionArgs = { taskId };
+        String[] selectionArgs = {routeId};
 
         Cursor c = db.query(TaskEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
-        Task task = null;
+        Route route = null;
 
         if (c != null && c.getCount() > 0) {
             c.moveToFirst();
@@ -122,7 +122,7 @@ public class TasksLocalDataSource implements TasksDataSource {
             String sif = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_ID_FROM));
             String snt = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_NAME_TO));
             String sit = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_ID_TO));
-            task = new Task(snf, sif, snt, sit, eid);
+            route = new Route(snf, sif, snt, sit, eid);
         }
         if (c != null) {
             c.close();
@@ -130,24 +130,24 @@ public class TasksLocalDataSource implements TasksDataSource {
 
         db.close();
 
-        if (task != null) {
-            callback.onTaskLoaded(task);
+        if (route != null) {
+            callback.onRouteLoaded(route);
         } else {
             callback.onDataNotAvailable();
         }
     }
 
     @Override
-    public void saveTask(@NonNull Task task) {
-        checkNotNull(task);
+    public void saveRoute(@NonNull Route route) {
+        checkNotNull(route);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(TaskEntry.COLUMN_NAME_STN_NAME_FROM, task.getStationNameFrom());
-        values.put(TaskEntry.COLUMN_NAME_STN_ID_FROM, task.getStationIdFrom());
-        values.put(TaskEntry.COLUMN_NAME_STN_NAME_TO, task.getStationNameTo());
-        values.put(TaskEntry.COLUMN_NAME_STN_ID_TO, task.getStationIdTo());
-        values.put(TaskEntry.COLUMN_NAME_ENTRY_ID, task.getId());
+        values.put(TaskEntry.COLUMN_NAME_STN_NAME_FROM, route.getStationNameFrom());
+        values.put(TaskEntry.COLUMN_NAME_STN_ID_FROM, route.getStationIdFrom());
+        values.put(TaskEntry.COLUMN_NAME_STN_NAME_TO, route.getStationNameTo());
+        values.put(TaskEntry.COLUMN_NAME_STN_ID_TO, route.getStationIdTo());
+        values.put(TaskEntry.COLUMN_NAME_ENTRY_ID, route.getId());
 
         db.insert(TaskEntry.TABLE_NAME, null, values);
 
@@ -155,7 +155,7 @@ public class TasksLocalDataSource implements TasksDataSource {
     }
 
     @Override
-    public boolean reverseTask(@NonNull String taskId) {
+    public boolean reverseRoute(@NonNull String taskId) {
 
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
@@ -203,7 +203,7 @@ public class TasksLocalDataSource implements TasksDataSource {
     }
 
     @Override
-    public void deleteAllTasks() {
+    public void deleteAllRoutes() {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         db.delete(TaskEntry.TABLE_NAME, null, null);
@@ -212,11 +212,11 @@ public class TasksLocalDataSource implements TasksDataSource {
     }
 
     @Override
-    public void deleteTask(@NonNull String taskId) {
+    public void deleteRoute(@NonNull String routeId) {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         String selection = TaskEntry.COLUMN_NAME_ENTRY_ID + " LIKE ?";
-        String[] selectionArgs = { taskId };
+        String[] selectionArgs = {routeId};
 
         db.delete(TaskEntry.TABLE_NAME, selection, selectionArgs);
 
