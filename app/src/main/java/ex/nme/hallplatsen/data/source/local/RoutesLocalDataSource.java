@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ex.nme.hallplatsen.routes.domain.model.Route;
-import ex.nme.hallplatsen.data.source.local.TasksPersistenceContract.TaskEntry;
+import ex.nme.hallplatsen.data.source.local.RoutesPersistenceContract.RouteEntry;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -58,23 +58,23 @@ public class RoutesLocalDataSource implements RoutesDataSource {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         String[] projection = {
-                TaskEntry.COLUMN_NAME_ENTRY_ID,
-                TaskEntry.COLUMN_NAME_STN_NAME_FROM,
-                TaskEntry.COLUMN_NAME_STN_ID_FROM,
-                TaskEntry.COLUMN_NAME_STN_NAME_TO,
-                TaskEntry.COLUMN_NAME_STN_ID_TO
+                RouteEntry.COLUMN_NAME_ENTRY_ID,
+                RouteEntry.COLUMN_NAME_STN_NAME_FROM,
+                RouteEntry.COLUMN_NAME_STN_ID_FROM,
+                RouteEntry.COLUMN_NAME_STN_NAME_TO,
+                RouteEntry.COLUMN_NAME_STN_ID_TO
         };
 
         Cursor c = db.query(
-                TaskEntry.TABLE_NAME, projection, null, null, null, null, null);
+                RouteEntry.TABLE_NAME, projection, null, null, null, null, null);
 
         if (c != null && c.getCount() > 0) {
             while (c.moveToNext()) {
-                String eid = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_ENTRY_ID));
-                String snf = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_NAME_FROM));
-                String sif = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_ID_FROM));
-                String snt = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_NAME_TO));
-                String sit = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_ID_TO));
+                String eid = c.getString(c.getColumnIndexOrThrow(RouteEntry.COLUMN_NAME_ENTRY_ID));
+                String snf = c.getString(c.getColumnIndexOrThrow(RouteEntry.COLUMN_NAME_STN_NAME_FROM));
+                String sif = c.getString(c.getColumnIndexOrThrow(RouteEntry.COLUMN_NAME_STN_ID_FROM));
+                String snt = c.getString(c.getColumnIndexOrThrow(RouteEntry.COLUMN_NAME_STN_NAME_TO));
+                String sit = c.getString(c.getColumnIndexOrThrow(RouteEntry.COLUMN_NAME_STN_ID_TO));
                 Route route = new Route(snf, sif, snt, sit, eid);
                 routes.add(route);
             }
@@ -102,26 +102,26 @@ public class RoutesLocalDataSource implements RoutesDataSource {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         String[] projection = {
-                TaskEntry.COLUMN_NAME_ENTRY_ID,
-                TaskEntry.COLUMN_NAME_STN_NAME_FROM,
-                TaskEntry.COLUMN_NAME_STN_ID_FROM,
-                TaskEntry.COLUMN_NAME_STN_NAME_TO,
-                TaskEntry.COLUMN_NAME_STN_ID_TO
+                RouteEntry.COLUMN_NAME_ENTRY_ID,
+                RouteEntry.COLUMN_NAME_STN_NAME_FROM,
+                RouteEntry.COLUMN_NAME_STN_ID_FROM,
+                RouteEntry.COLUMN_NAME_STN_NAME_TO,
+                RouteEntry.COLUMN_NAME_STN_ID_TO
         };
 
-        String selection = TaskEntry.COLUMN_NAME_ENTRY_ID + " LIKE ?";
+        String selection = RouteEntry.COLUMN_NAME_ENTRY_ID + " LIKE ?";
         String[] selectionArgs = {routeId};
 
-        Cursor c = db.query(TaskEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+        Cursor c = db.query(RouteEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
         Route route = null;
 
         if (c != null && c.getCount() > 0) {
             c.moveToFirst();
-            String eid = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_ENTRY_ID));
-            String snf = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_NAME_FROM));
-            String sif = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_ID_FROM));
-            String snt = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_NAME_TO));
-            String sit = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_ID_TO));
+            String eid = c.getString(c.getColumnIndexOrThrow(RouteEntry.COLUMN_NAME_ENTRY_ID));
+            String snf = c.getString(c.getColumnIndexOrThrow(RouteEntry.COLUMN_NAME_STN_NAME_FROM));
+            String sif = c.getString(c.getColumnIndexOrThrow(RouteEntry.COLUMN_NAME_STN_ID_FROM));
+            String snt = c.getString(c.getColumnIndexOrThrow(RouteEntry.COLUMN_NAME_STN_NAME_TO));
+            String sit = c.getString(c.getColumnIndexOrThrow(RouteEntry.COLUMN_NAME_STN_ID_TO));
             route = new Route(snf, sif, snt, sit, eid);
         }
         if (c != null) {
@@ -143,13 +143,13 @@ public class RoutesLocalDataSource implements RoutesDataSource {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(TaskEntry.COLUMN_NAME_STN_NAME_FROM, route.getStationNameFrom());
-        values.put(TaskEntry.COLUMN_NAME_STN_ID_FROM, route.getStationIdFrom());
-        values.put(TaskEntry.COLUMN_NAME_STN_NAME_TO, route.getStationNameTo());
-        values.put(TaskEntry.COLUMN_NAME_STN_ID_TO, route.getStationIdTo());
-        values.put(TaskEntry.COLUMN_NAME_ENTRY_ID, route.getId());
+        values.put(RouteEntry.COLUMN_NAME_STN_NAME_FROM, route.getStationNameFrom());
+        values.put(RouteEntry.COLUMN_NAME_STN_ID_FROM, route.getStationIdFrom());
+        values.put(RouteEntry.COLUMN_NAME_STN_NAME_TO, route.getStationNameTo());
+        values.put(RouteEntry.COLUMN_NAME_STN_ID_TO, route.getStationIdTo());
+        values.put(RouteEntry.COLUMN_NAME_ENTRY_ID, route.getId());
 
-        db.insert(TaskEntry.TABLE_NAME, null, values);
+        db.insert(RouteEntry.TABLE_NAME, null, values);
 
         db.close();
     }
@@ -160,39 +160,39 @@ public class RoutesLocalDataSource implements RoutesDataSource {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         String[] projection = {
-                TaskEntry.COLUMN_NAME_ENTRY_ID,
-                TaskEntry.COLUMN_NAME_STN_NAME_FROM,
-                TaskEntry.COLUMN_NAME_STN_ID_FROM,
-                TaskEntry.COLUMN_NAME_STN_NAME_TO,
-                TaskEntry.COLUMN_NAME_STN_ID_TO
+                RouteEntry.COLUMN_NAME_ENTRY_ID,
+                RouteEntry.COLUMN_NAME_STN_NAME_FROM,
+                RouteEntry.COLUMN_NAME_STN_ID_FROM,
+                RouteEntry.COLUMN_NAME_STN_NAME_TO,
+                RouteEntry.COLUMN_NAME_STN_ID_TO
         };
 
-        String selection1 = TaskEntry.COLUMN_NAME_ENTRY_ID + " LIKE ?";
+        String selection1 = RouteEntry.COLUMN_NAME_ENTRY_ID + " LIKE ?";
         String[] selectionArgs1 = { taskId };
 
-        Cursor c = db.query(TaskEntry.TABLE_NAME, projection, selection1, selectionArgs1, null, null, null);
+        Cursor c = db.query(RouteEntry.TABLE_NAME, projection, selection1, selectionArgs1, null, null, null);
 
         if (c != null && c.getCount() > 0) {
             // get values
             c.moveToFirst();
-            String id = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_ENTRY_ID));
-            String sNameFrom = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_NAME_FROM));
-            String sIdFrom = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_ID_FROM));
-            String sNameTo = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_NAME_TO));
-            String sIdTo = c.getString(c.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_STN_ID_TO));
+            String id = c.getString(c.getColumnIndexOrThrow(RouteEntry.COLUMN_NAME_ENTRY_ID));
+            String sNameFrom = c.getString(c.getColumnIndexOrThrow(RouteEntry.COLUMN_NAME_STN_NAME_FROM));
+            String sIdFrom = c.getString(c.getColumnIndexOrThrow(RouteEntry.COLUMN_NAME_STN_ID_FROM));
+            String sNameTo = c.getString(c.getColumnIndexOrThrow(RouteEntry.COLUMN_NAME_STN_NAME_TO));
+            String sIdTo = c.getString(c.getColumnIndexOrThrow(RouteEntry.COLUMN_NAME_STN_ID_TO));
             c.close();
 
             //switch and update
             ContentValues values = new ContentValues();
-            values.put(TaskEntry.COLUMN_NAME_STN_NAME_FROM, sNameTo);
-            values.put(TaskEntry.COLUMN_NAME_STN_ID_FROM, sIdTo);
-            values.put(TaskEntry.COLUMN_NAME_STN_NAME_TO, sNameFrom);
-            values.put(TaskEntry.COLUMN_NAME_STN_ID_TO, sIdFrom);
+            values.put(RouteEntry.COLUMN_NAME_STN_NAME_FROM, sNameTo);
+            values.put(RouteEntry.COLUMN_NAME_STN_ID_FROM, sIdTo);
+            values.put(RouteEntry.COLUMN_NAME_STN_NAME_TO, sNameFrom);
+            values.put(RouteEntry.COLUMN_NAME_STN_ID_TO, sIdFrom);
 
-            String selection2 = TaskEntry.COLUMN_NAME_ENTRY_ID + " LIKE ?";
+            String selection2 = RouteEntry.COLUMN_NAME_ENTRY_ID + " LIKE ?";
             String[] selectionArgs2 = { id };
 
-            db.update(TaskEntry.TABLE_NAME, values, selection2, selectionArgs2);
+            db.update(RouteEntry.TABLE_NAME, values, selection2, selectionArgs2);
         } else {
             // nothing modified
             db.close();
@@ -206,7 +206,7 @@ public class RoutesLocalDataSource implements RoutesDataSource {
     public void deleteAllRoutes() {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
-        db.delete(TaskEntry.TABLE_NAME, null, null);
+        db.delete(RouteEntry.TABLE_NAME, null, null);
 
         db.close();
     }
@@ -215,10 +215,10 @@ public class RoutesLocalDataSource implements RoutesDataSource {
     public void deleteRoute(@NonNull String routeId) {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
-        String selection = TaskEntry.COLUMN_NAME_ENTRY_ID + " LIKE ?";
+        String selection = RouteEntry.COLUMN_NAME_ENTRY_ID + " LIKE ?";
         String[] selectionArgs = {routeId};
 
-        db.delete(TaskEntry.TABLE_NAME, selection, selectionArgs);
+        db.delete(RouteEntry.TABLE_NAME, selection, selectionArgs);
 
         db.close();
     }

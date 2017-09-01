@@ -18,17 +18,17 @@ package ex.nme.hallplatsen.data.source.local;
 import android.provider.BaseColumns;
 
 /**
- * The contract used for the db to save the tasks locally.
+ * The contract used for the db to save the routes locally.
  */
-public final class TasksPersistenceContract {
+public final class RoutesPersistenceContract {
 
     // To prevent someone from accidentally instantiating the contract class,
     // give it an empty constructor.
-    private TasksPersistenceContract() {}
+    private RoutesPersistenceContract() {}
 
     /* Inner class that defines the table contents */
-    public static abstract class TaskEntry implements BaseColumns {
-        public static final String TABLE_NAME                   = "Tasks";
+    public static abstract class RouteEntry implements BaseColumns {
+        public static final String TABLE_NAME                   = "Routes";
         public static final String COLUMN_NAME_ENTRY_ID         = "entryId";
         public static final String COLUMN_NAME_STN_NAME_FROM    = "stationNameFrom";
         public static final String COLUMN_NAME_STN_NAME_TO      = "stationNameTo";
