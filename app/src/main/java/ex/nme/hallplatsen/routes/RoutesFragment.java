@@ -41,15 +41,7 @@ public class RoutesFragment extends Fragment implements RoutesContract.View {
 
     private RoutesAdapter mListAdapter;
 
-    private View mNoRoutesView;
-
-    private TextView mNoRouteMainView;
-
-    private TextView mNoRouteAddView;
-
     private LinearLayout mRoutesView;
-
-    private TextView mFilteringLabelView;
 
     public RoutesFragment() {
         // Requires empty public constructor
@@ -125,9 +117,7 @@ public class RoutesFragment extends Fragment implements RoutesContract.View {
     @Override
     public void showRoutes(List<Route> routes) {
         mListAdapter.replaceData(routes);
-
         mRoutesView.setVisibility(View.VISIBLE);
-        mNoRoutesView.setVisibility(View.GONE);
     }
 
     @Override
