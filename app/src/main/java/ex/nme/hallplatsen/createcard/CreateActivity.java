@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import ex.nme.hallplatsen.R;
 import ex.nme.hallplatsen.chooseloc.ChooseLocationActivity;
-import ex.nme.hallplatsen.main.MainActivity;
 import ex.nme.hallplatsen.models.CardStorage;
 import ex.nme.hallplatsen.models.TripCardOld;
 
@@ -55,7 +54,7 @@ public class CreateActivity extends AppCompatActivity {
             model.addCard(newCard);
             model.clearCreation();
             // navigate to main
-            goToMainActivity();
+            //goToMainActivity();
         }
     }
 
@@ -80,11 +79,6 @@ public class CreateActivity extends AppCompatActivity {
         // if called by "from" argument should be ChooseLocationActivity.EXTRA_VALUE_FROM
         Intent intent = new Intent(this, ChooseLocationActivity.class);
         intent.putExtra(ChooseLocationActivity.EXTRA_LABEL_SOURCE, calledBy);
-        startActivity(intent);
-    }
-
-    private void goToMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 

@@ -1,6 +1,5 @@
 package ex.nme.hallplatsen.routes;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
 
 import java.util.List;
@@ -68,33 +67,19 @@ public class RoutesPresenter implements RoutesContract.Presenter {
                         if (!mRoutesView.isActive()) {
                             return;
                         }
-                        if (showLoadingUI) {
-                            mRoutesView.setLoadingIndicator(false);
-                        }
-
                         processRoutes(routes);
                     }
 
                     @Override
                     public void onError() {
                         // The view may not be able to handle UI updates anymore
-                        if (!mRoutesView.isActive()) {
-                            return;
-                        }
-                        mRoutesView.showLoadingRoutesError();
                     }
                 });
     }
 
     private void processRoutes(List<Route> routes) {
-        if (routes.isEmpty()) {
-            // Show a message indicating there are no routes for that filter type.
-            processEmptyRoutes();
-        } else {
-            // Show the list of routes
-            mRoutesView.showRoutes(routes);
-            // Set the filter label's text.
-            showFilterLabel();
-        }
+        // Show the list of routes
+        mRoutesView.showRoutes(routes);
+
     }
 }

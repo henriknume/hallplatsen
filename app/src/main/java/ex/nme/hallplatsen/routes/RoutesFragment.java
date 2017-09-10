@@ -1,33 +1,32 @@
 package ex.nme.hallplatsen.routes;
 
-import android.app.Fragment;
+import android.content.res.Resources;
+import android.graphics.Rect;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ex.nme.hallplatsen.R;
 import ex.nme.hallplatsen.routes.domain.model.Route;
+import ex.nme.hallplatsen.util.EspressoIdlingResource;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -39,9 +38,7 @@ public class RoutesFragment extends Fragment implements RoutesContract.View {
 
     private RoutesContract.Presenter mPresenter;
 
-    private RoutesAdapter mListAdapter;
-
-    private LinearLayout mRoutesView;
+    private CardAdapter mListAdapter;
 
     public RoutesFragment() {
         // Requires empty public constructor
@@ -54,7 +51,16 @@ public class RoutesFragment extends Fragment implements RoutesContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mListAdapter = new RoutesAdapter(new ArrayList<Route>(0), mItemListener);
+        mListAdapter = new CardAdapter(getActivity().getApplicationContext(), new ArrayList<Route>(0));
+
+        // Set up layout and adapter
+        RecyclerView recyclerView = (RecyclerView) getActivity().findViewById(R.id.routes_list);
+        CardAdapter adapter = new CardAdapter(getActivity(), new ArrayList<Route>(0));
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(8), true));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -75,27 +81,11 @@ public class RoutesFragment extends Fragment implements RoutesContract.View {
         View root = inflater.inflate(R.layout.routes_frag, container, false);
 
         // Set up routes view
-        ListView listView = (ListView) root.findViewById(R.id.routes_list);
-        listView.setAdapter(mListAdapter);
-        mRoutesView = (LinearLayout) root.findViewById(R.id.routesLL);
-
-        // Set the scrolling view in the custom SwipeRefreshLayout.
-        swipeRefreshLayout.setScrollUpChild(listView);
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mPresenter.loadRoutes(false);
-            }
-        });
-
+        RecyclerView recView = (RecyclerView) root.findViewById(R.id.routes_list);
+        recView.setAdapter(mListAdapter);
         setHasOptionsMenu(true);
-
         return root;
     }
-
-
-    //#############################################################################
 
     @Override
     public void setPresenter(@NonNull RoutesContract.Presenter presenter) {
@@ -117,12 +107,16 @@ public class RoutesFragment extends Fragment implements RoutesContract.View {
     @Override
     public void showRoutes(List<Route> routes) {
         mListAdapter.replaceData(routes);
-        mRoutesView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showSuccessfullySavedMessage() {
         showMessage("Successfully Saved Message");
+    }
+
+    @Override
+    public boolean isActive() {
+        return isAdded();
     }
 
     @Override
@@ -146,88 +140,61 @@ public class RoutesFragment extends Fragment implements RoutesContract.View {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.routes_fragment_menu, menu);
+        inflater.inflate(R.menu.menu_main, menu);
     }
-
-
-    /**
-     * Listener for clicks on routes in the ListView.
-     */
-    RouteItemListener mItemListener = new RouteItemListener() {
-        @Override
-        public void onRouteClick(Route clickedRoute) {
-            mPresenter.switchRouteDirection(clickedRoute);
-        }
-    };
-
 
     private void showMessage(String message) {
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
 
-    private static class RoutesAdapter extends BaseAdapter {
+    /**
+     * RecyclerView item decoration - give equal margin around grid item
+     */
+    public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
 
-        private List<Route> mRoutes;
-        private RouteItemListener mItemListener;
+        private int spanCount;
+        private int spacing;
+        private boolean includeEdge;
 
-        public RoutesAdapter(List<Route> routes, RouteItemListener itemListener) {
-            setList(routes);
-            mItemListener = itemListener;
-        }
-
-        public void replaceData(List<Route> routes) {
-            setList(routes);
-            notifyDataSetChanged();
-        }
-
-        private void setList(List<Route> routes) {
-            mRoutes = checkNotNull(routes);
+        public GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge) {
+            this.spanCount = spanCount;
+            this.spacing = spacing;
+            this.includeEdge = includeEdge;
         }
 
         @Override
-        public int getCount() {
-            return mRoutes.size();
-        }
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            int position = parent.getChildAdapterPosition(view); // item position
+            int column = position % spanCount; // item column
 
-        @Override
-        public Route getItem(int i) {
-            return mRoutes.get(i);
-        }
+            if (includeEdge) {
+                outRect.left = spacing - column * spacing / spanCount; // spacing - column * ((1f / spanCount) * spacing)
+                outRect.right = (column + 1) * spacing / spanCount; // (column + 1) * ((1f / spanCount) * spacing)
 
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            View rowView = view;
-            if (rowView == null) {
-                LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-                rowView = inflater.inflate(R.layout.route_item, viewGroup, false);
-            }
-
-            final Route route = getItem(i);
-
-            TextView titleTV = (TextView) rowView.findViewById(R.id.title);
-            titleTV.setText(route.getTitleForList());
-
-            // Active/completed route UI
-
-            rowView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mItemListener.onRouteClick(route);
+                if (position < spanCount) { // top edge
+                    outRect.top = spacing;
                 }
-            });
-
-            return rowView;
+                outRect.bottom = spacing; // item bottom
+            } else {
+                outRect.left = column * spacing / spanCount; // column * ((1f / spanCount) * spacing)
+                outRect.right = spacing - (column + 1) * spacing / spanCount; // spacing - (column + 1) * ((1f /    spanCount) * spacing)
+                if (position >= spanCount) {
+                    outRect.top = spacing; // item top
+                }
+            }
         }
     }
 
-    public interface RouteItemListener {
-        void onRouteClick(Route clickedRoute);
+    /**
+     * Converting dp to pixel
+     */
+    private int dpToPx(int dp) {
+        Resources r = getResources();
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 
-
+    @VisibleForTesting
+    public IdlingResource getCountingIdlingResource() {
+        return EspressoIdlingResource.getIdlingResource();
+    }
 }

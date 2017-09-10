@@ -22,6 +22,8 @@ public class RoutesContract {
 
         void showSuccessfullySavedMessage();
 
+        boolean isActive();
+
     }
 
     interface Presenter extends BasePresenter {
